@@ -1,0 +1,18 @@
+<p>hotel-vehicle works!</p>
+<div class="pageWrapper">
+    <p class="vehicleNotice">
+      Rentals are done on a 24 hour cycle so if you return the car more than an hour after pick up, you will be charged for an additional day.  Vehicles should be returned close to the pick up time if possible to avoid an extra day charge.
+    </p>
+    <ng-container *ngIf="vehicleConfig">
+      <app-dynamic-form (submittedFormData)="vehicleDataFn($event)"
+      [f]="vehicleConfig"
+      [p]="patchVehicleDates"
+      [class]="vehicleClass"
+      [cancelBtn]="true"
+   >
+   <span class="btnLabel">Save Vehicle</span>
+  </app-dynamic-form>
+  
+  
+  
+  

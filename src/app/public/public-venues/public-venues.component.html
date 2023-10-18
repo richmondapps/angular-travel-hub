@@ -1,0 +1,64 @@
+<div class="pageWrapper">
+  <div class="cardGrid fadeIn item">
+    <div *ngFor="let x of venueData | async" class="item" >
+      <a [routerLink]="['/venues/i', x.docId]" >
+        <div class="venueWrapper ">
+          <div class="venueName">
+            <p>{{ x.venueName }}</p>
+          </div>
+          <div class="venueImage">
+            <img class="navImg" [src]="x.imageUrl" />
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<!-- <pre>
+  {{venueData | async | json}}
+</pre> -->
+
+<div class="intro">
+  <p>
+    When you add your resume here it will be automatically included in job
+    applications.
+  </p>
+</div>
+<hr />
+    <div class="resumeUploadWrapper">
+      <div class="fileUploadWrapper">
+        <div>
+           <app-file-upload
+          [collectionPath]="collectionPath"
+          [publicOrPrivate]="publicOrPrivate"
+          [documentId]="documentId"
+        >
+          <span class="btnLabel">Update</span>
+        </app-file-upload>
+        </div>
+       <!-- <div>
+          <a class="delBtn"
+      (click)="deleteStorageDocFn( x.storagePath)">Delete</a>
+       </div> -->
+
+      </div>
+
+
+      <!-- <div class="resumeLinkWrapper">
+        <a href="{{ x.documentUrl }}" target="_blank" rel="noopener noreferrer">
+          <span class="material-icons"> picture_as_pdf </span> Resume
+        </a>
+      </div> -->
+    </div>
+
+
+
+  <app-file-upload
+    [collectionPath]="collectionPath"
+    [publicOrPrivate]="publicOrPrivate"
+    [documentId]="documentId"
+  >
+    <span class="btnLabel">Add Resume</span>
+  </app-file-upload>

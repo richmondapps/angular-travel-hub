@@ -1,0 +1,317 @@
+<div>
+  <!-- <button type="submit" (click)="onClicked()">Click Me</button> -->
+</div>
+
+
+<form [formGroup]="form">
+  <div [class]="formCSSClass">
+  <ng-template ngFor let-input [ngForOf]="formData">
+    <ng-container [ngSwitch]="input.controlType">
+      <!-- handling text type inputs -->
+      <!-- <ng-template [ngSwitchCase]="'requestType'">
+        <div [class]="input.cssWrapperClass">
+          <mat-form-field appearance="outline" class="">
+            <mat-label> {{input.controlLabel}}</mat-label>
+            <input
+            matInput
+            [formControlName]="input.controlName"
+            [type]="input.valueType"
+            [name]="input.controlName"
+            [value]="input.controlName"
+            [placeholder]="input.placeholder" />
+          </mat-form-field>
+        </div>
+
+      </ng-template> -->
+   
+
+        <ng-template [ngSwitchCase]="'text'">
+          <div [class]="input.cssWrapperClass">
+            <mat-form-field appearance="outline" class="">
+              <mat-label> {{input.controlLabel}}</mat-label>
+              <input
+              matInput
+              [formControlName]="input.controlName"
+              [type]="input.valueType"
+              [name]="input.controlName"
+              [required]="input.validators.required"
+              [minlength]="input.validators.minlength"
+              [placeholder]="input.placeholder"
+              [maxlength]="input.validators.maxlength" />
+              <mat-hint>{{input.controlHint}}</mat-hint>
+              <mat-error *ngIf="formService?.formErrors[input.controlName]">{{formService?.formErrors[input.controlName]}}</mat-error>
+            </mat-form-field>
+          </div>
+        </ng-template>
+        <ng-template [ngSwitchCase]="'textarea'">
+          <div [class]="input.cssWrapperClass">
+            <mat-form-field appearance="outline" [class]="input.cssMatFormFieldClass">
+              <mat-label> {{input.controlLabel}}</mat-label>
+              <textarea
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"
+              [cdkAutosizeMinRows]="input.minRows"
+              [cdkAutosizeMaxRows]="input.maxRows"
+                [type]="input.valueType"
+                [name]="input.controlName"
+                [class]="input.cssTextareaClass"
+                [placeholder]="input.placeholder"
+                [formControlName]="input.controlName"
+                [required]="input.validators.required"
+                [minlength]="input.validators.minlength"
+                matInput></textarea>
+                <mat-error *ngIf="formService.formErrors[input.controlName]">{{formService.formErrors[input.controlName]}}</mat-error>
+            </mat-form-field>
+          </div>
+        </ng-template>
+
+        <ng-template [ngSwitchCase]="'select'">
+          <!-- <span #optionLoop [innerText]="input.options?.length"></span> -->
+            <!-- <div *ngFor="let option of formData | async">
+              {{fControlName}}
+            </div> -->
+
+          <div  
+            #selectOptions 
+            [id]="input.controlName" 
+            [class]="input.cssWrapperClass">
+            <!-- <ng-container *ngFor="let x of selectArray">
+              <pre  >Array: {{x}}</pre>
+            </ng-container> -->
+            <ng-container >
+             <!-- <span  >Current RES: {{res}}</span> -->
+             <!-- <span  >Current Array: {{currentArrayItem}}</span>
+             <span  >Current i: {{productList$[i]}}</span> -->
+
+             <!-- <button (click)="fetchCol([input.controlName], [input.options])">FETCH</button> -->
+            <mat-form-field appearance="outline" class="">
+              <mat-label> {{input.controlLabel}}</mat-label>
+              <!-- <input
+              [formControlName]="input.controlName"  [type]="input.valueType"
+              #inp
+              matInput
+                (input)="fetchDataFn(inp.value, [input.controlName],[input.options])"
+             />
+                <mat-option   value="">{{input.placeholder}}</mat-option>
+                <ng-container *ngIf="input.controlName">
+                  <div  *ngFor="let option of filteredArray$ | async" [>{{option.optionName}}
+                  </div>
+                </ng-container> -->
+
+              <input
+              [formControlName]="input.controlName"
+              [type]="input.valueType"
+              [required]="input.validators.required"
+              matInput
+              #matchArryName
+              (focus)="fetchCol([input.controlName], [input.options])"
+              [id]="input.controlName"
+              [matAutocomplete]="a" />
+              <mat-autocomplete  [displayWith]="displayFn"
+              #a="matAutocomplete">
+                <!-- <mat-option   value="">{{input.placeholder}}</mat-option> -->
+                <ng-container >
+                  <mat-option  *ngFor="let option of filteredArray$ | async " [value]="option">{{option.optionName}}
+                  </mat-option>
+                </ng-container>
+              </mat-autocomplete>
+              <!-- <mat-select [formControlName]="input.controlName" [id]="input.controlName"
+                [required]="input.validators.required">
+                <mat-option value="">{{input.placeholder}}</mat-option>
+                <mat-option *ngFor="let option of input.options" [value]="option.optionName">{{option.optionName}}
+                </mat-option>
+              </mat-select> -->
+              <mat-error *ngIf="formService.formErrors[input.controlName]">
+                {{formService.formErrors[input.controlName]}}</mat-error>
+            </mat-form-field>
+            </ng-container>
+          </div>
+        </ng-template>
+        <ng-template [ngSwitchCase]="'onChangeSelect'">
+          <!-- <span #optionLoop [innerText]="input.options?.length"></span> -->
+            <!-- <div *ngFor="let option of formData | async">
+              {{fControlName}}
+            </div> -->
+
+          <div  #selectOptions [id]="input.controlName" [class]="input.cssWrapperClass">
+            <!-- <ng-container *ngFor="let x of selectArray">
+              <pre  >Array: {{x}}</pre>
+            </ng-container> -->
+            <ng-container >
+             <!-- <span  >Current RES: {{res}}</span> -->
+             <!-- <span  >Current Array: {{currentArrayItem}}</span>
+             <span  >Current i: {{productList$[i]}}</span> -->
+
+             <!-- <button (click)="fetchCol([input.controlName], [input.options])">FETCH</button> -->
+            <mat-form-field appearance="outline" class="">
+              <mat-label> {{input.controlLabel}}</mat-label>
+              <!-- <input
+              [formControlName]="input.controlName"  [type]="input.valueType"
+              #inp
+              matInput
+                (input)="fetchDataFn(inp.value, [input.controlName],[input.options])"
+             />
+                <mat-option   value="">{{input.placeholder}}</mat-option>
+                <ng-container *ngIf="input.controlName">
+                  <div  *ngFor="let option of filteredArray$ | async" [>{{option.optionName}}
+                  </div>
+                </ng-container> -->
+
+              <input
+              [formControlName]="input.controlName"
+              [type]="input.valueType"
+              [required]="input.validators.required"
+              matInput
+              #matchArryName
+              (focus)="fetchCol([input.controlName], [input.options])"
+              [id]="input.controlName"
+              [matAutocomplete]="a" />
+              <mat-autocomplete  [displayWith]="displayFn"
+              #a="matAutocomplete">
+                <!-- <mat-option   value="">{{input.placeholder}}</mat-option> -->
+                <ng-container >
+                  <mat-option  *ngFor="let option of filteredArray$ | async " [value]="option">{{option.optionName}}
+                  </mat-option>
+                </ng-container>
+              </mat-autocomplete>
+              <!-- <mat-select [formControlName]="input.controlName" [id]="input.controlName"
+                [required]="input.validators.required">
+                <mat-option value="">{{input.placeholder}}</mat-option>
+                <mat-option *ngFor="let option of input.options" [value]="option.optionName">{{option.optionName}}
+                </mat-option>
+              </mat-select> -->
+              <mat-error *ngIf="formService.formErrors[input.controlName]">
+                {{formService.formErrors[input.controlName]}}</mat-error>
+            </mat-form-field>
+            </ng-container>
+          </div>
+        </ng-template>
+
+        <ng-template [ngSwitchCase]="'dateRange'">
+          <div [class]="input.controlName">
+            <!-- {{input.controlName.start}}
+            {{input.controlName.end}} -->
+            <mat-form-field appearance="outline">
+              <mat-date-range-input
+              [formGroup]="formRange"
+              [rangePicker]="picker"
+              [min]="input.minDate"
+              [max]="input.maxDate"
+              >
+                <input (dateInput)="onSelectedStartDateFn($event, [input.controlName.start])"[formControlName]="input.controlName.start" matStartDate [placeholder]="input.startDateLabel">
+                <input (dateInput)="onSelectedEndDateFn($event, [input.controlName.end])"[formControlName]="input.controlName.end" matEndDate [placeholder]="input.endDateLabel"
+                [required]="input.validators.required"
+                >
+              </mat-date-range-input>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-date-range-picker #picker></mat-date-range-picker>
+
+<!--
+              <input  [placeholder]="input.controlLabel"
+                [formControlName]="input.controlName" [required]="input.validators.required">
+              <mat-datepicker-toggle matSuffix [for]="picker">
+              </mat-datepicker-toggle>
+              <mat-datepicker disabled="false" #picker></mat-datepicker> -->
+
+            </mat-form-field>
+          </div>
+        </ng-template>
+
+        <ng-template [ngSwitchCase]="'date'">
+          <div [class]="input.cssWrapperClass">
+
+            <mat-form-field appearance="outline">
+              <input 
+              (dateInput)="onSelectedDateFn($event, input.controlName)" 
+              matInput
+              readonly
+              [min]="input.minDate"
+              [max]="input.maxDate"
+                (focus)="picker.open()"
+                [matDatepicker]="picker"
+                [type]="input.valueType"
+                [placeholder]="input.controlLabel"
+                [formControlName]="input.controlName"
+                [required]="input.validators.required"
+                [maxlength]="input.validators.maxlength"
+                [minlength]="input.validators.minlength">
+                <mat-hint>e.g. 01/30/2022</mat-hint>
+                <mat-error *ngIf="formService.formErrors[input.controlName]">
+                  {{formService.formErrors[input.controlName]}}</mat-error>
+              <mat-datepicker-toggle matSuffix [for]="picker">
+              </mat-datepicker-toggle>
+              <mat-datepicker disabled="false" #picker></mat-datepicker>
+
+            </mat-form-field>
+          </div>
+        </ng-template>
+
+        <ng-template [ngSwitchCase]="'checkbox'">
+          <div [class]="input.cssWrapperClass">
+            <mat-checkbox #inputValue [formControlName]="input.controlName" [name]="input.controlName">
+              {{input.controlLabel}}</mat-checkbox>
+            <mat-error *ngIf="formService.formErrors[input.controlName]">
+              {{formService.formErrors[input.controlName]}}</mat-error>
+          </div>
+        </ng-template>
+        <ng-template [ngSwitchCase]="'numberOnly'">
+          <div [class]="input.cssWrapperClass">
+            <mat-form-field appearance="outline" class="">
+              <mat-label> {{input.controlLabel}}</mat-label>
+              <input #inputValue matInput
+               (keypress)="formService.numberOnly($event)"
+                [formControlName]="input.controlName"
+                [type]="input.valueType"
+                [name]="input.controlName"
+                [required]="input.validators.required"
+                [minlength]="input.validators.minlength"
+                [placeholder]="input.placeholder"
+                [maxlength]="input.validators.maxlength" />
+              <mat-error *ngIf="formService.formErrors[input.controlName]">
+                {{formService.formErrors[input.controlName]}}</mat-error>
+            </mat-form-field>
+          </div>
+        </ng-template>
+
+        <ng-template [ngSwitchCase]="'radio'">
+          <!-- <mat-form-field appearance="outline" class=""></mat-form-field> -->
+        <div [class]="input.cssWrapperClass">
+          <h3>  {{input.placeholder}}</h3>
+          <p [class]="input.legalsCSSClass">{{input.legalNotice}}</p>
+  <mat-radio-group
+          [formControlName]="input.controlName"
+          [required]="input.validators.required"
+      >
+            <mat-radio-button *ngFor="let option of input.options"
+            [value]="option.value"
+            >{{option.optionName}}
+            </mat-radio-button>
+            <mat-error *ngIf="formService.formErrors[input.controlName]">{{formService.formErrors[input.controlName]}}</mat-error>
+          </mat-radio-group>
+        </div>
+          <!-- <div *ngFor="let option of input.options" class="form-group row">
+            <input
+            [formControlName]="input.controlName"
+            [type]="input.controlType"
+            [name]="input.controlName"
+            [value]="option.value"
+            [required]="input.validators.required">
+            <mat-label> {{option.optionName}}</mat-label>
+          </div> -->
+        </ng-template>
+    </ng-container>
+  </ng-template>
+</div>
+  <div class="">
+    <button type="submit" mat-raised-button class="submitBtn" [disabled]="form.invalid" (click)="onClicked()">
+      <ng-content select=".btnLabel"></ng-content>
+    </button>
+    <ng-container *ngIf="cancelBtn">
+      <button type="button" mat-raised-button color="warn" (click)="onCancel()"><ng-content select=".noSection"></ng-content></button>
+  </ng-container>
+  </div>
+
+
+</form>
+
+

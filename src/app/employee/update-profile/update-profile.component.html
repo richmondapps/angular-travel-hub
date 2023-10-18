@@ -1,0 +1,19 @@
+<div class="updateWrapper">
+<div class="cancelBtn">
+   <button mat-raised-button class="redBtn"
+  (click)="cancelFn()">Cancel</button>
+</div>
+<ng-container *ngIf="formConfig && patchValues">
+  <app-dynamic-form
+    (submittedFormData)="receivedDynamicDataFn($event)"
+    [f]="formConfig"
+    [p]="patchValues"
+    [class]="formCSSClass"
+  >
+  <span class="btnLabel">Update</span>
+
+  </app-dynamic-form>
+</ng-container>
+</div>
+
+

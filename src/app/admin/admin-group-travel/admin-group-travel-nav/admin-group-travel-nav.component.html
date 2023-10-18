@@ -1,0 +1,42 @@
+
+
+<div class="pageWrapper">
+  <div class="buttonRow">
+    <button mat-raised-button class="cscButtons" 
+   (click)="fetRequestsWhereFn()">All</button>
+    <button mat-raised-button class="cscButtons" 
+   (click)="fetRequestsWhereFn('new')">New</button>
+    <button mat-raised-button class="cscButtons" 
+   (click)="fetRequestsWhereFn('draft')">Draft</button>
+    <button mat-raised-button class="cscButtons" 
+   (click)="fetRequestsWhereFn('pending')">Pending</button>
+    <button mat-raised-button class="cscButtons" 
+   (click)="fetRequestsWhereFn('approved')">Approved</button>
+    <button mat-raised-button class="cscButtons" 
+   (click)="fetRequestsWhereFn('authorized')">Authorized</button>
+    <button mat-raised-button class="cscButtons" 
+   (click)="fetRequestsWhereFn('denied')">Denied</button>
+    <button mat-raised-button class="cscButtons" 
+   (click)="fetRequestsWhereFn('archived')">Archived</button>
+  </div>
+
+  <!-- <router-outlet></router-outlet> -->
+</div>
+
+<ng-container *ngIf="tableData | async">
+<div class="dynamicTable" >
+  <app-dynamic-table
+  id="requestTable"
+  (singleRecordValue)="emittedTableDataFn($event)"
+  [tableData]="tableData"
+  [tableHeading]="tableHeading"
+  [tableColumns]="tableCols">
+</app-dynamic-table>
+</div>
+</ng-container>
+
+<!-- <app-admin-travel-requests-table 
+[tableHeading]="tableHeading"
+[whereValue]="whereValue"
+[tableCols]="tableCols"
+></app-admin-travel-requests-table> -->

@@ -1,0 +1,12 @@
+
+
+.singleFlightClass {
+    display: grid;
+    gap: 1rem;
+    width: max-content;
+    grid-template-areas:
+    "flightFromAirport flightToAirport"
+    "flightDeptDate flightPreferredDepartureTime"
+    ". flightFlexibleDepartureTime"
+    "flightIndividualRequestNotes flightIndividualRequestNotes";
+  }

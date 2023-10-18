@@ -1,0 +1,27 @@
+<div class="">
+    <div class="venueNameSection">
+      <ng-container *ngIf="!groupTravelCity">
+          <button
+          mat-raised-button
+          class=""
+          (click)="showAddGroupTravelNameFn()"
+          [ngClass]="showAddGroupTravelArrivalCityInput ? 'redBtn' : ' greenBtn'">
+          <mat-icon>{{
+            showAddGroupTravelArrivalCityInput ? "cancel" : "add_circle"
+          }}</mat-icon>
+          {{ showAddGroupTravelArrivalCityInput ? "Cancel" : " Arrival City" }}
+        </button>
+  
+        <ng-container *ngIf="showAddGroupTravelArrivalCityInput">
+          <app-dynamic-form
+            (submittedFormData)="submittedFormData($event)"
+            [f]="formConfig"
+            [class]="groupTravelCity"
+          >
+          <span class="btnLabel">Submit</span>
+        </app-dynamic-form>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+  

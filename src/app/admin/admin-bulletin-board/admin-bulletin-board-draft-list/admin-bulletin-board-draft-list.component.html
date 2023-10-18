@@ -1,0 +1,36 @@
+<section class="newsfeedWrapper">
+    <h1>{{branchName}} Draft Bulletins</h1>
+    <div class="newsfeedContainer">
+     <div class="cscGrid"  *ngFor="let n of blogList | async">
+        <div class="newsImgWrapper">
+            <div class="" >
+                <img src="{{n.imageUrl}}" alt="{{n.bulletinBoardTitle}} Newsfeed Image"
+                    class="newsImg">
+            </div>
+        </div>
+        <div class="newsCopyWrapper">
+          <div class="newsTitleContainer">
+             <p class="newsTitle">
+               {{n.bulletinBoardTitle}}
+            </p>
+          </div>
+           <div class="newsDateContainer">
+             <p>{{n.eventDate | date: 'MMM d, yyyy'}}</p>
+           </div>
+            <div class="newsCopyContainer">
+               <p class="truncatedCopy"  [innerHTML]="n.bulletinBoardCopy"></p>
+            </div>
+              <div class="newsButtonContainer">
+                <!-- <a mat-raised-button (click)="readArticleFn(n.bulletinBoardNameSlug)"
+                class="cscButtons"><i class="fa fa-file "></i> Read article...</a> -->
+                <a mat-raised-button [routerLink]="['/admin/bulletin-board/article', n.bulletinBoardSlug]"
+                class="cscButtons"><span class="material-icons-outlined">
+                  article
+                  </span> View Post</a>
+              </div>
+        </div>
+     </div>
+    </div>
+    <hr>
+  </section>
+  

@@ -1,0 +1,100 @@
+.goBackBtn {
+  width: 100px;
+}
+.personNameWrapper {
+  grid-area: personNameWrapper;
+  margin-bottom: 1rem;
+}
+.personGender {
+  grid-area: personGender;
+  margin-bottom: 1rem;
+}
+.personBirthDate {
+  grid-area: personBirthDate;
+  margin-bottom: 1rem;
+}
+.personCscBranch {
+  grid-area: personCscBranch;
+  margin-bottom: 1rem;
+}
+.personCellPhone {
+  grid-area: personCellPhone;
+  margin-bottom: 1rem;
+}
+.personEmail {
+  grid-area: personEmail;
+  margin-bottom: 1rem;
+}
+.personSeatPreference {
+  grid-area: personSeatPreference;
+  margin-bottom: 1rem;
+}
+.personKnownTravelerNumber {
+  grid-area: personKnownTravelerNumber;
+  margin-bottom: 1rem;
+}
+.employeeProfile {
+  display: grid;
+  gap: 1rem;
+  grid-auto-columns: max-content;
+  grid-template-areas:
+    'personNameWrapper personGender personBirthDate'
+    'personEmail personCellPhone personCscBranch'
+    'personSeatPreference personKnownTravelerNumber .';
+}
+.rewardsPageWrapper {
+  width: 94%;
+  margin: 1rem 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.airlineWrapper,
+.accommodationWrapper,
+.vehicleWrapper {
+  padding: 0.5rem 2rem;
+}
+
+.rewardsWrapper {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.rewardsWrapper > div {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  width: max-content;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.sectionTitle p {
+  font-size: 1.3rem;
+}
+
+.rewardMembershipName,
+.sectionLabel {
+  margin: 0.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+}
+.personData {
+  font-size: 1.2rem;
+  margin-right: 5px;
+}
+.rewardMembershipId {
+  margin: 0.5rem;
+  font-size: 1rem;
+}
+
+.rewardAdmin {
+  display: flex;
+  justify-content: flex-start;
+}

@@ -1,0 +1,42 @@
+::ng-deep .mat-flat-button.mat-accent,
+::ng-deep .mat-raised-button.mat-accent,
+::ng-deep .mat-fab.mat-accent,
+::ng-deep .mat-mini-fab.mat-accent{
+ background-color: green;
+}
+
+.buttonRow button {
+align-items: center;
+}
+
+.editBtn {
+  margin: 1rem .5rem .2rem 0;
+  cursor: pointer;
+}
+
+.editBtn mat-icon {
+  align-self: center;
+}
+
+.blogCopy {
+  width: 50vw;
+  height: 50vh;
+}
+
+
+::ng-deep mat-form-field.blogMatFormField {
+  width: 96%;
+  height: 80%;
+}
+::ng-deep .blogTextarea {
+  width: 96%;
+  height: 96%;
+}
+
+.blogImage {
+  width: 40%;
+}
+
+.navImg {
+  width: 100%;
+}

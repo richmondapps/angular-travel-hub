@@ -1,0 +1,87 @@
+
+
+.sectionInfo {
+    font-size: 1rem;
+}
+a {
+    display: flex;
+    text-underline-offset: 3px;
+    color: blue;
+    align-items: center;
+}
+.cscButtons {
+    width: 200px;
+}
+.addHotelIcon {
+    margin-right: 5px;
+}
+.removeIcon, .removeText {
+    color: red
+}
+.updateText ,.updateIcon {
+    color: darkgray;
+}
+.notesAdminWrapper {
+    display: flex;
+    
+}
+.notesAdminWrapper a{
+   margin-right: 15px;
+}
+.sectionLabel {
+    font-weight: bold;
+}
+.sectionData {
+    font-size: 1.1rem;
+}
+.flightLeg {  
+    display: flex;
+    align-items: center;
+  }
+  .flightLeg {
+    grid-area: flightLeg;
+  }
+  .flightDate {
+    grid-area: flightDate;
+  }
+  .flightFrom {
+    grid-area: flightFrom;
+  }
+  .flightFromWrapper {
+    grid-area: flightFromWrapper;
+  }
+  .flightTo {
+    grid-area: flightTo;
+  }
+  .flightToWrapper {
+    grid-area: flightToWrapper;
+  }
+  .deleteIconWrapper {
+    grid-area: deleteIconWrapper;
+  }
+  .accommodationWrapper {
+    grid-area: accommodationWrapper;
+  }
+  .vehicleWrapper {
+    grid-area: vehicleWrapper;
+  }
+  .customNotesWrapper {
+    grid-area: customNotesWrapper;
+  }
+  
+  .flightDetails {
+    max-width: 800px;
+    margin: .5rem 0;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: 1fr  1fr 1fr 80px;
+    grid-template-areas: 
+    "flightLeg flightLeg flightLeg deleteIconWrapper"
+    "flightDate flightFromWrapper flightToWrapper deleteIconWrapper"
+    "accommodationWrapper vehicleWrapper customNotesWrapper customNotesWrapper"
+    ;
+    gap: 1rem;
+    align-items: start;
+  
+  }

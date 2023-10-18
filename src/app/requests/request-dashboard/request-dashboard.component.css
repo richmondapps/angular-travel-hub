@@ -1,0 +1,183 @@
+.mat-stepper-vertical, .mat-stepper-horizontal {
+  width:max-content!important;
+}
+
+
+.flightSection {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.grid1 {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 20px;
+}
+
+/* .flightPreferedTimeSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.flightNotesSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+} */
+.flightFromAirport {
+  grid-area: flightFromAirport;
+}
+.flightToAirport {
+  grid-area: flightToAirport;
+}
+.flightDeptDate {
+  grid-area: flightDeptDate;
+}
+.flightReturnDate {
+  grid-area: flightReturnDate;
+}
+.flightPreferredDepartureTime {
+  grid-area: flightPreferredDepartureTime;
+}
+.flightPreferredReturnTime {
+  grid-area: flightPreferredReturnTime;
+}
+.flightFlexibleDepartureTime {
+  grid-area: flightFlexibleDepartureTime;
+}
+.flightFlexibleReturnTime {
+  grid-area: flightFlexibleReturnTime;
+}
+.flightIndividualRequestNotes {
+  grid-area: flightIndividualRequestNotes;
+}
+/* ::ng-deep.flightIndividualRequestNotes > mat-form-field{
+  width: 800px;
+} */
+.managerWhoApproved {
+  grid-area: managerWhoApproved;
+}
+.billableBranch {
+  grid-area: billableBranch;
+}
+.purposeOfTravel {
+  grid-area: purposeOfTravel;
+}
+.purposeOfTravelNotes {
+  grid-area: purposeOfTravelNotes;
+}
+.jobId {
+  grid-area: jobId;
+}
+
+
+
+.purposeClass {
+  display: grid;
+  gap: 1rem;
+  width: max-content;
+  grid-template-areas:
+  "managerWhoApproved billableBranch"
+  "purposeOfTravel jobId"
+  "purposeOfTravelNotes purposeOfTravelNotes"
+  ;
+}
+.returnFlightClass {
+  display: grid;
+  gap: 1rem;
+  width: max-content;
+  grid-template-areas:
+  "flightFromAirport flightToAirport"
+  "flightDeptDate flightReturnDate"
+  "flightPreferredDepartureTime flightPreferredReturnTime"
+  "flightFlexibleDepartureTime flightFlexibleReturnTime"
+  "flightIndividualRequestNotes flightIndividualRequestNotes";
+}
+/* .singleFlightClass {
+  display: grid;
+  gap: 1rem;
+  width: max-content;
+  grid-template-areas:
+  "flightFromAirport flightToAirport"
+  "flightDeptDate flightPreferredDepartureTime"
+  ". flightFlexibleDepartureTime"
+  "flightIndividualRequestNotes flightIndividualRequestNotes";
+} */
+
+
+.hotelCheckInDate {
+  grid-area: hotelCheckInDate;
+}
+.hotelBedOptions {
+  grid-area: hotelBedOptions;
+}
+.hotelBudget {
+  grid-area: hotelBudget;
+}
+.hotelLandmarkZip {
+  grid-area: hotelLandmarkZip;
+}
+.hotelBookingComments {
+  grid-area: hotelBookingComments;
+}
+
+.accommodationClass{
+  display: grid;
+  gap: 1rem;
+  width: max-content;
+  grid-template-areas:
+  "hotelCheckInDate hotelCheckInDate"
+  "hotelBedOptions hotelBudget"
+  "hotelLandmarkZip hotelBookingComments"
+  ;
+}
+
+.vehiclePickUpDate {
+  grid-area: vehiclePickUpDate;
+}
+.vehicleSize {
+  grid-area: vehicleSize;
+}
+.vehiclePickUpTime {
+  grid-area: vehiclePickUpTime;
+}
+.vehicleReturnTime {
+  grid-area: vehicleReturnTime;
+}
+.vehicleDropOffLocation {
+  grid-area: vehicleDropOffLocation;
+}
+.vehiclePickUpLocation {
+  grid-area: vehiclePickUpLocation;
+}
+.vehiclePickUpDriverName {
+  grid-area: vehiclePickUpDriverName;
+}
+.vehicleDirectBilled {
+  grid-area: vehicleDirectBilled;
+}
+.vehicleBookingComments {
+  grid-area: vehicleBookingComments;
+}
+.vehicleSize {
+  grid-area: vehicleSize;
+}
+
+.vehicleClass{
+  display: grid;
+  gap: 1rem;
+  width: max-content;
+  grid-template-areas:
+  "vehiclePickUpDate vehicleSize"
+  "vehiclePickUpTime vehicleReturnTime"
+  "vehiclePickUpLocation vehicleDropOffLocation"
+  "vehiclePickUpDriverName vehicleBookingComments"
+  "vehicleDirectBilled ."
+  ;
+}

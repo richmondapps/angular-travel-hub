@@ -1,0 +1,132 @@
+<div class="multiCityOptionsWrapper">
+    <ng-container>
+    <p class="sectionInfo">If you need accommodation and/or a vehicle for any of your destiations, you can add a request for each leg. </p>
+
+    <div class="finishedBtn">
+        <button class="cscButtons" mat-button  (click)="fetchSummaryFn()">Finished</button>
+    </div>
+
+              <ng-container *ngIf="multiCityList | async">
+                <ng-container *ngFor="let x of (multiCityList | async); let i = index">
+                  <!-- <pre>
+                        {{x | json}}
+                      </pre> 
+                       -->
+                          
+                  <div class="flightDetails">
+                    <div class="flightLeg">           
+                        <p class="bold">Flight {{ i + 1 }}</p>                      
+                    </div>
+                    <div class="flightDate">
+                      <p class="sectionLabel">Departing</p>
+                      <p class="sectionData">
+                        {{ x.flightStartDateMM }} / {{ x.flightStartDateDD }} /
+                        {{ x.flightStartDateYYYY }}
+                      </p>
+                    </div>
+        
+                    <div class="flightFromWrapper">
+                      <p class="sectionLabel">From</p>
+                      <p class="sectionData">
+                        <span class="flightFrom">
+                          {{ x.flightFromAirport.optionName }}</span
+                        >
+                      </p>
+                    </div>
+                    <div class="flightToWrapper">
+                      <p class="sectionLabel">To</p>
+                      <p class="sectionData">
+                        <span class="flightTo">
+                          {{ x.flightToAirport.optionName }}
+                        </span>
+                      </p>
+                    </div>
+                    <!-- <div class="addHotelIconWrapper">
+                      <button mat-icon-button 
+                      (click)="addFlightLegAccommodationFn(x.updateId)">Add <span class="material-icons addHotelIcon">
+                        hotel
+                        </span></button>
+                    </div> -->
+                    <div class="accommodationWrapper">
+                      <ng-container *ngIf="!x.accommodationRequested">
+                        <div >
+                          <a class="" 
+                          (click)="addFlightLegAccommodationFn(x.updateId)"><span class="material-icons addHotelIcon">
+                            hotel
+                            </span> Add Accommodation </a>
+                      </div>
+                      </ng-container>
+                      
+      <ng-container *ngIf="x.accommodationRequested">
+                    <p  class="sectionLabel">Accommodation Requested</p>
+                    <p></p>
+                    <p>Check-In {{x.multiCityLegAccommodationStartDate}}</p>
+                    <div class="">
+                      <a class="removeText"
+                      (click)="removeFlightLegAccommodationFn(x.updateId)"><span class="material-icons removeIcon">
+                        delete_forever
+                        </span> Remove Accommodation</a>
+                  </div>
+                  </ng-container>
+                    </div>
+                    <div class="vehicleWrapper">
+                      <ng-container *ngIf="!x.vehicleRequested">
+                        <div >
+                          <a class="" 
+                          (click)="addFlightLegVehicleFn(x.updateId)"><span class="material-icons addHotelIcon">
+                            car_rental
+                            </span> Add Vehicle </a>
+                      </div>
+                      </ng-container>
+                      
+      <ng-container *ngIf="x.vehicleRequested">
+                    <p class="sectionLabel">Vehicle Requested</p>
+                    <p></p>
+                    <p>Pick-Up {{x.multiCityLegAccommodationStartDate}}</p>
+                    <div class="">
+                      <a class="removeText"
+                      (click)="removeFlightLegVehicleFn(x.updateId)"><span class="material-icons removeIcon">
+                        delete_forever
+                        </span> Remove Vehicle</a>
+                  </div>
+                  </ng-container>
+                    </div>
+
+                    <div class="customNotesWrapper">
+                        <ng-container *ngIf="!x.flightIndividualRequestNotes">
+                            <div >
+                              <a class="" 
+                              (click)="updateNotesFn(x.updateId)"><span class="material-icons addHotelIcon">
+                                description
+                                </span> Add Note </a>
+                          </div>
+                          </ng-container>
+                          
+          <ng-container *ngIf="x.flightIndividualRequestNotes">
+                        <p class="sectionLabel">Note</p>
+                        <p></p>
+                        <p>Note {{x.flightIndividualRequestNotes}}</p>
+                        <div class="notesAdminWrapper">
+                          <a class="removeText"
+                          (click)="removeFlightLegNoteFn(x.updateId)"><span class="material-icons removeIcon">
+                            delete_forever
+                            </span> Remove Note</a>
+                            <a class="updateText" 
+                            (click)="updateNotesFn(x.updateId)"><span class="material-icons updateIcon">
+                              edit
+                              </span> Update Note </a>
+                      </div>
+                      </ng-container>
+                    </div>
+                    <!-- <span class="flightIcon"><span class="material-icons">
+                        flight
+                        </span></span> -->
+                  </div>
+                
+                </ng-container>
+              </ng-container>
+    
+            </ng-container>
+
+
+

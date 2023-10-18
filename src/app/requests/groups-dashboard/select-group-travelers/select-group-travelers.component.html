@@ -1,0 +1,42 @@
+<div class="selectWrapper">
+	<h1>Destination: {{ groupTravelCity }}</h1>
+	<h2>Event: {{ groupTravelName }}</h2>
+
+	<div class="contentWrapper">
+		<div class="dynamicTable" *ngIf="tableData | async">
+			<app-dynamic-table
+				id="travelProfiles"
+				(res)="emittedTableDataFn($event)"
+				[tableData]="tableData"
+				[tableColumns]="tableCols"
+				[tableHeading]="tableHeading">
+			</app-dynamic-table>
+		</div>
+		<div class="addedTable">
+			<h3>{{ selectedTravelersHeading }}</h3>
+			<ng-container *ngIf="addedTravelersData; else noTravelers">
+				<div class="addFlightInfo">
+					<button mat-raised-button class="cscButtons" (click)="addFlightInfoFn()">
+            Add Flight Details	<mat-icon class="">connecting_airports</mat-icon> 
+					</button>
+				</div>
+				<hr />
+				<ng-container *ngFor="let x of addedTravelersData | async">
+					<div class="addedTravelersData">
+						<div>
+							<a (click)="deleteRecordFn(x.personEmail)">
+								<mat-icon class="colorRed">delete</mat-icon>
+							</a>
+						</div>
+						<p>
+							{{ x.personEmail }}
+						</p>
+					</div>
+				</ng-container>
+			</ng-container>
+			<ng-template #noTravelers>
+				<h3>No Travelers Found</h3>
+			</ng-template>
+		</div>
+	</div>
+</div>

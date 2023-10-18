@@ -1,0 +1,230 @@
+.card {
+  height: 400px;
+  width: 300px;
+  /* border: 1px solid #ddd; */
+}
+.redBtn, .greenBtn {
+  margin: 1rem 0;
+}
+.progressBar {
+  margin: 1rem 0;
+}
+/* .sourceImgCropper, .card {
+  margin: 1rem 0;
+} */
+.progressBarWrapper {
+  margin: 1rem 0;
+}
+.venueImage {
+  /* background-color: #ddd; */
+  height: 400px;
+  width: 300px;
+}
+.singleImage {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 1rem;
+}
+image-cropper {
+  height: 50vh;
+}
+
+.editWrapper {
+  display: grid;
+  /* grid-template-columns: 200px 500px; */
+}
+.toolsSection {
+  max-width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: .1rem 0;
+}
+.devices {
+  display: grid;
+  grid-template-columns: 1fr 2fr auto;
+  gap: 1rem;
+  padding: 0 1rem;
+}
+.imageSectionWrapper{
+  padding: 0 1rem;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.desktop img {
+  width: 100%;
+}
+.lap img {
+  width: 100%;
+}
+.tablet img {
+  width: 100%;
+}
+.smartphone img {
+  width: 100%;
+}
+
+.smartphone {
+  position: relative;
+  width: 180px;
+  height: 320px;
+  margin: auto;
+  border: 6px black solid;
+  border-top-width: 35px;
+  border-bottom-width: 6px;
+  border-radius: 15px;
+  overflow: scroll;
+}
+
+.sectionHeading {
+  font-size: 1rem;
+  padding: .3rem;
+}
+.loremSection {
+  overflow: hidden;
+}
+.lorem {
+  font-size: .6rem;
+  padding: .3rem;
+}
+
+/* The horizontal line on the top of the device */
+.smartphone:before {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 5px;
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #333;
+  border-radius: 10px;
+}
+
+/* The device with borders */
+.smartTablet {
+  position: relative;
+  width: 384px;
+  height: 512px;
+  margin: auto;
+  border: 6px black solid;
+  border-top-width: 35px;
+  border-bottom-width: 6px;
+  border-radius: 15px;
+  overflow: scroll;
+}
+
+/* The horizontal line on the top of the device */
+.smartTablet:before {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 5px;
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #333;
+  border-radius: 10px;
+}
+
+
+/* The laptop with borders */
+.laptop {
+
+  /* position: absolute; */
+  /* width: 1366px;
+  height: 800px; */
+  border-radius: 6px;
+  border-style: solid;
+  border-color: black;
+  border-width: 16px 6px;
+}
+
+
+
+/* The screen (or content) of the device */
+/* .laptop .content {
+  width: 1366px;
+  height: 800px;
+  overflow: hidden;
+  border: none;
+} */
+::before, ::after {
+  box-sizing: border-box;
+}
+
+.submitBtn {
+  margin: 1rem 0;
+}
+::ng-deep mat-progress-bar  {
+  position: relative;
+  height: 1.5rem!important;
+  width: 30vw!important;
+  background-color: var(--cscMidnightBlue);
+  margin: 1rem 0!important;
+  border-radius: 25px;
+  color: white;
+}
+
+/* ::ng-deep mat-progress-bar::before  {
+content: attr(data-label);
+display: flex;
+align-items: center;
+position: absolute;
+height: 2rem!important;
+top: .5rem;
+left: .5rem;
+bottom: .5rem;
+right: .5rem;
+width: .5rem;
+min-width: .5rem;
+max-width: calc(100% - 1rem);
+background-color: var(--cscLightBlue);
+border-radius: 25px;
+padding: 1rem;
+
+} */
+::ng-deep .mat-progress-bar-buffer {
+  background-color: var(--cscLightBlue)!important;
+
+}
+
+/* ::ng-deep .mat-progress-bar .mat-progress-bar-element, ::ng-deep .mat-progress-bar .mat-progress-bar-fill::after{
+  height:0 !important;
+  width: 0!important;
+} */
+
+ /* #region 300 */
+ @media only screen
+ and (min-width: 300px)
+ and (max-width: 767px)
+ /* and (orientation: portrait)  */{
+
+ }
+  /* #endregion 300 */
+
+ /* #region 768 */
+ @media screen and (min-width: 768px) and (max-width: 959px) {
+
+ }
+  /* #endregion  768 */
+
+/* #region  960 */
+@media screen and (min-width: 960px) and (max-width: 1279px) {
+
+}
+/* #endregion 960 */
+
+ /* #region  1280 */
+ @media screen and (min-width: 1280px) and (max-width: 1919px) {
+
+ }
+  /* #endregion  1280 */
+
+ /* #region 1920 */
+ @media screen and (min-width: 1920px) and (max-width: 5000px) {
+
+ }
+  /* #endregion  1920 */

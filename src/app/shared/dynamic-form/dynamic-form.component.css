@@ -1,0 +1,28 @@
+/* ::ng-deep .pageTitle {
+  min-width: 200px!important;
+  max-width: 300px;
+}
+::ng-deep .mat-form-field {
+  min-width: 300px!important;
+  max-width: 400px;
+}
+
+.formContentWrapper {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.formContentWrapper > div{
+margin: .5rem;
+}
+
+.submitBtn {
+  display: block;
+  margin: 1rem auto;
+} */
+.submitBtn {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  background-color: var(--cscMidnightBlue);
+  color: white;
+}

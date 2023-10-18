@@ -1,0 +1,176 @@
+.pageWrapper {
+    padding: 0.5rem;
+    display: grid;
+    place-items: center;
+  }
+  
+  mat-card {
+    min-width: 150px;
+    max-width: 500px;
+    width: 94%;
+    margin: 0 auto;
+    display: grid;
+    justify-content: center;
+  }
+  
+  .btnGrid {
+    width: 94%;
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    padding: 0.5rem 0.6rem 0.5rem;
+    margin: 0.5rem 0;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+  }
+  
+  .signInMessage {
+    margin: 3.5rem 0;
+   min-width: 350px;
+   max-width: 500px;
+    line-height: 1.3;
+    text-align: center;
+    font-size: 1rem;
+  }
+ 
+  .socialGrid {
+    margin: 1rem auto;
+    width: fit-content;
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .accessQuestion {
+    margin-bottom: 1rem;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+    justify-content: start;
+    align-items: center;
+  }
+  .loadingGraphic {
+    margin: 1rem 0;
+  }
+  .checkMarkWrapper {
+    display: flex;
+    align-items: center;
+    width: 250px;
+  }
+  
+  .checkMarkWrapper h4 {
+    width: 6ch;
+  }
+  .emailVerified {
+    color: green;
+    margin-left: .3rem;
+  }
+  .emailUnverified {
+    color: red;
+  }
+  .noRecordFound {
+    margin-top: 2rem;
+    text-align: center;
+  }
+  .noRecordFound p {
+    color: red;
+  }
+  
+  .emailRow {
+    display: flex;
+    grid-gap: 5px;
+    gap: 5px;
+    margin: 10px 0;
+    margin-right: 10px;
+    align-items: center;
+  }
+  
+  .aLink {
+    color: blue;
+  }
+  .spinnerWrapper {
+    margin-top: 3rem;
+    display: grid;
+    justify-content: center;
+  }
+  
+  .spinnerWrapper h3 {
+    margin-bottom: 1rem;
+  }
+  .server-error {
+    margin: 8px 0;
+  }
+  input {
+    height: 2em;
+  }
+  input div.mat-form-field-infix {
+    padding: 0.3em 0;
+  }
+  input.mat-input-element {
+    vertical-align: top;
+  }
+  div.mat-form-field-wrapper {
+    padding-bottom: 1.15em;
+  }
+  .login-form {
+    max-width: 200px;
+    margin: 1rem auto;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    place-items: center;
+  }
+  
+  .socialLoginBtn {
+    width: 150px;
+  }
+  .microsoft {
+    background: white;
+  }
+  .google {
+    background: white;
+  }
+  .facebook {
+    background: white;
+  }
+  .socialIcon {
+    width: 30px;
+    height: 30px;
+  }
+  /* #region 300 */
+  @media only screen and (min-width: 300px) and (max-width: 767px) /* and (orientation: portrait) */ {
+    mat-form-field {
+      width: 100%;
+      margin-bottom: 16px;
+    }
+  }
+  /* #endregion 300 */
+  
+  /* #region 768 */
+  @media screen and (min-width: 768px) and (max-width: 1279px) {
+    mat-form-field {
+      width: 100%;
+      margin-bottom: 16px;
+    }
+  }
+  /* #endregion  768 */
+  
+  /* #region  1280 */
+  @media screen and (min-width: 1280px) and (max-width: 1919px) {
+    mat-form-field {
+      width: 100%;
+      margin-bottom: 16px;
+    }
+  }
+  /* #endregion  1280 */
+  
+  /* #region 1920 */
+  @media screen and (min-width: 1920px) and (max-width: 5000px) {
+    mat-form-field {
+      width: 100%;
+      margin-bottom: 16px;
+    }
+  }
+  /* #endregion  1920 */
+  
+  /* #region  */
+  /* #endregion */
+  

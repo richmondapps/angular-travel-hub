@@ -1,0 +1,17 @@
+<div class="pageWrapper">
+    <div class="buttonRow">
+      <button  [routerLink]="['flights']" routerLinkActive="active" matTooltip="Flight" mat-raised-button>
+        <mat-icon inline=true>flight</mat-icon> Flights 
+      </button>  
+      <button  [routerLink]="['accommodation']"  routerLinkActive="active" matTooltip="Accommodation" mat-raised-button>
+        <mat-icon inline=true>hotel</mat-icon> Accommodation
+      </button>
+      <button  [routerLink]="['vehicle']" matTooltip="Vehicle" mat-raised-button>
+        <mat-icon inline=true>car_rental</mat-icon> Vehicle
+      </button>
+      <button [routerLink]="['groups']" matTooltip="Groups" mat-raised-button>
+        <mat-icon inline=true></mat-icon> Groups
+      </button>
+    </div>
+    </div>
+    <router-outlet></router-outlet>

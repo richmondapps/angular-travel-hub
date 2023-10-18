@@ -1,0 +1,608 @@
+<div class="requestReviewWrapper">
+    <div class="goBackBtn">
+        <button mat-raised-button (click)="backButtonWithState()" class="cscButtons"><i class="fa fa-mail-reply mr-1"></i>
+        Go Back</button>
+      </div>
+  <div class="fileUploadWrapper">
+    <app-file-upload
+      [firestoreRecordPath]="firestoreRecordPath"
+      [firebaseStoragePath]="firebaseStoragePath"
+      [publicOrPrivate]="'private'"
+      [documentId]="travelRequestId"
+    >
+      <span class="btnLabel">Updload Document</span>
+    </app-file-upload>
+  </div>
+
+  <ng-container *ngIf="requestDocuments | async">
+    <div class="documentWrapper">
+      <div *ngFor="let x of requestDocuments | async">
+        <div class="documentLink">
+          <div class="fileName">
+            <p>{{ x.fileName }}</p>
+          </div>
+
+          <div class="iconWrapper">
+              <div class="viewDoc">
+                 <a mat-mini-fab href="{{ x.fileUrl }}" target="_blank" rel="noopener noreferrer">
+              <div class="docIcon">
+                <span class="material-icons-outlined"> preview </span>
+              </div>
+            </a>  
+              </div>
+           
+            <div class="deleteIcon">
+                <a  (click)="openDeleteDialogFn(x.fileId, x.fileName)" mat-mini-fab>
+                      <span class="material-icons-outlined"> delete </span>
+                </a>
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+
+  <ng-container *ngFor="let x of requestSummary | async">
+    <!-- #region PURPOSE OF REQUEST -->
+<div class="currentStatus">
+    Request Status: {{x.requestStatus | uppercase}}
+</div>
+    <div class="requestCost">
+
+        <div class="sectionHeader">
+          
+          <button
+            mat-icon-button
+            class="greenBtn"
+            (click)="
+            editRequestSectionFn()
+          "
+          >
+            <span class="material-icons"> edit </span>
+          </button>
+        </div>
+  <ng-container *ngIf="x.requestCost; else noCost">
+         <div>
+             <h2>Request Cost</h2>
+            <p class="sectionData">$ {{x.requestCost}}</p>
+        </div>
+  </ng-container>
+  <ng-template #noCost>
+      No cost added.
+  </ng-template>
+     
+  
+    </div>
+    <div class="reasonForTravelWrapper">
+      <div class="sectionHeader">
+        <!-- <div>
+            <button
+              mat-icon-button
+              class="greenBtn"
+              (click)="
+              editRequestSectionFn(
+                'returnFlightConfigFn',
+                'editAccommodationClass'
+              )
+            "
+            >
+              <span class="material-icons"> edit </span>
+            </button>
+          </div> -->
+        <h2>Reason for Request</h2>
+      </div>
+
+      <div class="reasonForTravelSection">
+        <div class="managerWhoApproved">
+          <p class="sectionLabel">Manager Who Approved</p>
+          <p class="sectionData">
+            {{ x.managerWhoApproved.optionName }}
+          </p>
+        </div>
+        <div class="billableBranch">
+          <p class="sectionLabel">Billable Branch</p>
+          <p class="sectionData">
+            {{ x.billableBranch.optionName }}
+          </p>
+        </div>
+        <div class="purposeOfTravel">
+          <p class="sectionLabel">Purpose Of Travel</p>
+          <p class="sectionData">
+            {{ x.purposeOfTravel }}
+          </p>
+        </div>
+        <div class="jobId">
+          <p class="sectionLabel">Job ID</p>
+          <p class="sectionData">
+            {{ x.jobId }}
+          </p>
+        </div>
+        <div class="purposeOfTravelNotes">
+          <p class="sectionLabel">Notes</p>
+          <p class="sectionData">
+            {{ x.purposeOfTravelNotes }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- #endregion PURPOSE OF REQUEST -->
+
+  <!-- #region FLIGHT -->
+  <ng-container *ngIf="x.flightDepartureRequested; else noFlight">
+    <ng-container *ngIf="x.flightRequestType === 'returnFlight' || x.flightRequestType === 'oneWayFlight'">
+      <div class="flightSectionWrapper">
+        <ng-container>
+           <div class="sectionHeader">
+          <div>
+            <button
+              mat-icon-button
+              class="greenBtn"
+              (click)="
+              editRequestSectionFn(
+              )
+            "
+            >
+              <span class="material-icons"> edit </span>
+            </button>
+          </div>
+    
+          <h2>Flight</h2>
+        </div>
+        </ng-container>
+  
+        <div class="flightSection">
+          <div class="flightFromAirport">
+            <p class="sectionLabel">Flying From</p>
+            <p class="sectionData">{{ x.flightFromAirport.optionName }}</p>
+          </div>
+          <div class="flightToAirport">
+            <p class="sectionLabel">Flying To</p>
+            <p class="sectionData">{{ x.flightToAirport.optionName }}</p>
+          </div>
+    
+          <div class="flightDeptDate">
+            <p class="sectionLabel">Departure Date</p>
+            <p class="sectionData">
+              {{ x.flightStartDateMM }} / {{ x.flightStartDateDD }} /
+              {{ x.flightStartDateYYYY }}
+            </p>
+          </div>
+          <ng-container *ngIf="x.flightEndDateMM">
+            <div class="flightEndDateDate">
+              <p class="sectionLabel">Return Date</p>
+              <p class="sectionData">
+                {{ x.flightEndDateMM }} / {{ x.flightEndDateDD }} /
+                {{ x.flightEndDateYYYY }}
+              </p>
+            </div>
+          </ng-container>
+    
+          <div class="flightPreferredDepartureTime">
+            <p class="sectionLabel">Preferred Departure Time</p>
+            <p class="sectionData">
+              {{ x.flightPreferredDepartureTime.optionName }}
+            </p>
+          </div>
+          <div class="flightFlexibleDepartureTime">
+            <p class="sectionLabel">Flexible Departure Time</p>
+            <ng-container *ngIf="x.flightFlexibleDepartureTime; else noFDT">
+              <p class="sectionData">YES</p>
+            </ng-container>
+            <ng-template #noFDT>
+              <p class="sectionData">NO</p>
+            </ng-template>
+    
+            <p class="sectionData">
+              {{ x.flightFlexibleDepartureTime.optionName }}
+            </p>
+          </div>
+    
+          <ng-container *ngIf="x.flightEndDateMM">
+            <div class="flightPreferredReturnTime">
+              <p class="sectionLabel">Preferred Return Time</p>
+    
+              <ng-container *ngIf="x.flightPreferredReturnTime; else noFRT">
+                <p class="sectionData">{{ x.flightPreferredReturnTime.optionName }}</p>
+              </ng-container>
+              <ng-template #noFRT>
+                <p class="sectionData">NO</p>
+              </ng-template>
+            </div>
+          </ng-container>
+    
+          <ng-container *ngIf="x.flightEndDateMM">
+            <div class="flightFlexibleReturnTime">
+              <p class="sectionLabel">Flexible Return Time</p>
+              <ng-container
+                *ngIf="
+                  x.flightFlexibleReturnTime;
+                  else noflightFlexibleReturnTime
+                "
+              >
+                <p class="sectionData">YES</p>
+              </ng-container>
+              <ng-template #noflightFlexibleReturnTime>
+                <p class="sectionData">NO</p>
+              </ng-template>
+            </div>
+          </ng-container>
+    
+          <div class="flightNotesSection grid1">
+            <div>
+              <p class="sectionLabel">Notes</p>
+              <p>{{ x.flightIndividualRequestNotes }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </ng-container>
+
+    <ng-container *ngIf="x.flightRequestType === 'multiCityFlights'">
+
+<ng-container *ngFor="let x of multiCityRequestSummary | async; let i = index">
+<div class="flightSectionWrapper">
+  <ng-container>
+     <div class="sectionHeader">
+    <div>
+      <button
+        mat-icon-button
+        class="greenBtn"
+        (click)="
+        editRequestSectionFn(
+        )
+      "
+      >
+        <span class="material-icons"> edit </span>
+      </button>
+    </div>
+
+    <h2>Flight {{i + 1}}</h2>
+  </div>
+  </ng-container>
+
+  <div class="flightSection">
+    <div class="flightFromAirport">
+      <p class="sectionLabel">Flying From</p>
+      <p class="sectionData">{{ x.flightFromAirport.optionName }}</p>
+    </div>
+    <div class="flightToAirport">
+      <p class="sectionLabel">Flying To</p>
+      <p class="sectionData">{{ x.flightToAirport.optionName }}</p>
+    </div>
+
+    <div class="flightDeptDate">
+      <p class="sectionLabel">Departure Date</p>
+      <p class="sectionData">
+        {{ x.flightStartDateMM }} / {{ x.flightStartDateDD }} /
+        {{ x.flightStartDateYYYY }}
+      </p>
+    </div>
+    <ng-container *ngIf="x.flightEndDateMM">
+      <div class="flightEndDateDate">
+        <p class="sectionLabel">Return Date</p>
+        <p class="sectionData">
+          {{ x.flightEndDateMM }} / {{ x.flightEndDateDD }} /
+          {{ x.flightEndDateYYYY }}
+        </p>
+      </div>
+    </ng-container>
+
+    <div class="flightPreferredDepartureTime">
+      <p class="sectionLabel">Preferred Departure Time</p>
+      <p class="sectionData">
+        {{ x.flightPreferredDepartureTime.optionName }}
+      </p>
+    </div>
+    <div class="flightFlexibleDepartureTime">
+      <p class="sectionLabel">Flexible Departure Time</p>
+      <ng-container *ngIf="x.flightFlexibleDepartureTime; else noFDT">
+        <p class="sectionData">YES</p>
+      </ng-container>
+      <ng-template #noFDT>
+        <p class="sectionData">NO</p>
+      </ng-template>
+
+      <p class="sectionData">
+        {{ x.flightFlexibleDepartureTime.optionName }}
+      </p>
+    </div>
+
+    <ng-container *ngIf="x.flightEndDateMM">
+      <div class="flightPreferredReturnTime">
+        <p class="sectionLabel">Preferred Return Time</p>
+
+        <ng-container *ngIf="x.flightPreferredReturnTime; else noFRT">
+          <p class="sectionData">{{ x.flightPreferredReturnTime.optionName }}</p>
+        </ng-container>
+        <ng-template #noFRT>
+          <p class="sectionData">NO</p>
+        </ng-template>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="x.flightEndDateMM">
+      <div class="flightFlexibleReturnTime">
+        <p class="sectionLabel">Flexible Return Time</p>
+        <ng-container
+          *ngIf="
+            x.flightFlexibleReturnTime;
+            else noflightFlexibleReturnTime
+          "
+        >
+          <p class="sectionData">YES</p>
+        </ng-container>
+        <ng-template #noflightFlexibleReturnTime>
+          <p class="sectionData">NO</p>
+        </ng-template>
+      </div>
+    </ng-container>
+
+    <div class="flightNotesSection grid1">
+      <div>
+        <p class="sectionLabel">Notes</p>
+        <p>{{ x.flightIndividualRequestNotes }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+</ng-container>
+
+    </ng-container>
+
+  </ng-container>
+
+
+  <!-- #endregion FLIGHT -->
+    <!-- #region ACCOMMODATION -->
+    <ng-container *ngIf="x.accommodationRequested; else noAccommodation">
+      <div class="accommodationSectionWrapper">
+        <div class="sectionHeader">
+          <!-- <div>
+              <button
+                mat-icon-button
+                class="greenBtn"
+                (click)="
+                  editRequestSectionFn(
+                    'editHotelConfigFn',
+                    'editAccommodationClass'
+                  )
+                "
+              >
+                <span class="material-icons"> edit </span>
+              </button>
+            </div> -->
+
+          <h2>Accommodation</h2>
+        </div>
+
+        <div class="accommodationSection">
+          <div class="hotelCheckInDate">
+            <p class="sectionLabel">Check-In</p>
+            <p class="sectionData">
+              {{ x.accommodationStartDateMM }} /
+              {{ x.accommodationStartDateDD }} /
+              {{ x.accommodationStartDateYYYY }}
+            </p>
+          </div>
+          <div class="hotelCheckOutDate">
+            <p class="sectionLabel">Check-Out</p>
+            <p class="sectionData">
+              {{ x.accommodationEndDateMM }} / {{ x.accommodationEndDateDD }} /
+              {{ x.accommodationEndDateYYYY }}
+            </p>
+          </div>
+
+          <div class="hotelBedOptions">
+            <p class="sectionLabel">Bed Options</p>
+            <p class="sectionData">
+              {{ x.hotelBedOptions.optionName }}
+            </p>
+          </div>
+          <div class="hotelBudget">
+            <p class="sectionLabel">Hotel Budget</p>
+            <p class="sectionData">
+              {{ x.hotelBudget.optionName }}
+            </p>
+          </div>
+
+          <div class="hotelLandmarkZip">
+            <p class="sectionLabel">
+              Preferred Hotel Location (Landmark/Zip Code)
+            </p>
+            <p class="sectionData">
+              {{ x.hotelLandmarkZip }}
+            </p>
+          </div>
+
+          <div class="hotelBookingComments">
+            <div>
+              <p class="sectionLabel">Comments/Notes</p>
+              <p class="sectionData">
+                {{ x.hotelBookingComments }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <!-- #endregion ACCOMMODATION -->
+
+    <!-- #region VEHICLE -->
+    <ng-container *ngIf="x.vehicleRequested; else noVehicle">
+      <div class="vehicleSectionWrapper">
+        <div class="sectionHeader">
+          <!-- <div>
+              <button
+                mat-icon-button
+                class="greenBtn"
+  
+                (click)="
+                editRequestSectionFn('editVehicleConfigFn', 'editAccommodationClass')
+              "
+              >
+                <span class="material-icons"> edit </span>
+              </button>
+            </div> -->
+
+          <h2>Vehicle</h2>
+        </div>
+
+        <div class="vehicleSection">
+          <div clas="vehicleStartDate">
+            <p class="sectionLabel">Pick-up</p>
+            <p class="sectionData">
+              {{ x.vehicleStartDateMM }} / {{ x.vehicleStartDateDD }} /
+              {{ x.vehicleStartDateYYYY }}
+            </p>
+          </div>
+          <div class="vehicleEndDate">
+            <p class="sectionLabel">Drop-off</p>
+            <p class="sectionData">
+              {{ x.vehicleEndDateMM }} / {{ x.vehicleEndDateDD }} /
+              {{ x.vehicleEndDateYYYY }}
+            </p>
+          </div>
+
+          <div class="vehiclePickUpTime">
+            <p class="sectionLabel">Pick Up Time</p>
+            <p class="sectionData">
+              {{ x.vehiclePickUpTime.optionName }}
+            </p>
+          </div>
+          <div class="vehicleReturnTime">
+            <p class="sectionLabel">Drop Off Time</p>
+            <p class="sectionData">
+              {{ x.vehicleReturnTime.optionName }}
+            </p>
+          </div>
+
+          <div class="vehicleSize">
+            <p class="sectionLabel">Vehicle Type Preferred</p>
+            <p class="sectionData">
+              {{ x.vehicleSize.optionName }}
+            </p>
+          </div>
+
+          <div class="vehiclePickUpLocation">
+            <p class="sectionLabel">Pick Up Location</p>
+            <p class="sectionData">
+              {{ x.vehiclePickUpLocation }}
+            </p>
+          </div>
+
+          <div class="vehicleDropOffLocation">
+            <div>
+              <p class="sectionLabel">Drop Off Location</p>
+              <p class="sectionData">
+                {{ x.vehicleDropOffLocation }}
+              </p>
+            </div>
+          </div>
+          <div class="vehicleDirectBilled">
+            <div>
+              <p class="sectionLabel">Direct Billed</p>
+              <ng-container *ngIf="x.vehicleDirectBilled">
+                <p class="sectionData">
+                  {{ x.vehicleDirectBilled }}
+                </p>
+              </ng-container>
+              <ng-container *ngIf="!x.vehicleDirectBilled">
+                <p class="sectionData">NO</p>
+              </ng-container>
+            </div>
+          </div>
+          <div class="vehiclePickUpDriverName">
+            <div>
+              <p class="sectionLabel">Pick Up/Driver Name</p>
+              <p class="sectionData">
+                {{ x.vehiclePickUpDriverName }}
+              </p>
+            </div>
+          </div>
+          <div class="vehicleBookingComments">
+            <div>
+              <p class="sectionLabel">Comments/Notes</p>
+              <p class="sectionData">
+                {{ x.vehicleBookingComments }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-template #noFlight>
+      <p>NO FLIGHT REQUESTED</p>
+    </ng-template>
+
+    <ng-template #noAccommodation>
+      <p>NO ACCOMMODATION REQUESTED</p>
+    </ng-template>
+
+    <ng-template #noVehicle>
+      <p>NO VEHICLE REQUESTED</p>
+    </ng-template>
+    <!-- #endregion VEHICLE -->
+
+    <!-- #region ADMIN -->
+
+    <!-- #endregion ADMIN -->
+
+  <ng-container *ngIf="x.requestStatus === 'new'">
+
+    <button
+    class="cscButtons"
+    mat-raised-button
+    (click)="updateStatusFn('approved')"
+  >
+   Approve
+  </button>
+  </ng-container>
+  <ng-container *ngIf="x.requestStatus === 'pending'">
+
+    <button
+    class="authorize"
+    mat-raised-button
+    (click)="updateStatusFn('authorized')"
+  >
+   Authorize
+  </button>
+    
+  </ng-container>
+  <ng-container *ngIf="x.requestStatus === 'authorized'">
+    <button
+    class="confirmed"
+    mat-raised-button
+    (click)="updateStatusFn('confirmed')"
+  >
+   Confirm Booking
+  </button>
+    
+  </ng-container>
+ 
+
+  </ng-container>
+
+
+
+  <!-- <div class="buttonRow">
+      <button
+        class="cscButtons"
+        mat-raised-button
+        (click)="submitRequestFn('pending')"
+      >
+       Approve
+      </button>
+      <button
+        class="cscButtons"
+        mat-raised-button
+        (click)="submitRequestFn('draft')"
+      >
+        Save for Later
+      </button>
+    </div> -->
+</div>

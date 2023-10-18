@@ -1,0 +1,44 @@
+::before, ::after {
+  box-sizing: border-box;
+}
+
+.submitBtn {
+  margin: 1rem 0;
+}
+::ng-deep mat-progress-bar  {
+  position: relative;
+  height: 1.5rem!important;
+  width: 30vw!important;
+  background-color: var(--cscMidnightBlue);
+  margin: 1rem 0!important;
+  border-radius: 25px;
+  color: white;
+}
+
+/* ::ng-deep mat-progress-bar::before  {
+content: attr(data-label);
+display: flex;
+align-items: center;
+position: absolute;
+height: 2rem!important;
+top: .5rem;
+left: .5rem;
+bottom: .5rem;
+right: .5rem;
+width: .5rem;
+min-width: .5rem;
+max-width: calc(100% - 1rem);
+background-color: var(--cscLightBlue);
+border-radius: 25px;
+padding: 1rem;
+
+} */
+::ng-deep .mat-progress-bar-buffer {
+  background-color: var(--cscLightBlue)!important;
+
+}
+
+/* ::ng-deep .mat-progress-bar .mat-progress-bar-element, ::ng-deep .mat-progress-bar .mat-progress-bar-fill::after{
+  height:0 !important;
+  width: 0!important;
+} */
