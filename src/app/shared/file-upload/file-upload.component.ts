@@ -101,7 +101,7 @@ form: FormGroup;
       this.fileToUpload = this.selectedFile;
       this.selectedFileSize = this.fileService.bytesToSize(this.selectedFile.size);
       this.showUploadButton = true;
-    //  console.log('CSC File To Upload ', this.fileToUpload);
+    //  console.log('RA File To Upload ', this.fileToUpload);
     }
   }
   async submitFormData() {
@@ -120,7 +120,7 @@ form: FormGroup;
     };
     const storagePath = `${this.firebaseStoragePath}/${this.uploadDocId
 }`;
-console.log('CSC storagePath', storagePath);
+console.log('RA storagePath', storagePath);
     d.itemId = this.uploadDocId;
     // d.documentUrl = this.contractDocumentUrl;
    
@@ -185,9 +185,9 @@ console.log('CSC storagePath', storagePath);
 
      
 
-            console.log('CSC Upload Progress', this.uploadProgress$);
+            console.log('RA Upload Progress', this.uploadProgress$);
 
-            // console.log('CSC Upload Progress', this.uploadProgress$);
+            // console.log('RA Upload Progress', this.uploadProgress$);
             // console.log('getDownloadUrl Progress', downloadUrl$);
             // downloadUrl$.subscribe((d: string) => {
             //   this.downLoadUrlComplete = d;

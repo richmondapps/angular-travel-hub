@@ -1,13 +1,28 @@
 <div class="pageWrapper">
   <div class="buttonRow">
-    <button  [routerLink]="['single-city']" class="cscButtons" matTooltip="Flight" mat-raised-button>
-      <mat-icon inline=true>flight</mat-icon> One Way | Return
+    <button
+      [routerLink]="['single-city']"
+      class="raButtons"
+      matTooltip="Flight"
+      mat-raised-button
+    >
+      <mat-icon inline="true">flight</mat-icon> One Way | Return
     </button>
-    <button  [routerLink]="['multi-city']" class="cscButtons" matTooltip="New" mat-raised-button>
-      <mat-icon inline=true></mat-icon> Multi City
+    <button
+      [routerLink]="['multi-city']"
+      class="raButtons"
+      matTooltip="New"
+      mat-raised-button
+    >
+      <mat-icon inline="true"></mat-icon> Multi City
     </button>
-    <button [routerLink]="['groups']" class="cscButtons" matTooltip="New" mat-raised-button>
-      <mat-icon inline=true></mat-icon> Groups
+    <button
+      [routerLink]="['groups']"
+      class="raButtons"
+      matTooltip="New"
+      mat-raised-button
+    >
+      <mat-icon inline="true"></mat-icon> Groups
     </button>
   </div>
   <router-outlet></router-outlet>
@@ -17,31 +32,30 @@
   </button> -->
 
   <div class="buttonRow">
-    <!-- <button  (click)="changeViewFn('purpose')" class="cscButtons" matTooltip="Flight" mat-raised-button>
+    <!-- <button  (click)="changeViewFn('purpose')" class="raButtons" matTooltip="Flight" mat-raised-button>
       <span class="material-icons">
         settings_suggest
         </span> Purpose
     </button> -->
-    <!-- <button  (click)="flightSection = !flightSection" class="cscButtons" matTooltip="Flight" mat-raised-button>
+    <!-- <button  (click)="flightSection = !flightSection" class="raButtons" matTooltip="Flight" mat-raised-button>
       <mat-icon inline=true>{{!flightSection ? 'flight' : 'check'}}</mat-icon> Flight
     </button>
-    <button  (click)="accommodationSection = !accommodationSection" class="cscButtons" matTooltip="Accommodation" mat-raised-button>
+    <button  (click)="accommodationSection = !accommodationSection" class="raButtons" matTooltip="Accommodation" mat-raised-button>
       <mat-icon inline=true>{{!accommodationSection ? 'hotel' : 'check'}}</mat-icon> Accommodation
     </button>
-    <button  (click)="vehicleSection = !vehicleSection" class="cscButtons" matTooltip="Vehicle" mat-raised-button>
+    <button  (click)="vehicleSection = !vehicleSection" class="raButtons" matTooltip="Vehicle" mat-raised-button>
       <mat-icon inline=true>{{!vehicleSection ? 'drive_eta' : 'check'}}</mat-icon> Vehicle
     </button> -->
-    <!-- <button  (click)="changeViewFn('flights')" class="cscButtons" matTooltip="Flight" mat-raised-button>
+    <!-- <button  (click)="changeViewFn('flights')" class="raButtons" matTooltip="Flight" mat-raised-button>
       <mat-icon inline=true>flight</mat-icon> Flight
     </button> -->
-    <!-- <button (click)="changeViewFn('accommodation')"  class="cscButtons" matTooltip="New" mat-raised-button>
+    <!-- <button (click)="changeViewFn('accommodation')"  class="raButtons" matTooltip="New" mat-raised-button>
       <mat-icon inline=true>hotel</mat-icon> Accommodation
     </button>
-    <button (click)="changeViewFn('vehicle')" class="cscButtons" matTooltip="New" mat-raised-button>
+    <button (click)="changeViewFn('vehicle')" class="raButtons" matTooltip="New" mat-raised-button>
       <mat-icon inline=true>drive_eta</mat-icon> Vehicle
     </button> -->
   </div>
-
 
   <!-- <ng-container *ngIf="isPurpose">
     <ng-template matStepLabel>Reason for Travel</ng-template>
@@ -57,8 +71,7 @@
      </ng-container>
   </ng-container> -->
 
-
-   <!-- <mat-horizontal-stepper [linear]="isLinear" #stepper>
+  <!-- <mat-horizontal-stepper [linear]="isLinear" #stepper>
     <mat-step>
       <ng-template matStepLabel>Reason for Travel</ng-template>
       Purpose
@@ -253,7 +266,4 @@
       <mat-icon>flight</mat-icon>
     </ng-template>
   </mat-horizontal-stepper> -->
-
-
-
 </div>

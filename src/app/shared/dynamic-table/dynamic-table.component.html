@@ -39,21 +39,21 @@
 
               <!-- <div *ngSwitchCase="'recordDetail'">
                 <a (click)="showDetailFn(e[col.columnDef], e[col.docId], col.urlPath)">
-                  <button type="button" mat-raised-button class="cscButtons">Detail</button>
+                  <button type="button" mat-raised-button class="raButtons">Detail</button>
                 </a>
               </div> -->
 
               <div *ngSwitchCase="'signedUrl'">
                 <a (click)="viewCloudFileFn(e[col.columnDef], e.itemDepartment)" target="_blank"
                   rel="noopener noreferrer">
-                  <button appShowSpinner="isSaving" mat-raised-button class="cscBtn">SIGNED URL </button>
+                  <button appShowSpinner="isSaving" mat-raised-button class="raBtn">SIGNED URL </button>
                 </a>
 
               </div>
               <div *ngSwitchCase="'publicUrl'">
                 <a (click)="viewPublicFileFn(e[col.columnDef], e.itemDepartment)" target="_blank"
                   rel="noopener noreferrer">
-                  <button appShowSpinner="isSaving" mat-raised-button class="cscBtn">View </button>
+                  <button appShowSpinner="isSaving" mat-raised-button class="raBtn">View </button>
                 </a>
               </div>
 

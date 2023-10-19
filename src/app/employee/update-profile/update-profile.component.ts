@@ -71,7 +71,7 @@ export class UpdateProfileComponent implements OnInit {
     console.log('personBirthDD', personBirthDD);
     console.log('personBirthMM', personBirthMM);
     console.log('personBirthYYYY', personBirthYYYY);
-    const rootCollection = `cscBranchDirectory`;
+    const rootCollection = `raBranchDirectory`;
     if(e.personBirthDate){
       this.offsetBD = this.dateTimeService.offsetTimezoneDateFn(e.personBirthDate);
     }

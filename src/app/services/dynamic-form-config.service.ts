@@ -89,16 +89,16 @@ export class DynamicFormConfigService {
                 value: 'Concessions - Legends'
               },
               {
-                optionName: ' Guest Services - CSC',
-                value: ' Guest Services - CSC'
+                optionName: ' Guest Services - RA',
+                value: ' Guest Services - RA'
               },
               {
                 optionName: 'Hospitality - Legends',
                 value: 'Hospitality - Legends'
               },
               {
-                optionName: 'Security - CSC',
-                value: 'Security - CSC'
+                optionName: 'Security - RA',
+                value: 'Security - RA'
               },
               {
                 optionName: 'Suites - Legends',
@@ -113,8 +113,8 @@ export class DynamicFormConfigService {
                 value: 'Tours - Legends'
               },
               {
-                optionName: 'Ushers - CSC',
-                value: 'Ushers - CSC'
+                optionName: 'Ushers - RA',
+                value: 'Ushers - RA'
               },
               {
                 optionName: 'Warehouse - Legends',

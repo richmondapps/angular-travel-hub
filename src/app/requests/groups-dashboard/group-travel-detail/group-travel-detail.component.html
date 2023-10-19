@@ -1,74 +1,68 @@
 <div class="addedTable">
-    <div class="goBackBtn">
-        <a		
-        (click)="backButtonWithState()"
-        class="backArrow">
-        <span class="material-icons">
-    arrow_back
-    </span> Go Back
+  <div class="goBackBtn">
+    <a (click)="backButtonWithState()" class="backArrow">
+      <span class="material-icons"> arrow_back </span> Go Back
     </a>
-        </div>
-    <h1>Destination: {{groupTravelArrivalCity}}</h1>
-    <h2>Event: {{groupTravelName}}</h2> 
+  </div>
+  <h1>Destination: {{ groupTravelArrivalCity }}</h1>
+  <h2>Event: {{ groupTravelName }}</h2>
 </div>
 
 <div class="addPerson">
-     <button mat-raised-button class="greenBtn" 
-    (click)="addPersonFn()"><span class="material-icons">
-        playlist_add
-        </span> Add Traveler</button>
-     <button mat-raised-button class="greenBtn" 
-    (click)="availableProfilesFn()"><span class="material-icons">
-        launch
-        </span> Profiles Table</button>
-     <button mat-raised-button class="greenBtn" 
-    (click)="submitGroupRequestFn()"><span class="material-icons">
-        launch
-        </span> Submit</button>
+  <button mat-raised-button class="greenBtn" (click)="addPersonFn()">
+    <span class="material-icons"> playlist_add </span> Add Traveler
+  </button>
+  <button mat-raised-button class="greenBtn" (click)="availableProfilesFn()">
+    <span class="material-icons"> launch </span> Profiles Table
+  </button>
+  <button mat-raised-button class="greenBtn" (click)="submitGroupRequestFn()">
+    <span class="material-icons"> launch </span> Submit
+  </button>
 </div>
-
-<!-- <pre>
-    {{tableData | async | json}}
-</pre> -->
 
 <ng-container *ngIf="isShowErrorMsg">
-<div class="errorWrapper">
+  <div class="errorWrapper">
     <div class="dismiss">
-        <button mat-icon-button class="" 
-       (click)="dismissFn()"><span class="red material-icons">
-           cancel
-           </span></button>
-   </div>  
+      <button mat-icon-button class="" (click)="dismissFn()">
+        <span class="red material-icons"> cancel </span>
+      </button>
+    </div>
 
-   <div class="errorMessage">
+    <div class="errorMessage">
       <ng-container *ngIf="emailArray.length === 1">
         <p>The following group member does not have travel information.</p>
-    </ng-container>
+      </ng-container>
 
-    <ng-container *ngIf="emailArray.length > 1">
+      <ng-container *ngIf="emailArray.length > 1">
         <p>The following group members do not have travel information.</p>
-    </ng-container> 
+      </ng-container>
 
-    <ng-container *ngFor="let x of emailArray">
+      <ng-container *ngFor="let x of emailArray">
         <div class="nameWrapper">
-             <p>- {{x.personLegalNameFirst | titlecase}} {{x.personLegalNameLast | titlecase}} - {{x.personEmail}}</p>
-            </div>      
-            </ng-container>
-            <p>You must update flight information or remove them  before you can submit.</p>
-   </div>
-</div>
+          <p>
+            - {{ x.personLegalNameFirst | titlecase }}
+            {{ x.personLegalNameLast | titlecase }} - {{ x.personEmail }}
+          </p>
+        </div>
+      </ng-container>
+      <p>
+        You must update flight information or remove them before you can submit.
+      </p>
+    </div>
+  </div>
 </ng-container>
 
 <ng-container *ngIf="tableData | async">
-    <div class="dynamicTable" >
-      <app-dynamic-table
+  <div class="dynamicTable">
+    <app-dynamic-table
       id="requestTable"
       (singleRecordValue)="emittedTableDataFn($event)"
       (viewProfile)="viewRecordFn($event)"
       (deleteRecord)="deleteRecordFn($event)"
       [tableData]="tableData"
       [tableHeading]="tableHeading"
-      [tableColumns]="tableCols">
+      [tableColumns]="tableCols"
+    >
     </app-dynamic-table>
-    </div>
-    </ng-container>
+  </div>
+</ng-container>

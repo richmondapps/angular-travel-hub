@@ -12,9 +12,9 @@
           </ng-container>
   
   
-          <button mat-raised-button class="cscButtons" (click)="editBlogFn(a.docId)">Edit</button>
-          <!-- <button mat-raised-button class="cscButtons" (click)="changeSearchType('branchName')">Branch</button>
-          <button mat-raised-button class="cscButtons" (click)="changeSearchType('branchState')">State</button> -->
+          <button mat-raised-button class="raButtons" (click)="editBlogFn(a.docId)">Edit</button>
+          <!-- <button mat-raised-button class="raButtons" (click)="changeSearchType('branchName')">Branch</button>
+          <button mat-raised-button class="raButtons" (click)="changeSearchType('branchState')">State</button> -->
         </div>
       </div>
       <p type="text" name="news_title" id="news_title">{{a.bulletinBoardTitle}}</p>
@@ -42,7 +42,7 @@
       <p type="text" name="newsCopy" id="newsCopy">{{a.bulletinBoardCopy}}
       </p>
       <div class="goBackBtn">
-        <button mat-raised-button (click)="backButtonWithState()" class="cscButtons"><i class="fa fa-mail-reply mr-1"></i>
+        <button mat-raised-button (click)="backButtonWithState()" class="raButtons"><i class="fa fa-mail-reply mr-1"></i>
         Go Back</button>
       </div>
     </div>

@@ -25,7 +25,7 @@ export class EmployeeMytripsComponent implements OnInit {
 
     // try {
     //     this.myTrips = this.readService.returnRecordsOrderByFn(
-    //   `cscEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel`,
+    //   `raEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel`,
     //   'createdDate',
     //   'asc'
     // );
@@ -37,7 +37,7 @@ export class EmployeeMytripsComponent implements OnInit {
 
   changeViewFn(val){
     this.myTrips = this.readService.returnObservableWhereFn(
-      `cscEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel`,
+      `raEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel`,
       'requestStatus',
       val
     );

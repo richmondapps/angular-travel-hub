@@ -22,7 +22,7 @@ export class ReadService {
     ) { }
 
   // getBooks(): Observable<any[]> {
-  //   const booksRef = collection(this.afs, `cscBranchDirectory/san-bernardino/branchVenues`);
+  //   const booksRef = collection(this.afs, `raBranchDirectory/san-bernardino/branchVenues`);
   //   return collectionData(booksRef, { idField: 'id' }) as Observable<any[]>;
   // }
 

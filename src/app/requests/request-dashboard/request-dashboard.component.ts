@@ -12,7 +12,7 @@ import { RequestsService } from '../requests.service';
 @Component({
   selector: 'app-request-dashboard',
   templateUrl: './request-dashboard.component.html',
-  styleUrls: ['./request-dashboard.component.css']
+  styleUrls: ['./request-dashboard.component.css'],
 })
 export class RequestDashboardComponent implements OnInit {
   @ViewChild('stepper') stepper: MatStepper;
@@ -36,11 +36,12 @@ export class RequestDashboardComponent implements OnInit {
   returnFlightClass = 'returnFlightClass';
   accommodationClass = 'accommodationClass';
   vehicleClass = 'vehicleClass';
-requestType: 'flights' | 'accommodation' | 'vehicle' | 'flights' | 'purpose' = 'purpose';
-flightType: 'single' | 'return' | 'multi' = 'return';
-returnFlightFormConfig;
-singleFlightFormConfig;
-multiFlightFormConfig;
+  requestType: 'flights' | 'accommodation' | 'vehicle' | 'flights' | 'purpose' =
+    'purpose';
+  flightType: 'single' | 'return' | 'multi' = 'return';
+  returnFlightFormConfig;
+  singleFlightFormConfig;
+  multiFlightFormConfig;
   loggedInUserEmail: any;
   purposeOfTravelFormConfigFn;
   travelRequestId: any;
@@ -59,12 +60,9 @@ multiFlightFormConfig;
     private readService: ReadService,
     private requestsService: RequestsService,
     public authService: AuthService
-    ) {
-
-    }
+  ) {}
   ngOnInit(): void {
- 
-     this.requestId = JSON.parse(sessionStorage.getItem('TravelRequestId'));
+    this.requestId = JSON.parse(sessionStorage.getItem('TravelRequestId'));
 
     this.loadDataFn();
     this.singleFlightFormConfig = this.requestsService.singleFlightConfigFn();
@@ -74,120 +72,120 @@ multiFlightFormConfig;
     this.vehicleConfig = this.requestsService.vehicleConfigFn();
   }
 
-  fetchSummaryFn(){
-    this.readService.returnObservableWhereFn(
-      `cscEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel`,
-      'travelRequestId',
-      this.requestId
-
-    ).subscribe(d => {
-      if(d?.length){
-        console.log('ITINERAY BUILD',  d);
-      this.request = d;
-      }
-
-    });
+  fetchSummaryFn() {
+    this.readService
+      .returnObservableWhereFn(
+        `raEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel`,
+        'travelRequestId',
+        this.requestId
+      )
+      .subscribe((d) => {
+        if (d?.length) {
+          console.log('ITINERAY BUILD', d);
+          this.request = d;
+        }
+      });
   }
-  goBack(){
+  goBack() {
     this.stepper.previous();
-}
+  }
 
-goForward(){
+  goForward() {
     this.stepper.next();
-}
+  }
 
-async loadDataFn(){
-  this.purposeOfTravelFormConfigFn = await this.requestsService.purposeOfTravelConfigFn(
-    'cscBranchDirectory',
-    'branchName',
-    'asc',
-    'cscEmployeeDirectory',
-    'personLegalNameFirst',
-    'asc'
-    );
+  async loadDataFn() {
+    this.purposeOfTravelFormConfigFn =
+      await this.requestsService.purposeOfTravelConfigFn(
+        'raBranchDirectory',
+        'branchName',
+        'asc',
+        'raEmployeeDirectory',
+        'personLegalNameFirst',
+        'asc'
+      );
+  }
+  flightDataFn(e) {
+    console.log('FLIGHT EVENT', e);
+    if (e.d === 'nextStep') {
+      this.stepper.next();
+    }
 
-}
-flightDataFn(e){
-  console.log('FLIGHT EVENT', e);
-if (e.d === 'nextStep'){
-  this.stepper.next();
-}
-
-if (e.d === 'multiFlight'){
-  this.accommodationSection = false;
-  this.vehicleSection = false;
-} else {
-  this.accommodationSection = true;
-  this.vehicleSection = true;
-}
-
-}
+    if (e.d === 'multiFlight') {
+      this.accommodationSection = false;
+      this.vehicleSection = false;
+    } else {
+      this.accommodationSection = true;
+      this.vehicleSection = true;
+    }
+  }
   emittedChildDataFn(d: any) {
     console.log('Emitted Data', d);
-    this.requestId = JSON.parse(sessionStorage.getItem("TravelRequestId"));
+    this.requestId = JSON.parse(sessionStorage.getItem('TravelRequestId'));
 
-    if(d.flightDeptDate){
+    if (d.flightDeptDate) {
       d.flightDeptDD = d.flightDeptDate.getDate();
       d.flightDeptMM = d.flightDeptDate.getMonth() + 1;
       d.flightDeptYYYY = d.flightDeptDate.getFullYear();
     }
-    if(d.flightReturnDate){
+    if (d.flightReturnDate) {
       d.flightReturnDD = d.flightReturnDate.getDate();
       d.flightReturnMM = d.flightReturnDate.getMonth() + 1;
       d.flightReturnYYYY = d.flightReturnDate.getFullYear();
     }
-    if(d.hotelCheckInDate){
+    if (d.hotelCheckInDate) {
       d.hotelCheckInDD = d.hotelCheckInDate.getDate();
       d.hotelCheckInMM = d.hotelCheckInDate.getMonth() + 1;
       d.hotelCheckInYYYY = d.hotelCheckInDate.getFullYear();
     }
-    if(d.hotelCheckOutDate){
+    if (d.hotelCheckOutDate) {
       d.hotelCheckOutDD = d.hotelCheckOutDate.getDate();
       d.hotelCheckOutMM = d.hotelCheckOutDate.getMonth() + 1;
       d.hotelCheckOutYYYY = d.hotelCheckOutDate.getFullYear();
     }
-    if(d.vehiclePickUpDate){
+    if (d.vehiclePickUpDate) {
       d.vehiclePickUpDD = d.vehiclePickUpDate.getDate();
       d.vehiclePickUpMM = d.vehiclePickUpDate.getMonth() + 1;
       d.vehiclePickUpYYYY = d.vehiclePickUpDate.getFullYear();
     }
-    if(d.vehicleReturnDate){
+    if (d.vehicleReturnDate) {
       d.vehicleReturnDD = d.vehicleReturnDate.getDate();
       d.vehicleReturnMM = d.vehicleReturnDate.getMonth() + 1;
       d.vehicleReturnYYYY = d.vehicleReturnDate.getFullYear();
     }
- const formData = {
-     requestStatus: 'draft',
+    const formData = {
+      requestStatus: 'draft',
       ...d,
       travelRequestId: this.requestId,
-      createdDate: new Date()
+      createdDate: new Date(),
+    };
+
+    if (d.formCSSClass !== 'multiFlightClass') {
+      this.stepper.next();
     }
-
-
-   if(d.formCSSClass !== 'multiFlightClass'){
-    this.stepper.next();
-   }
 
     console.log('Form Data', formData);
 
     try {
-      this.loggedInUserEmail = JSON.parse(sessionStorage.getItem("LoggedInUserEmail"));
+      this.loggedInUserEmail = JSON.parse(
+        sessionStorage.getItem('LoggedInUserEmail')
+      );
 
-      if(d.formCSSClass === 'multiFlightClass'){
+      if (d.formCSSClass === 'multiFlightClass') {
         const multiFlightId = UidGeneratorService.newId();
-       this.createService.createRecordFn(
-     `cscEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel/${this.requestId}/multiFlights`,
-     multiFlightId,
-     formData
-   );
+        this.createService.createRecordFn(
+          `raEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel/${this.requestId}/multiFlights`,
+          multiFlightId,
+          formData
+        );
       } else {
         this.createService.createRecordFn(
-          `cscEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel`,
+          `raEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel`,
           this.requestId,
           formData
         );
       }
-      console.log('Emitted Email',  this.loggedInUserEmail);
+      console.log('Emitted Email', this.loggedInUserEmail);
     } catch (e) {
       console.log('SESSION ERROR', e);
     }
@@ -207,34 +205,33 @@ if (e.d === 'multiFlight'){
     return this.flightType === 'return';
   }
 
-  toggleViewFn(){
+  toggleViewFn() {
     this.flightSection = !this.flightSection;
   }
-  changeViewFn(val){
-this.requestType = val;
+  changeViewFn(val) {
+    this.requestType = val;
   }
 
-get isPurpose(){
-  return this.requestType === 'purpose';
-}
-get isFlights(){
-  return this.requestType === 'flights';
-}
-get isAccommodation(){
-  return this.requestType === 'accommodation';
-}
-get isVehicle(){
-  return this.requestType === 'vehicle';
-}
+  get isPurpose() {
+    return this.requestType === 'purpose';
+  }
+  get isFlights() {
+    return this.requestType === 'flights';
+  }
+  get isAccommodation() {
+    return this.requestType === 'accommodation';
+  }
+  get isVehicle() {
+    return this.requestType === 'vehicle';
+  }
 
-  showFlights(){
+  showFlights() {
     this.showFlightSection = !this.showFlightSection;
   }
-  showAccommodation(){
+  showAccommodation() {
     this.showAccommodationSection = !this.showAccommodationSection;
   }
-  showVehicle(){
+  showVehicle() {
     this.showVehicleSection = !this.showVehicleSection;
   }
-
 }

@@ -12,28 +12,29 @@ const routes: Routes = [
     path: '',
     component: GroupsDashboardComponent,
     children: [
-      {path: '', redirectTo: 'draft', pathMatch: 'full'},
-      {path: 'create', component: GroupTravelTitleComponent},
-      {path: 'draft', component: GroupTravelDraftListComponent},
-    ]    
+      { path: '', redirectTo: 'draft', pathMatch: 'full' },
+      { path: 'create', component: GroupTravelTitleComponent },
+      { path: 'draft', component: GroupTravelDraftListComponent },
+    ],
   },
-  {path: 'detail/:docId', component: GroupTravelDetailComponent},
-  {path: 'detail', component: GroupTravelDetailComponent},
-  {path: 'city', component: GroupTravelArrivalCityComponent},
-  {path: 'travelers', component: SelectGroupTravelersComponent}
+  { path: 'detail/:docId', component: GroupTravelDetailComponent },
+  { path: 'detail', component: GroupTravelDetailComponent },
+  { path: 'city', component: GroupTravelArrivalCityComponent },
+  { path: 'travelers', component: SelectGroupTravelersComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  declarations: []
+  declarations: [],
 })
-export class GroupsDashboardRoutingModule { 
+export class GroupsDashboardRoutingModule {
   static components = [
     GroupsDashboardComponent,
     GroupTravelTitleComponent,
     GroupTravelDraftListComponent,
     GroupTravelDetailComponent,
     GroupTravelArrivalCityComponent,
-    SelectGroupTravelersComponent];
+    SelectGroupTravelersComponent,
+  ];
 }

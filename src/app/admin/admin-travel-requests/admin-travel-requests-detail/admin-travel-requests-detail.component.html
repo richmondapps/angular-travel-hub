@@ -1,6 +1,6 @@
 <div class="requestReviewWrapper">
     <div class="goBackBtn">
-        <button mat-raised-button (click)="backButtonWithState()" class="cscButtons"><i class="fa fa-mail-reply mr-1"></i>
+        <button mat-raised-button (click)="backButtonWithState()" class="raButtons"><i class="fa fa-mail-reply mr-1"></i>
         Go Back</button>
       </div>
   <div class="fileUploadWrapper">
@@ -555,7 +555,7 @@
   <ng-container *ngIf="x.requestStatus === 'new'">
 
     <button
-    class="cscButtons"
+    class="raButtons"
     mat-raised-button
     (click)="updateStatusFn('approved')"
   >
@@ -591,14 +591,14 @@
 
   <!-- <div class="buttonRow">
       <button
-        class="cscButtons"
+        class="raButtons"
         mat-raised-button
         (click)="submitRequestFn('pending')"
       >
        Approve
       </button>
       <button
-        class="cscButtons"
+        class="raButtons"
         mat-raised-button
         (click)="submitRequestFn('draft')"
       >

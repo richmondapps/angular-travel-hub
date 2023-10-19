@@ -14,7 +14,7 @@ import { GroupService } from '../group.service';
 @Component({
   selector: 'app-group-travel-title',
   templateUrl: './group-travel-title.component.html',
-  styleUrls: ['./group-travel-title.component.css']
+  styleUrls: ['./group-travel-title.component.css'],
 })
 export class GroupTravelTitleComponent implements OnInit {
   groupTravelName: any;
@@ -23,7 +23,6 @@ export class GroupTravelTitleComponent implements OnInit {
   showAddGroupTravelTitleInput = false;
   formConfig;
   loggedInUserEmail: any;
- 
 
   constructor(
     private createService: CreateService,
@@ -34,60 +33,63 @@ export class GroupTravelTitleComponent implements OnInit {
     private readService: ReadService,
     private updateService: UpdateService,
     private dateTime: DateAndTimeService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    this.loggedInUserEmail = JSON.parse(sessionStorage.getItem("LoggedInUserEmail"));
+    this.loggedInUserEmail = JSON.parse(
+      sessionStorage.getItem('LoggedInUserEmail')
+    );
   }
 
-  showAddGroupTravelNameFn(){
+  showAddGroupTravelNameFn() {
     this.showAddGroupTravelTitleInput = !this.showAddGroupTravelTitleInput;
     this.formConfig = this.groupTravelService.groupTravelNameFn();
   }
-  
-  startOverFn(){
+
+  startOverFn() {
     this.groupTravelName = null;
     this.showAddGroupTravelTitleInput = true;
     this.formConfig = this.groupTravelService.groupTravelNameFn();
   }
-  
-     async submittedFormData(d: any) {
-      if (d.groupTravelName){
-         this.groupTravelName = d.groupTravelName;
-      }    
-     const docId = UidGeneratorService.newId();
-      const formData = {   
+
+  async submittedFormData(d: any) {
+    if (d.groupTravelName) {
+      this.groupTravelName = d.groupTravelName;
+    }
+    const docId = UidGeneratorService.newId();
+    const formData = {
+      docId,
+      createId: docId,
+      updateId: docId,
+      deleteId: docId,
+      readId: docId,
+      applicationStatus: 'draft',
+      createdDate: new Date(),
+      ...d,
+    };
+    try {
+      this.createService.createRecordFn(
+        `raEmployeeDirectory/${this.loggedInUserEmail}/requestedGroupTravel`,
         docId,
-        createId: docId,
-        updateId: docId,
-        deleteId: docId,
-        readId: docId,
-        applicationStatus: 'draft',
-        createdDate: new Date(),
-        ...d
-      };
-      try {
-        this.createService.createRecordFn(
-          `raEmployeeDirectory/${this.loggedInUserEmail}/requestedGroupTravel`,
-          docId,
-          formData
-        );
-  
-         const snackClass = ['snackSuccess'];
-         const message = `Group Travel document created`;
-         this.snackbarService.openSnackBar(message, snackClass);
-         sessionStorage.setItem('GroupTravelDocId', JSON.stringify(docId));
-         sessionStorage.setItem('GroupTravelName', JSON.stringify(this.groupTravelName));
-         this.router.navigateByUrl('/account/group-travel/city',
-         {state: { docId: docId}});
-  
-        } catch (e) {
-        console.log('ERROR', e.message);
-        const snackClass = ['snackError'];
-        const message = `Operation Failed, please try again.`;
-        this.snackbarService.openSnackBar(message, snackClass);
-      }
-    
+        formData
+      );
+
+      const snackClass = ['snackSuccess'];
+      const message = `Group Travel document created`;
+      this.snackbarService.openSnackBar(message, snackClass);
+      sessionStorage.setItem('GroupTravelDocId', JSON.stringify(docId));
+      sessionStorage.setItem(
+        'GroupTravelName',
+        JSON.stringify(this.groupTravelName)
+      );
+      this.router.navigateByUrl('/account/group-travel/city', {
+        state: { docId: docId },
+      });
+    } catch (e) {
+      console.log('ERROR', e.message);
+      const snackClass = ['snackError'];
+      const message = `Operation Failed, please try again.`;
+      this.snackbarService.openSnackBar(message, snackClass);
     }
   }
-  
+}

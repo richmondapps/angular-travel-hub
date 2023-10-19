@@ -1,36 +1,33 @@
 <div class="pageWrapper">
-
-
   <!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
     {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
   </button> -->
 
   <div class="buttonRow">
-    <!-- <button  (click)="changeViewFn('purpose')" class="cscButtons" matTooltip="Flight" mat-raised-button>
+    <!-- <button  (click)="changeViewFn('purpose')" class="raButtons" matTooltip="Flight" mat-raised-button>
       <span class="material-icons">
         settings_suggest
         </span> Purpose
     </button> -->
-    <!-- <button  (click)="flightSection = !flightSection" class="cscButtons" matTooltip="Flight" mat-raised-button>
+    <!-- <button  (click)="flightSection = !flightSection" class="raButtons" matTooltip="Flight" mat-raised-button>
       <mat-icon inline=true>{{!flightSection ? 'flight' : 'check'}}</mat-icon> Flight
     </button>
-    <button  (click)="accommodationSection = !accommodationSection" class="cscButtons" matTooltip="Accommodation" mat-raised-button>
+    <button  (click)="accommodationSection = !accommodationSection" class="raButtons" matTooltip="Accommodation" mat-raised-button>
       <mat-icon inline=true>{{!accommodationSection ? 'hotel' : 'check'}}</mat-icon> Accommodation
     </button>
-    <button  (click)="vehicleSection = !vehicleSection" class="cscButtons" matTooltip="Vehicle" mat-raised-button>
+    <button  (click)="vehicleSection = !vehicleSection" class="raButtons" matTooltip="Vehicle" mat-raised-button>
       <mat-icon inline=true>{{!vehicleSection ? 'drive_eta' : 'check'}}</mat-icon> Vehicle
     </button> -->
-    <!-- <button  (click)="changeViewFn('flights')" class="cscButtons" matTooltip="Flight" mat-raised-button>
+    <!-- <button  (click)="changeViewFn('flights')" class="raButtons" matTooltip="Flight" mat-raised-button>
       <mat-icon inline=true>flight</mat-icon> Flight
     </button> -->
-    <!-- <button (click)="changeViewFn('accommodation')"  class="cscButtons" matTooltip="New" mat-raised-button>
+    <!-- <button (click)="changeViewFn('accommodation')"  class="raButtons" matTooltip="New" mat-raised-button>
       <mat-icon inline=true>hotel</mat-icon> Accommodation
     </button>
-    <button (click)="changeViewFn('vehicle')" class="cscButtons" matTooltip="New" mat-raised-button>
+    <button (click)="changeViewFn('vehicle')" class="raButtons" matTooltip="New" mat-raised-button>
       <mat-icon inline=true>drive_eta</mat-icon> Vehicle
     </button> -->
   </div>
-
 
   <!-- <ng-container *ngIf="isPurpose">
     <ng-template matStepLabel>Reason for Travel</ng-template>
@@ -46,199 +43,178 @@
      </ng-container>
   </ng-container> -->
 
-
-   <mat-horizontal-stepper [linear]="isLinear" #stepper>
+  <mat-horizontal-stepper [linear]="isLinear" #stepper>
     <mat-step>
       <ng-template matStepLabel>Reason for Travel</ng-template>
       Purpose
-        <!-- <app-travel-purpose></app-travel-purpose> -->
-        <ng-container *ngIf="purposeOfTravelFormConfigFn">
-          <div>
-           <app-dynamic-form
-           (submittedFormData)="emittedChildDataFn($event)"
-           [f]="purposeOfTravelFormConfigFn"
-           [class]="purposeClass" >
-           <span class="btnLabel">Save Purpose</span>
-         </app-dynamic-form>
-     </div>
-       </ng-container>
-        <!-- <div>
+      <!-- <app-travel-purpose></app-travel-purpose> -->
+      <ng-container *ngIf="purposeOfTravelFormConfigFn">
+        <div>
+          <app-dynamic-form
+            (submittedFormData)="emittedChildDataFn($event)"
+            [f]="purposeOfTravelFormConfigFn"
+            [class]="purposeClass"
+          >
+            <span class="btnLabel">Save Purpose</span>
+          </app-dynamic-form>
+        </div>
+      </ng-container>
+      <!-- <div>
           <button mat-button matStepperNext >Next</button>
         </div> -->
     </mat-step>
 
-    <mat-step label="Flights" state="flight" >
-        <!-- <ng-template matStepLabel>Flights</ng-template> -->
-        <!-- <button mat-raised-button (click)="addFlight = !addFlight" id="toggle-linear">
+    <mat-step label="Flights" state="flight">
+      <!-- <ng-template matStepLabel>Flights</ng-template> -->
+      <!-- <button mat-raised-button (click)="addFlight = !addFlight" id="toggle-linear">
           {{!addFlight ? 'Add Flight' : 'No Flight'}}
         </button> -->
-       <!-- <app-flights-dashboard (flightEvent)="flightDataFn($event)"></app-flights-dashboard> -->
+      <!-- <app-flights-dashboard (flightEvent)="flightDataFn($event)"></app-flights-dashboard> -->
 
-
-       <ng-container>
+      <ng-container>
         MULTI
         <div class="multiFlightSection">
-           <ng-container *ngIf="multiFlightFormConfig">
-          <div class="addFlightSection">
-              <app-dynamic-form (submittedFormData)="emittedChildDataFn($event)" [f]="multiFlightFormConfig"
-        [class]="multiFlightClass"
-        >    <span class="btnLabel">Save Flight Leg</span></app-dynamic-form>
-          </div>
-        </ng-container>
+          <ng-container *ngIf="multiFlightFormConfig">
+            <div class="addFlightSection">
+              <app-dynamic-form
+                (submittedFormData)="emittedChildDataFn($event)"
+                [f]="multiFlightFormConfig"
+                [class]="multiFlightClass"
+              >
+                <span class="btnLabel">Save Flight Leg</span></app-dynamic-form
+              >
+            </div>
+          </ng-container>
 
-        <div class="flightList">
-
-          <div *ngFor="let x of multicityLegs | async; let i = index">
-
-            <p>{{ i + 1}}.{{x.flightFromAirport}} -> {{x.flightToAirport}} - {{x.flightDeptMM}}/{{x.flightDeptDD}}/{{x.flightDeptYYYY}}</p>
-
+          <div class="flightList">
+            <div *ngFor="let x of multicityLegs | async; let i = index">
+              <p>
+                {{ i + 1 }}.{{ x.flightFromAirport }} ->
+                {{ x.flightToAirport }} - {{ x.flightDeptMM }}/{{
+                  x.flightDeptDD
+                }}/{{ x.flightDeptYYYY }}
+              </p>
+            </div>
           </div>
         </div>
-        </div>
 
-
-        <button class="cscButtons" mat-raised-button matStepperNext>Next</button>
-      </ng-container>  <!-- <div>
+        <button class="raButtons" mat-raised-button matStepperNext>
+          Next
+        </button>
+      </ng-container>
+      <!-- <div>
           <button mat-button matStepperNext>Next</button>
         </div> -->
     </mat-step>
 
-
-
     <mat-step>
       <ng-template matStepLabel>Review</ng-template>
       <ng-container *ngFor="let x of request">
-
         <ng-container *ngIf="x.flightFromAirport">
           <p>Flight</p>
-        <div class="flightSection">
-          <div class="flightAirportSection grid2">
-            <div >
-              <p><span class="material-icons">
-                flight_takeoff
-                </span>
-                 Flying From</p>
-              <p>{{x.flightFromAirport}}</p>
+          <div class="flightSection">
+            <div class="flightAirportSection grid2">
+              <div>
+                <p>
+                  <span class="material-icons"> flight_takeoff </span> Flying
+                  From
+                </p>
+                <p>{{ x.flightFromAirport }}</p>
+              </div>
+              <div>
+                <p>
+                  <span class="material-icons"> flight_land </span> Flying To
+                </p>
+                <p>{{ x.flightToAirport }}</p>
+              </div>
             </div>
-            <div>
-              <p><span class="material-icons">
-                flight_land
-                </span>
-                 Flying To</p>
-              <p>{{x.flightToAirport}}</p>
+            <div class="flightDateSection grid2">
+              <div>
+                <p>
+                  <span class="material-icons"> event </span> Departure Date
+                </p>
+                <p>{{ x.flightDeptDate | date : 'MM dd, YYYY' }}</p>
+              </div>
+              <div>
+                <p><span class="material-icons"> event </span> Return Date</p>
+                <p>{{ x.flightReturnDate | date : 'MM dd, YYYY' }}</p>
+              </div>
             </div>
-          </div>
-          <div class="flightDateSection grid2">
-            <div >
-              <p><span class="material-icons">
-                event
-                </span>
-                Departure Date</p>
-              <p>{{x.flightDeptDate | date: 'MM dd, YYYY'}}</p>
+            <div class="flightPreferedTimeSection grid2">
+              <div>
+                <p>
+                  <span class="material-icons"> schedule </span> Departure Time
+                </p>
+                <p>{{ x.flightPreferredDepartureTime }}</p>
+              </div>
+              <div>
+                <p>
+                  <span class="material-icons"> schedule </span> Return Time
+                </p>
+                <p>{{ x.flightPreferredReturnTime }}</p>
+              </div>
             </div>
-            <div>
-              <p><span class="material-icons">
-                event
-                </span>
-                Return Date</p>
-              <p>{{x.flightReturnDate | date: 'MM dd, YYYY'}}</p>
-            </div>
-          </div>
-          <div class="flightPreferedTimeSection grid2">
-            <div >
-              <p><span class="material-icons">
-                schedule
-                </span>
-                Departure Time</p>
-              <p>{{x.flightPreferredDepartureTime}}</p>
-            </div>
-            <div>
-              <p><span class="material-icons">
-                schedule
-                </span>
-                Return Time</p>
-              <p>{{x.flightPreferredReturnTime}}</p>
-            </div>
-          </div>
 
-          <div class="flightNotesSection grid1">
-            <div>
-              <p><span class="material-icons">
-                event_note
-                </span>
-               Notes</p>
-              <p>{{x.flightIndividualRequestNotes}}</p>
+            <div class="flightNotesSection grid1">
+              <div>
+                <p><span class="material-icons"> event_note </span> Notes</p>
+                <p>{{ x.flightIndividualRequestNotes }}</p>
+              </div>
             </div>
           </div>
-        </div>
         </ng-container>
-
 
         <ng-container *ngIf="x.hotelCheckInOutDate">
-        <div class="hotelSection">
-          <div class="hotelCheckInOutSection grid2">
-            <div >
-              <p><span class="material-icons">
-                hotel
-                </span>
-                Check-In
+          <div class="hotelSection">
+            <div class="hotelCheckInOutSection grid2">
+              <div>
+                <p>
+                  <span class="material-icons"> hotel </span>
+                  Check-In
                 </p>
-              <p>{{x.start}}</p>
-            </div>
-            <div>
-              <p>
-                <span class="material-icons">
-                  hotel
-                </span>
-                 Check-Out
+                <p>{{ x.start }}</p>
+              </div>
+              <div>
+                <p>
+                  <span class="material-icons"> hotel </span>
+                  Check-Out
                 </p>
-              <p>{{x.end}}</p>
+                <p>{{ x.end }}</p>
+              </div>
+            </div>
+            <div class="flightDateSection grid2">
+              <div>
+                <p><span class="material-icons"> bed </span> Bed Options</p>
+                <p>{{ x.hotelBedOptions }}</p>
+              </div>
+              <div>
+                <p>
+                  <span class="material-icons"> event </span>
+                  Hotel Budget
+                </p>
+                <p>{{ x.hotelBudget }}</p>
+              </div>
+            </div>
+            <div class="hotelLandmarkZip grid2">
+              <div>
+                <p>
+                  <span class="material-icons"> place </span> Preferred Hotel
+                  Location (Landmark/Zip Code)
+                </p>
+                <p>{{ x.hotelLandmarkZip }}</p>
+              </div>
+            </div>
+            <div class="flightNotesSection">
+              <div>
+                <p>
+                  <span class="material-icons"> notes </span> Comments/Notes
+                </p>
+                <p>{{ x.hotelBookingComments }}</p>
+              </div>
             </div>
           </div>
-          <div class="flightDateSection grid2">
-            <div >
-              <p><span class="material-icons">
-                bed
-                </span>
-                Bed Options</p>
-              <p>{{x.hotelBedOptions}}</p>
-            </div>
-            <div>
-              <p><span class="material-icons">
-                event
-                </span>
-                Hotel Budget
-              </p>
-              <p>{{x.hotelBudget}}</p>
-            </div>
-          </div>
-          <div class="hotelLandmarkZip grid2">
-            <div >
-              <p><span class="material-icons">
-                place
-                </span>
-                Preferred Hotel Location (Landmark/Zip Code)</p>
-              <p>{{x.hotelLandmarkZip}}</p>
-            </div>
-
-          </div>
-          <div class="flightNotesSection">
-            <div>
-              <p><span class="material-icons">
-                notes
-                </span>
-                Comments/Notes</p>
-              <p>{{x.hotelBookingComments}}</p>
-            </div>
-          </div>
-
-
-
-        </div>
-
         </ng-container>
-
-        </ng-container>
+      </ng-container>
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button (click)="stepper.reset()">Reset</button>
@@ -249,7 +225,4 @@
       <mat-icon>flight</mat-icon>
     </ng-template>
   </mat-horizontal-stepper>
-
-
-
 </div>

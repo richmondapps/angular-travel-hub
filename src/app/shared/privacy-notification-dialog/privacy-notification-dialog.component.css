@@ -1,6 +1,6 @@
 .titleWrapper {
-  background-color: var(--cscLightBlue);
-  color: var(--cscMidnightBlue);
+  background-color: var(--raLightBlue);
+  color: var(--raMidnightBlue);
   margin: 0;
   padding: 1rem;
 }

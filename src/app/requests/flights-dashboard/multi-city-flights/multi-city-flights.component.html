@@ -22,24 +22,24 @@
     </div>
 
     <div class="multiCityList">
-
-      <p>Total FLights: {{totalFlights}}</p>
+      <p>Total FLights: {{ totalFlights }}</p>
       <ng-container *ngIf="totalFlights >= 2">
-        <button mat-button matStepperNext (click)="fetchSummaryFn()">Finished</button>
+        <button mat-button matStepperNext (click)="fetchSummaryFn()">
+          Finished
+        </button>
       </ng-container>
 
       <ng-container *ngIf="multiCityList | async">
-        <ng-container *ngFor="let x of (multiCityList | async); let i = index">
-          <!-- <pre>
-                {{x | json}}
-              </pre> 
-               -->
-       
-           
+        <ng-container *ngFor="let x of multiCityList | async; let i = index">
           <div class="flightDetails">
             <div class="flightLeg">
-               <button mat-raised-button class="redBtn" 
-              (click)="deleteFn(x.deleteId)">Delete</button>
+              <button
+                mat-raised-button
+                class="redBtn"
+                (click)="deleteFn(x.deleteId)"
+              >
+                Delete
+              </button>
               <p class="bold">Flight {{ i + 1 }}</p>
             </div>
             <div class="flightDate">
@@ -66,9 +66,6 @@
                 </span>
               </p>
             </div>
-            <!-- <span class="flightIcon"><span class="material-icons">
-                flight
-                </span></span> -->
           </div>
         </ng-container>
       </ng-container>

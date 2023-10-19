@@ -9,7 +9,7 @@ import { UidGeneratorService } from 'src/app/services/uid-generator.service';
 @Component({
   selector: 'app-vehicle-dashboard',
   templateUrl: 'vehicle-dashboard.component.html',
-  styleUrls: ['vehicle-dashboard.component.css']
+  styleUrls: ['vehicle-dashboard.component.css'],
 })
 export class VehicleDashboardComponent implements OnInit {
   @ViewChild('stepper') stepper: MatStepper;
@@ -19,12 +19,12 @@ export class VehicleDashboardComponent implements OnInit {
   thirdFormGroup: FormGroup;
   vehicleConfig;
   loggedInUserEmail: any;
-  vehicleDate: { [x: string]: any; };
+  vehicleDate: { [x: string]: any };
   travelRequestId: any;
   purposeClass = 'purposeClass';
-  reasonForTravel ="ReasonForTravel";
+  reasonForTravel = 'ReasonForTravel';
   vehicleSection = true;
-  vehicleClass = "vehicleClass";
+  vehicleClass = 'vehicleClass';
 
   purposeOfTravelFormConfigFn: any;
   constructor(
@@ -32,49 +32,50 @@ export class VehicleDashboardComponent implements OnInit {
     private dateTimeService: DateAndTimeService,
     private router: Router,
     private createService: CreateService
-    ) {}
+  ) {}
 
   ngOnInit(): void {
-    this.loggedInUserEmail = JSON.parse(sessionStorage.getItem('LoggedInUserEmail'));
+    this.loggedInUserEmail = JSON.parse(
+      sessionStorage.getItem('LoggedInUserEmail')
+    );
     this.loadDataFn();
 
-    
     this.vehicleConfig = this.requestsService.vehicleConfigFn();
   }
 
-
-  returnConvertedVehicleDatesFn(vehicleReturnDate){
-
-  const vd = {
-   
-    vehicleReturnDD: vehicleReturnDate.getDate(),
-    vehicleReturnMM: vehicleReturnDate.getMonth() + 2,
-    vehicleReturnYYYY: vehicleReturnDate.getFullYear()
+  returnConvertedVehicleDatesFn(vehicleReturnDate) {
+    const vd = {
+      vehicleReturnDD: vehicleReturnDate.getDate(),
+      vehicleReturnMM: vehicleReturnDate.getMonth() + 2,
+      vehicleReturnYYYY: vehicleReturnDate.getFullYear(),
+    };
+    return vd;
   }
-  return vd;
-}
-  async loadDataFn(){
-    this.purposeOfTravelFormConfigFn = await this.requestsService.purposeOfTravelConfigFn(
-      'cscBranchDirectory',
-      'branchName',
-      'asc',
-      'cscEmployeeDirectory',
-      'personLegalNameFirst',
-      'asc'
+  async loadDataFn() {
+    this.purposeOfTravelFormConfigFn =
+      await this.requestsService.purposeOfTravelConfigFn(
+        'raBranchDirectory',
+        'branchName',
+        'asc',
+        'raEmployeeDirectory',
+        'personLegalNameFirst',
+        'asc'
       );
   }
 
   reasonForTravelDataFn(d: any) {
     console.log('Emitted Data', d);
-if(d.managerWhoApproved){
-  const newRequestId = UidGeneratorService.newId();
-    sessionStorage.setItem("TravelRequestId", JSON.stringify(newRequestId));
-    sessionStorage.removeItem("FlightRequestType");
-     this.travelRequestId = JSON.parse(sessionStorage.getItem("TravelRequestId"));
-}
+    if (d.managerWhoApproved) {
+      const newRequestId = UidGeneratorService.newId();
+      sessionStorage.setItem('TravelRequestId', JSON.stringify(newRequestId));
+      sessionStorage.removeItem('FlightRequestType');
+      this.travelRequestId = JSON.parse(
+        sessionStorage.getItem('TravelRequestId')
+      );
+    }
 
- const formData = {
-     requestStatus: 'draft',
+    const formData = {
+      requestStatus: 'draft',
       ...d,
       docId: this.travelRequestId,
       createId: this.travelRequestId,
@@ -85,56 +86,56 @@ if(d.managerWhoApproved){
       personEmail: this.loggedInUserEmail,
       createdDate: new Date(),
       primaryRequestType: 'vehicle',
-      vehicleRequestLabel: 'Vehicle Rental'
-    }
+      vehicleRequestLabel: 'Vehicle Rental',
+    };
     console.log('Form Data', formData);
     try {
-        this.createService.createRecordFn(
-          `cscEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel`,
-          this.travelRequestId,
-          formData
-        );
-        this.stepper.next();
-      console.log('Emitted Email',  this.loggedInUserEmail);
+      this.createService.createRecordFn(
+        `raEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel`,
+        this.travelRequestId,
+        formData
+      );
+      this.stepper.next();
+      console.log('Emitted Email', this.loggedInUserEmail);
     } catch (e) {
       console.log('Reason for Request Error', e.message);
     }
   }
 
-  
-
   vehicleDataFn(d: any) {
-    this.travelRequestId = JSON.parse(sessionStorage.getItem("TravelRequestId"));
+    this.travelRequestId = JSON.parse(
+      sessionStorage.getItem('TravelRequestId')
+    );
 
     console.log('Emitted Data', d);
-    if(d.vehiclePickUpDate){
-     this.vehicleDate = this.dateTimeService.returnExtractedDatesFn(
-       'vehicle',
+    if (d.vehiclePickUpDate) {
+      this.vehicleDate = this.dateTimeService.returnExtractedDatesFn(
+        'vehicle',
         d.vehiclePickUpDate,
-        d.vehicleReturnDate );
+        d.vehicleReturnDate
+      );
     }
 
- const formData = {
+    const formData = {
       ...d,
       ...this.vehicleDate,
       requestType: 'vehiclePickUp',
-      vehicleRequested: true
-    }
+      vehicleRequested: true,
+    };
     console.log('Form Data', formData);
     try {
-        this.createService.createRecordFn(
-          `cscEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel`,
-          this.travelRequestId,
-          formData
-        );
-        this.router.navigateByUrl('/account/review');
+      this.createService.createRecordFn(
+        `raEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel`,
+        this.travelRequestId,
+        formData
+      );
+      this.router.navigateByUrl('/account/review');
     } catch (e) {
       console.log('Vehicle Request Error', e.message);
     }
   }
 
-  fetchSummaryFn(){
+  fetchSummaryFn() {
     this.router.navigateByUrl('/account/review');
   }
-
 }

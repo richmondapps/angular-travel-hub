@@ -9,21 +9,20 @@ import { RequestsService } from '../requests.service';
 @Component({
   selector: 'app-travel-purpose',
   template: `
-  <!-- <div>
+    <!-- <div>
     <button (click)="loadDataFn()">Get Started</button>
   </div> -->
-  <ng-container *ngIf="showForm">
-     <div>
-      <app-dynamic-form
-      (submittedFormData)="emittedChildDataFn($event)"
-      [f]="purposeOfTravelFormConfigFn">
-    </app-dynamic-form>
-</div>
-  </ng-container>
+    <ng-container *ngIf="showForm">
+      <div>
+        <app-dynamic-form
+          (submittedFormData)="emittedChildDataFn($event)"
+          [f]="purposeOfTravelFormConfigFn"
+        >
+        </app-dynamic-form>
+      </div>
+    </ng-container>
   `,
-  styles: [
-
-  ]
+  styles: [],
 })
 export class TravelPurposeComponent implements OnInit {
   purposeOfTravelFormConfigFn;
@@ -34,30 +33,31 @@ export class TravelPurposeComponent implements OnInit {
     private createService: CreateService,
     private requestsService: RequestsService,
     public authService: AuthService
-    ) {}
+  ) {}
 
   ngOnInit(): void {
     setTimeout(() => {
       this.showForm = true;
     }, 2000);
-   
 
-    this.loadDataFn();   
-    this.loggedInUserEmail = JSON.parse(sessionStorage.getItem('LoggedInUserEmail'));
+    this.loadDataFn();
+    this.loggedInUserEmail = JSON.parse(
+      sessionStorage.getItem('LoggedInUserEmail')
+    );
   }
 
-
-async loadDataFn(){
-  this.purposeOfTravelFormConfigFn = await this.requestsService.purposeOfTravelConfigFn(
-    'cscBranchDirectory',
-    'branchName',
-    'asc',
-    'cscEmployeeDirectory',
-    'personLegalNameFirst',
-    'asc'
-    );
-  this.showForm = true;
-}
+  async loadDataFn() {
+    this.purposeOfTravelFormConfigFn =
+      await this.requestsService.purposeOfTravelConfigFn(
+        'raBranchDirectory',
+        'branchName',
+        'asc',
+        'raEmployeeDirectory',
+        'personLegalNameFirst',
+        'asc'
+      );
+    this.showForm = true;
+  }
 
   emittedChildDataFn(d: any) {
     console.log('Emitted Data', d);
@@ -70,13 +70,14 @@ async loadDataFn(){
     console.log('NEW ENTRY');
     const data = {
       travelRequestId,
-      ...d
+      ...d,
     };
     try {
       this.createService.createRecordFn(
-        `cscEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel`,
+        `raEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel`,
         this.loggedInUserEmail,
-        data);
+        data
+      );
     } catch (error) {
       console.log('Err', error);
     }

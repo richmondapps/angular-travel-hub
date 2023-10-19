@@ -36,12 +36,12 @@ html, body {
 body{
   margin: 0;
   padding: 0;
-  --cscBlue: #242D3C;
-  --cscGold:  #ffc529;
+  --raBlue: #242D3C;
+  --raGold:  #ffc529;
   --width: 0;
-  --cscDarkBlue: #242D3C;
-  --cscLightBlue: #D4E2F4;
-  --cscMidnightBlue: rgba(16, 32, 104); /*#201068 */
+  --raDarkBlue: #242D3C;
+  --raLightBlue: #D4E2F4;
+  --raMidnightBlue: rgba(16, 32, 104); /*#201068 */
 }
 :host .actionButtonLabel {
   color: white;
@@ -63,10 +63,10 @@ h1,h2,h3,h4,h5,h6, p, a {
   background-color: white;
 }
 .eListItem {
-  color:var(--cscGold)!important;
+  color:var(--raGold)!important;
 }
 .routerLinkActive {
-  color:var(--cscGold)!important;
+  color:var(--raGold)!important;
 }
 .loadingGraphic {
   display: flex;
@@ -95,7 +95,7 @@ h1,h2,h3,h4,h5,h6, p, a {
   font-weight: 500;
   border-radius: 3px;
   color: white;
-  background-color: var(--cscMidnightBlue)!important;
+  background-color: var(--raMidnightBlue)!important;
   display: inline-block;
   cursor: pointer;
   margin: .8rem 0;
@@ -217,36 +217,36 @@ a.addRemoveLink {
   background-color: red;
   color: white;
 }
-.cscBtn {
+.raBtn {
   padding: .5rem;
-  background-color: var(--cscBlue);
-  color: var(--cscGold);
+  background-color: var(--raBlue);
+  color: var(--raGold);
 }
-.cscInfoBtn {
+.raInfoBtn {
   padding: .5rem;
-  background-color: var(--cscGold);
-  color: var(--cscBlue);
+  background-color: var(--raGold);
+  color: var(--raBlue);
 }
-.cscButtons {
+.raButtons {
   background: white;
-  color:var(--cscBlue)!important;
-  border: 1px solid var(--cscBlue)!important;
+  color:var(--raBlue)!important;
+  border: 1px solid var(--raBlue)!important;
 }
-.cscButtons:hover, .cscButtons:active, .cscButtons:focus {
-  background-color:  var(--cscLightBlue)!important;
-  border: 1px solid var(--cscBlue)!important;
-  color: var(--cscBlue)!important;
+.raButtons:hover, .raButtons:active, .raButtons:focus {
+  background-color:  var(--raLightBlue)!important;
+  border: 1px solid var(--raBlue)!important;
+  color: var(--raBlue)!important;
 }
 
 .archiveBtn {
   background: lightblue;
-  color:var(--cscBlue)!important;
+  color:var(--raBlue)!important;
   border: 1px solid lightblue!important;
 }
 .archiveBtn:hover, .archiveBtn:active, .archiveBtn:focus {
-  background:  var(--cscBlue)!important;
-  border: 1px solid var(--cscGold)!important;
-  color: var(--cscGold)!important;
+  background:  var(--raBlue)!important;
+  border: 1px solid var(--raGold)!important;
+  color: var(--raGold)!important;
 }
 
 .draft {
@@ -290,10 +290,10 @@ color:white;
 /*  #endregion END BUTTONS */
 
 /* #region TEXT COLORS */
-.cscGoldText {
+.raGoldText {
   color: #ffc529;
  }
- .cscBlue-txt{
+ .raBlue-txt{
  color: #242D3C;
  }
   .red-txt {
@@ -324,11 +324,11 @@ color:white;
 .green-bg{
   background-color: green;
 }
-.cscBlue-bg{
-  background-color: var(--cscBlue);
+.raBlue-bg{
+  background-color: var(--raBlue);
 }
-.cscGold-bg{
-  background-color: var(--cscGold);
+.raGold-bg{
+  background-color: var(--raGold);
 }
 
 .isMoreThan90 {
@@ -395,7 +395,7 @@ color:white;
 }
 .snackInfo {
   margin-top: 85px!important;
-  background: var(--cscMidnightBlue)!important;
+  background: var(--raMidnightBlue)!important;
   color: white;
   width: max-content;
 }

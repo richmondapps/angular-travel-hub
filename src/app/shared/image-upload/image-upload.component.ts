@@ -325,7 +325,7 @@ export class ImageUploadComponent implements OnInit {
 
 
 
-        console.log('CSC Upload Progress', this.uploadProgress$);
+        console.log('RA Upload Progress', this.uploadProgress$);
 
        
       } catch (error) {

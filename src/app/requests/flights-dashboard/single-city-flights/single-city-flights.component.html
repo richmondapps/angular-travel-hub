@@ -1,11 +1,11 @@
 <ng-container *ngIf="singleFlightFormConfig">
-    <app-dynamic-form
+  <app-dynamic-form
     (submittedFormData)="flightDataFn($event)"
     [f]="singleFlightFormConfig"
- [class]="singleFlightClass"
- [requestType]="OneWayRequestName"
- [cancelBtn]="true"
- >
- <span class="btnLabel">Save Flight</span>
-</app-dynamic-form>
- </ng-container>  
+    [class]="singleFlightClass"
+    [requestType]="OneWayRequestName"
+    [cancelBtn]="true"
+  >
+    <span class="btnLabel">Save Flight</span>
+  </app-dynamic-form>
+</ng-container>

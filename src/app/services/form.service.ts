@@ -68,10 +68,10 @@ export class FormService {
     clientCategory: {
       required: 'Category is required.'
     },
-    cscJobOptions: {
+    raJobOptions: {
       required: 'Selection is required.'
     },
-    cscSofiTimeSlots: {
+    raSofiTimeSlots: {
       required: 'Selection is required.'
     },
     incentiveName: {

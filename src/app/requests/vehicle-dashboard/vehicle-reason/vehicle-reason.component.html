@@ -1,17 +1,18 @@
-<div class="flightReasonPageWrapper"> 
-    <ng-container *ngIf="purposeOfTravelFormConfigFn">
-      <div>
-     <p>Reason for Travel</p>   
-      </div>
-      <div>
-       <app-dynamic-form
-       (submittedFormData)="reasonForTravelDataFn($event)"
-       [f]="purposeOfTravelFormConfigFn"
-       [class]="purposeClass" 
-       [requestType]="reasonForTravel"
-       [cancelBtn]="false">
-       <span class="btnLabel">Save Reason for Travel</span>
-     </app-dynamic-form>
-  </div>
-   </ng-container>
-  
+<div class="flightReasonPageWrapper">
+  <ng-container *ngIf="purposeOfTravelFormConfigFn">
+    <div>
+      <p>Reason for Travel</p>
+    </div>
+    <div>
+      <app-dynamic-form
+        (submittedFormData)="reasonForTravelDataFn($event)"
+        [f]="purposeOfTravelFormConfigFn"
+        [class]="purposeClass"
+        [requestType]="reasonForTravel"
+        [cancelBtn]="false"
+      >
+        <span class="btnLabel">Save Reason for Travel</span>
+      </app-dynamic-form>
+    </div>
+  </ng-container>
+</div>

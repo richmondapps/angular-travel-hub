@@ -49,7 +49,7 @@ export class NewProfileComponent implements OnInit {
       personLegalNameMiddle: e.personLegalNameMiddle || '',
       personLegalNameLast: e.personLegalNameLast,
       personCellPhone: e.personCellPhone,
-      cscBranch: e.personCscBranch,
+      raBranch: e.personCscBranch,
     };
 
     const travelObj = {

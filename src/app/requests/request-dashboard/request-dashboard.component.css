@@ -1,7 +1,7 @@
-.mat-stepper-vertical, .mat-stepper-horizontal {
-  width:max-content!important;
+.mat-stepper-vertical,
+.mat-stepper-horizontal {
+  width: max-content !important;
 }
-
 
 .flightSection {
   padding: 1rem;
@@ -76,28 +76,25 @@
   grid-area: jobId;
 }
 
-
-
 .purposeClass {
   display: grid;
   gap: 1rem;
   width: max-content;
   grid-template-areas:
-  "managerWhoApproved billableBranch"
-  "purposeOfTravel jobId"
-  "purposeOfTravelNotes purposeOfTravelNotes"
-  ;
+    'managerWhoApproved billableBranch'
+    'purposeOfTravel jobId'
+    'purposeOfTravelNotes purposeOfTravelNotes';
 }
 .returnFlightClass {
   display: grid;
   gap: 1rem;
   width: max-content;
   grid-template-areas:
-  "flightFromAirport flightToAirport"
-  "flightDeptDate flightReturnDate"
-  "flightPreferredDepartureTime flightPreferredReturnTime"
-  "flightFlexibleDepartureTime flightFlexibleReturnTime"
-  "flightIndividualRequestNotes flightIndividualRequestNotes";
+    'flightFromAirport flightToAirport'
+    'flightDeptDate flightReturnDate'
+    'flightPreferredDepartureTime flightPreferredReturnTime'
+    'flightFlexibleDepartureTime flightFlexibleReturnTime'
+    'flightIndividualRequestNotes flightIndividualRequestNotes';
 }
 /* .singleFlightClass {
   display: grid;
@@ -109,7 +106,6 @@
   ". flightFlexibleDepartureTime"
   "flightIndividualRequestNotes flightIndividualRequestNotes";
 } */
-
 
 .hotelCheckInDate {
   grid-area: hotelCheckInDate;
@@ -127,15 +123,14 @@
   grid-area: hotelBookingComments;
 }
 
-.accommodationClass{
+.accommodationClass {
   display: grid;
   gap: 1rem;
   width: max-content;
   grid-template-areas:
-  "hotelCheckInDate hotelCheckInDate"
-  "hotelBedOptions hotelBudget"
-  "hotelLandmarkZip hotelBookingComments"
-  ;
+    'hotelCheckInDate hotelCheckInDate'
+    'hotelBedOptions hotelBudget'
+    'hotelLandmarkZip hotelBookingComments';
 }
 
 .vehiclePickUpDate {
@@ -169,15 +164,14 @@
   grid-area: vehicleSize;
 }
 
-.vehicleClass{
+.vehicleClass {
   display: grid;
   gap: 1rem;
   width: max-content;
   grid-template-areas:
-  "vehiclePickUpDate vehicleSize"
-  "vehiclePickUpTime vehicleReturnTime"
-  "vehiclePickUpLocation vehicleDropOffLocation"
-  "vehiclePickUpDriverName vehicleBookingComments"
-  "vehicleDirectBilled ."
-  ;
+    'vehiclePickUpDate vehicleSize'
+    'vehiclePickUpTime vehicleReturnTime'
+    'vehiclePickUpLocation vehicleDropOffLocation'
+    'vehiclePickUpDriverName vehicleBookingComments'
+    'vehicleDirectBilled .';
 }

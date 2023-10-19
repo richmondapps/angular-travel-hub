@@ -162,7 +162,7 @@ image-cropper {
   position: relative;
   height: 1.5rem!important;
   width: 30vw!important;
-  background-color: var(--cscMidnightBlue);
+  background-color: var(--raMidnightBlue);
   margin: 1rem 0!important;
   border-radius: 25px;
   color: white;
@@ -181,13 +181,13 @@ right: .5rem;
 width: .5rem;
 min-width: .5rem;
 max-width: calc(100% - 1rem);
-background-color: var(--cscLightBlue);
+background-color: var(--raLightBlue);
 border-radius: 25px;
 padding: 1rem;
 
 } */
 ::ng-deep .mat-progress-bar-buffer {
-  background-color: var(--cscLightBlue)!important;
+  background-color: var(--raLightBlue)!important;
 
 }
 

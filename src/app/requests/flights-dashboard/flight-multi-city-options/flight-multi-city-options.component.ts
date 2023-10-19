@@ -48,7 +48,6 @@ export class FlightMultiCityOptionsComponent implements OnInit {
   }
 
   async addFlightLegAccommodationFn(id) {
-    console.log('MC ID', id);
     const d = await this.readService.returnPromiseWhereFn(
       `raEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel/${this.travelRequestId}/multiFlights`,
       'updateId',
@@ -131,12 +130,9 @@ export class FlightMultiCityOptionsComponent implements OnInit {
     );
     e.pipe(take(1)).subscribe(async (data) => {
       if (!data?.length) {
-        //   console.log('NO ARRAY', data);
+         console.log('NO ARRAY', data);
       } else {
-        //   console.log('IS ARRAY', data);
         this.patchValues = this.dateTime.convertDate(data);
-        //  console.log(data);
-        // this.isShowUpdateEmployeeForm = true;
         const dialogRef = this.dialog.open(EditDocumentDialogComponent, {
           panelClass: 'editDialog',
           data: {
@@ -148,17 +144,13 @@ export class FlightMultiCityOptionsComponent implements OnInit {
           .afterClosed()
           .pipe(take(1))
           .subscribe((res) => {
-            // console.log('Form Data', res.data);
             if (!res.data) {
               return;
             } else {
-              // console.log('BLOG RES DATA', res.data);
               const data = this.dateTime.convertDate(res.data);
               const formData = {
                 ...data,
               };
-              console.log('Form Data', formData);
-              console.log('ID', formData);
               this.createService.createRecordFn(
                 `raEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel/${this.travelRequestId}/multiFlights`,
                 id,

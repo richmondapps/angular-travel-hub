@@ -210,7 +210,7 @@ this.createService.createRecordFn(
     console.log('personBirthDD', personBirthDD);
     console.log('personBirthMM', personBirthMM);
     console.log('personBirthYYYY', personBirthYYYY);
-    const rootCollection = `cscBranchDirectory`;
+    const rootCollection = `raBranchDirectory`;
     if(e.personBirthDate){
       this.offsetBD = this.dateTimeService.offsetTimezoneDateFn(e.personBirthDate);
     }
@@ -272,7 +272,7 @@ this.createService.createRecordFn(
 
     // try {
     //   this.createService.createRecordFn(
-    //     `cscExecutives`,
+    //     `raExecutives`,
     //     e.email,
     //     formData
     //   )

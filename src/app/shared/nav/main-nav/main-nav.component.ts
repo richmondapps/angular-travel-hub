@@ -53,7 +53,7 @@ ngOnInit(){
   this.miscImages = this.readService.returnObservableWhereFn(
     `${GlobalConstants.corporateMiscImages}`,
     'imageTitle',
-    'csc-gold-logo'
+    'ra-gold-logo'
   )
 
   this.breakpointObserver.observe([

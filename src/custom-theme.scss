@@ -7,7 +7,7 @@
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
 @include mat.core();
-$mat-csc: (
+$mat-ra: (
   50 : #e4e2ed,
   100 : #bcb7d2,
   200 : #9088b4,
@@ -43,17 +43,17 @@ $mat-csc: (
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$csc-primary: mat.define-palette($mat-csc);
-$csc-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$ra-primary: mat.define-palette($mat-ra);
+$ra-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
-$csc-warn: mat.define-palette(mat.$red-palette);
+$ra-warn: mat.define-palette(mat.$red-palette);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$csc-theme: mat.define-light-theme($csc-primary, $csc-accent, $csc-warn);
+$ra-theme: mat.define-light-theme($ra-primary, $ra-accent, $ra-warn);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include mat.all-component-themes($csc-theme);
+@include mat.all-component-themes($ra-theme);
 

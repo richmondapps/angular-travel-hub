@@ -36,10 +36,10 @@ service cloud.firestore {
     	return get(/databases/$(database)/documents/laAuthorizedStaff/$(request.auth.uid)).data;
     }    
     function getUserData(){
-    	return get(/databases/$(database)/documents/cscEmployeeDirectory/$(request.auth.uid)).data;
+    	return get(/databases/$(database)/documents/raEmployeeDirectory/$(request.auth.uid)).data;
     }    
     function getResourceAuthUserData(){
-    	return get(/databases/$(database)/documents/cscEmployeeDirectory/$(request.auth.uid)).data;
+    	return get(/databases/$(database)/documents/raEmployeeDirectory/$(request.auth.uid)).data;
     }    
     function isEmailVerified() {
       return request.auth.token.email_verified;
@@ -60,48 +60,31 @@ service cloud.firestore {
     }
     
     
-// CSC GIVEAWAYS - START
-    match /cscGiveaways/{docId}{
-      allow read, write;
-    }    
-      match /cscGiveawaysBackUp/{docId}{
-      allow read, write;
-    } 
-    match /cscAdministrativeGiveaways/{docId}{
-      allow read, write;
-    }
-    match /cscGiveaways/{docId}/hoursPerJob/{subDocId}{
-      allow read, write;
-    }
-    match /cscGiveawaysNotificationRecipients/{docId}{
-      allow read, write;
-    }
-// CSC GIVEAWAYS - END
 
 // START ONLINE TRAINING
-    match /cscOnlineTraining/{docId}{
+    match /raOnlineTraining/{docId}{
       allow read, write;
     }  
-    match /cscOnlineTrainingAuth/{docId}{
-     allow read: if isAuthUser('cscOnlineTrainingAuth');
+    match /raOnlineTrainingAuth/{docId}{
+     allow read: if isAuthUser('raOnlineTrainingAuth');
       allow write;
     }   
-    match /cscOnlineTraining/{docId}/courseQuestions/{id}{
+    match /raOnlineTraining/{docId}/courseQuestions/{id}{
       allow read, write;
     }
-    match /cscOnlineTraining/{docId}/courseAnswers/{id}{
+    match /raOnlineTraining/{docId}/courseAnswers/{id}{
       allow read, write;
     }
-    match /cscOnlineTraining/{docId}/courseQuestions/{id}/answers/{answerId}{
+    match /raOnlineTraining/{docId}/courseQuestions/{id}/answers/{answerId}{
       allow read, write;
     }
-    match /cscOnlineTrainingAccounts/{docId}{
+    match /raOnlineTrainingAccounts/{docId}{
       allow read, write;
     }
-    match /cscOnlineTrainingAccounts/{docId}/completedCourses/{courseId}{
+    match /raOnlineTrainingAccounts/{docId}/completedCourses/{courseId}{
       allow read, write;
     }
-     match /cscOnlineTraining/{docId}/courseQuizQuestions/{courseId}{
+     match /raOnlineTraining/{docId}/courseQuizQuestions/{courseId}{
       allow read, write;
     }
 // END ONLINE TRAINING
@@ -115,43 +98,43 @@ service cloud.firestore {
     match /corpBranchTest/{docId}/venueEvents/{fileId}{
     	allow read, write;
     }
-      match /cscOnboardingAuthUsers/{docId}{
+      match /raOnboardingAuthUsers/{docId}{
     	allow read, write;
     }
        match /{path=**}/assignedHardware/{docId}{
     allow read, write: if isLoggedIn();
     }
     
-    match /cscEmployeeOnboardingTmp/{docId}{
+    match /raEmployeeOnboardingTmp/{docId}{
       allow read, write;
     }
     
-    match /cscCorporate/{branchId}{
+    match /raCorporate/{branchId}{
       allow read, write;
     }
   
-    match /cscCorporate/{branchId}/cscEmployeeDirectory/{docId}/requestedAccounting/{subDocId}{
+    match /raCorporate/{branchId}/raEmployeeDirectory/{docId}/requestedAccounting/{subDocId}{
       allow read, write;
     }
     
 // START EMPLOYEE DIRECTORY
-   match /cscEmployeeDirectory/{docId}{
+   match /raEmployeeDirectory/{docId}{
       allow read;
       allow write;
     }
-    match /cscEmployeeDirectory/{docId}/employeeProfile/{subDocId}{
+    match /raEmployeeDirectory/{docId}/employeeProfile/{subDocId}{
       allow read;
       allow write: if isLoggedIn();
     }    
-    match /cscEmployeeDirectory/{empId}/emailNotificationAuthorization/{docId}{
+    match /raEmployeeDirectory/{empId}/emailNotificationAuthorization/{docId}{
       allow read;
       allow write;
     }    
-    match /cscEmployeeDirectory/{docId}/myEvents/{subDocId}{
+    match /raEmployeeDirectory/{docId}/myEvents/{subDocId}{
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     }    
-    match /cscEmployeeDirectory/{empId}/cellPhoneNotificationAuthorization/{docId}{
+    match /raEmployeeDirectory/{empId}/cellPhoneNotificationAuthorization/{docId}{
        allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     }    
@@ -167,121 +150,121 @@ service cloud.firestore {
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     }
-    match /cscEmployeeDirectory/{docId}/requestedAccounting/{subDocId}{
+    match /raEmployeeDirectory/{docId}/requestedAccounting/{subDocId}{
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     }    
-    match /cscEmployeeDirectory/{docId}/assignedAccounting/{subDocId}{
+    match /raEmployeeDirectory/{docId}/assignedAccounting/{subDocId}{
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     } 
-    match /cscEmployeeDirectory/{docId}/requestedHR/{subDocId}{
+    match /raEmployeeDirectory/{docId}/requestedHR/{subDocId}{
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     }    
-    match /cscEmployeeDirectory/{docId}/resume/{resumeDocId}{
+    match /raEmployeeDirectory/{docId}/resume/{resumeDocId}{
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     }    
-    match /cscEmployeeDirectory/{docId}/assignedHR/{subDocId}{
+    match /raEmployeeDirectory/{docId}/assignedHR/{subDocId}{
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     }
-    match /cscEmployeeDirectory/{docId}/hardware/{subDocId}{
+    match /raEmployeeDirectory/{docId}/hardware/{subDocId}{
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     }
-      match /cscEmployeeDirectory/{docId}/phoneOptIns/{subDocId}{
+      match /raEmployeeDirectory/{docId}/phoneOptIns/{subDocId}{
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     }
-      match /cscEmployeeDirectory/{docId}/optedInPhoneAuthorization/{phoneId}/optInInfo/{infoId}{
+      match /raEmployeeDirectory/{docId}/optedInPhoneAuthorization/{phoneId}/optInInfo/{infoId}{
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     }
     
-     match /cscEmployeeDirectory/{docId}/assignedHardware/{subDocId}{
+     match /raEmployeeDirectory/{docId}/assignedHardware/{subDocId}{
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     }
-     match /cscEmployeeDirectory/{docId}/requestedHardware/{subDocId}{
+     match /raEmployeeDirectory/{docId}/requestedHardware/{subDocId}{
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     }
-    match /cscEmployeeDirectory/{docId}/returnedHardware/{subDocId}{
+    match /raEmployeeDirectory/{docId}/returnedHardware/{subDocId}{
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     }
-    match /cscEmployeeDirectory/{docId}/assignedSoftware/{subDocId}{
+    match /raEmployeeDirectory/{docId}/assignedSoftware/{subDocId}{
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     }
-     match /cscEmployeeDirectory/{docId}/requestedSoftware/{subDocId}{
+     match /raEmployeeDirectory/{docId}/requestedSoftware/{subDocId}{
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     }
-    match /cscEmployeeDirectory/{docId}/returnedSoftware/{subDocId}{
+    match /raEmployeeDirectory/{docId}/returnedSoftware/{subDocId}{
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     }
-     match /cscEmployeeDirectory/{docId}/requestedDrives/{subDocId}{
+     match /raEmployeeDirectory/{docId}/requestedDrives/{subDocId}{
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     }
-    match /cscEmployeeDirectory/{docId}/assignedDrives/{subDocId}{
+    match /raEmployeeDirectory/{docId}/assignedDrives/{subDocId}{
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     }      
-    match /cscEmployeeDirectory/{docId}/returnedHardware/{subDocId}{
+    match /raEmployeeDirectory/{docId}/returnedHardware/{subDocId}{
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     } 
-    match /cscEmployeeDirectory/{docId}/requestedLegal/{subDocId}{
+    match /raEmployeeDirectory/{docId}/requestedLegal/{subDocId}{
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     }
-    match /cscEmployeeDirectory/{docId}/assignedLegal/{subDocId}{
+    match /raEmployeeDirectory/{docId}/assignedLegal/{subDocId}{
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     }
-    match /cscEmployeeDirectory/{docId}/requestedPayroll/{subDocId}{
+    match /raEmployeeDirectory/{docId}/requestedPayroll/{subDocId}{
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     }    
-    match /cscEmployeeDirectory/{docId}/assignedPayroll/{subDocId}{
+    match /raEmployeeDirectory/{docId}/assignedPayroll/{subDocId}{
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     }    
-    match /cscEmployeeDirectory/{docId}/requestedTravel/{subDocId}{
+    match /raEmployeeDirectory/{docId}/requestedTravel/{subDocId}{
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     }    
-    match /cscEmployeeDirectory/{docId}/rewardMemberships/{subDocId}{
+    match /raEmployeeDirectory/{docId}/rewardMemberships/{subDocId}{
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     }
     
-    match /cscEmployeeDirectory/{docId}/requestedTravel/{subDocId}/multiFlights/{flightId}{
+    match /raEmployeeDirectory/{docId}/requestedTravel/{subDocId}/multiFlights/{flightId}{
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     }
-    match /cscEmployeeDirectory/{docId}/travelProfile/{subDocId}{
+    match /raEmployeeDirectory/{docId}/travelProfile/{subDocId}{
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     }
-      match /cscEmployeeDirectory/{docId}/travelRewardsAccommodation/{subDocId}{
+      match /raEmployeeDirectory/{docId}/travelRewardsAccommodation/{subDocId}{
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     }
-      match /cscEmployeeDirectory/{docId}/travelRewardsAirline/{subDocId}{
+      match /raEmployeeDirectory/{docId}/travelRewardsAirline/{subDocId}{
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     }
-      match /cscEmployeeDirectory/{docId}/travelRewardsVehicle/{subDocId}{
+      match /raEmployeeDirectory/{docId}/travelRewardsVehicle/{subDocId}{
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     }
-     match /cscEmployeeDirectory/{docId}/travelRewardPrograms/{subDocId}{
+     match /raEmployeeDirectory/{docId}/travelRewardPrograms/{subDocId}{
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     }
@@ -289,141 +272,141 @@ service cloud.firestore {
      
 // START BRANCH DIRECTORY
     
-    match /cscBranchDirectory/{branchName}/aboutUs/{docId}{
+    match /raBranchDirectory/{branchName}/aboutUs/{docId}{
       allow read;
       allow write: if isLoggedIn();
     }
-    match /cscBranchDirectory/{branchName}/availableJobs/{jobId}{
+    match /raBranchDirectory/{branchName}/availableJobs/{jobId}{
       allow read;
       allow write: if isLoggedIn();
     } 
-    match /cscBranchDirectory/{branchName}/branchEmail/{emailId}{
+    match /raBranchDirectory/{branchName}/branchEmail/{emailId}{
       allow read;
       allow write: if isLoggedIn();
     } 
-    match /cscBranchDirectory/{branchName}/availableJobs/{jobId}/positionEmailRecipients/{emailId}{
+    match /raBranchDirectory/{branchName}/availableJobs/{jobId}/positionEmailRecipients/{emailId}{
       allow read;
       allow create: if isLoggedIn();
       allow write: if isLoggedIn();
     }    
-    match /cscBranchDirectory/{branchName}/availableJobs/{jobId}/jobApplications/{applicationId}{
+    match /raBranchDirectory/{branchName}/availableJobs/{jobId}/jobApplications/{applicationId}{
       allow read;
       allow create: if isLoggedIn();
       allow write: if isLoggedIn();
     }
-    match /cscBranchDirectory/{branchName}/branchEmployees/{docId}{
+    match /raBranchDirectory/{branchName}/branchEmployees/{docId}{
       allow read;
       allow write: if isLoggedIn();
     }
-    match /cscBranchDirectory/{branchName}/branchIncentives/{incentiveId}{
+    match /raBranchDirectory/{branchName}/branchIncentives/{incentiveId}{
       allow read;
       allow write: if isLoggedIn();
     }    
-    match /cscBranchDirectory/{branchName}/branchBlog/{docId}{
+    match /raBranchDirectory/{branchName}/branchBlog/{docId}{
       allow read;
       allow write: if isLoggedIn();
     }  
-    match /cscBranchDirectory/{branchName}/branchAuthUsers/{docId}{
+    match /raBranchDirectory/{branchName}/branchAuthUsers/{docId}{
       allow read;
       allow write: if isLoggedIn();
     }    
-    match /cscBranchDirectory/{branchName}/branchDepartments/{deptId}{
+    match /raBranchDirectory/{branchName}/branchDepartments/{deptId}{
       allow read;
       allow write: if isLoggedIn();
     }    
-    match /cscBranchDirectory/{branchName}/branchDepartments/{deptId}/deptStaff/{staffId}{
+    match /raBranchDirectory/{branchName}/branchDepartments/{deptId}/deptStaff/{staffId}{
       allow read;
       allow write: if isLoggedIn();
     }    
-    match /cscBranchDirectory/{branchName}/branchVenues/{docId}{
+    match /raBranchDirectory/{branchName}/branchVenues/{docId}{
       allow read;
       allow write: if isLoggedIn();
     }    
-    match /cscBranchDirectory/{branchName}/branchVenues/{venueId}/venueStaff/{staffId}{
+    match /raBranchDirectory/{branchName}/branchVenues/{venueId}/venueStaff/{staffId}{
       allow read;
       allow write;
     }
-    match /cscBranchDirectory/{branchName}/branchVenues/{venueId}/venueEvents/{eventId}{
+    match /raBranchDirectory/{branchName}/branchVenues/{venueId}/venueEvents/{eventId}{
       allow read;
       allow write: if isLoggedIn();
     }    
-    match /cscBranchDirectory/{branchName}/branchVenues/{venueId}/branchEvents/{eventId}{
+    match /raBranchDirectory/{branchName}/branchVenues/{venueId}/branchEvents/{eventId}{
       allow read;
       allow write: if isLoggedIn();
     }  
-    match /cscBranchDirectory/{branchName}/branchVenues/{venueId}/smsChatMessages/{eventId}{
+    match /raBranchDirectory/{branchName}/branchVenues/{venueId}/smsChatMessages/{eventId}{
       allow read;
       allow write: if isLoggedIn();
     }  
-     match /cscBranchDirectory/{branchName}/branchVenues/{venueId}/optedInPhoneAuthorization/{phoneId}{
+     match /raBranchDirectory/{branchName}/branchVenues/{venueId}/optedInPhoneAuthorization/{phoneId}{
       allow read;
       allow write: if isLoggedIn();
     }
-    match /cscBranchDirectory/{branchName}/branchVenues/{venueId}/branchEvents/{eventId}/workEventRequests/{requestId}{
+    match /raBranchDirectory/{branchName}/branchVenues/{venueId}/branchEvents/{eventId}/workEventRequests/{requestId}{
       allow read;
       allow write: if isLoggedIn();
     }    
-    match /cscBranchDirectory/{branchName}/bugReport/{docId}{
+    match /raBranchDirectory/{branchName}/bugReport/{docId}{
       allow read;
       allow write: if isLoggedIn();
     }
-    match /cscBranchDirectory/{branchName}/bugReport/{docId}/bugReportAttachments/{id}{
+    match /raBranchDirectory/{branchName}/bugReport/{docId}/bugReportAttachments/{id}{
       allow read;
       allow write: if isLoggedIn();
     }
-    match /cscBranchDirectory/{branchName}/clientsPastPresent/{docId}{
+    match /raBranchDirectory/{branchName}/clientsPastPresent/{docId}{
       allow read;
       allow write: if isLoggedIn();
     }
-    match /cscBranchDirectory/{branchName}/consentedEmailContact/{docId}{
+    match /raBranchDirectory/{branchName}/consentedEmailContact/{docId}{
       allow read;
       allow write: if isLoggedIn();
     }
-    match /cscBranchDirectory/{branchName}/corporateExecutives/{docId}{
+    match /raBranchDirectory/{branchName}/corporateExecutives/{docId}{
       allow read;
       allow write: if isLoggedIn();
     }    
-    match /cscBranchDirectory/{branchName}/corporateExecutives/{docId}/certificates/{certId}{
+    match /raBranchDirectory/{branchName}/corporateExecutives/{docId}/certificates/{certId}{
       allow read;
       allow write: if isLoggedIn();
     }    
-    match /cscBranchDirectory/{branchName}/faqTopics/{faqId}{
+    match /raBranchDirectory/{branchName}/faqTopics/{faqId}{
       allow read;
       allow write: if isLoggedIn();
     }    
-    match /cscBranchDirectory/{branchName}/faqTopics/{faqId}/questionsAnswers/{qaId}{
+    match /raBranchDirectory/{branchName}/faqTopics/{faqId}/questionsAnswers/{qaId}{
       allow read;
       allow write: if isLoggedIn();
     }
-    match /cscBranchDirectory/{branchName}/legal/{topicId}{
+    match /raBranchDirectory/{branchName}/legal/{topicId}{
       allow read;
       allow write: if isLoggedIn();
     }
-    match /cscBranchDirectory/{branchName}/legal/{topicId}/mainDoc/{docId}{
+    match /raBranchDirectory/{branchName}/legal/{topicId}/mainDoc/{docId}{
       allow read;
       allow write: if isLoggedIn();
     }
-    match /cscBranchDirectory/{branchName}/legal/{topicId}/mainDoc/{docId}/list/{listId}{
+    match /raBranchDirectory/{branchName}/legal/{topicId}/mainDoc/{docId}/list/{listId}{
       allow read;
       allow write: if isLoggedIn();
     }
-     match /cscBranchDirectory/{branchName}/miscImages/{imgId}{
+     match /raBranchDirectory/{branchName}/miscImages/{imgId}{
       allow read;
       allow write: if isLoggedIn();
     }
-      match /cscBranchDirectory/{branchName}/miscDocuments/{imgId}{
+      match /raBranchDirectory/{branchName}/miscDocuments/{imgId}{
       allow read;
       allow write: if isLoggedIn();
     }
-    match /cscBranchDirectory/{branchName}/homepageVideo/{vidId}{
+    match /raBranchDirectory/{branchName}/homepageVideo/{vidId}{
       allow read;
       allow write: if isLoggedIn();
     }
-    match /cscBranchDirectory/{branchName}/missionStatement/{docId}{
+    match /raBranchDirectory/{branchName}/missionStatement/{docId}{
       allow read;
       allow write: if isLoggedIn();
     }    
-    match /cscBranchDirectory/{branchName}/onlineTrainingEmailRecipients/{docId}{
+    match /raBranchDirectory/{branchName}/onlineTrainingEmailRecipients/{docId}{
       allow read;
       allow write: if isLoggedIn();
     }   
@@ -431,55 +414,55 @@ service cloud.firestore {
       allow read;
       allow write: if isLoggedIn();
     }  
-    match /cscBranchDirectory/{branchName}/onlineTrainingResults/{docId}{
+    match /raBranchDirectory/{branchName}/onlineTrainingResults/{docId}{
       allow read;
       allow write;
     }
-      match /cscBranchDirectory/{branchName}/onlineTrainingResults/{docId}/quizAnswers/{quizId}{
+      match /raBranchDirectory/{branchName}/onlineTrainingResults/{docId}/quizAnswers/{quizId}{
       allow read;
       allow write;
     }
-    match /cscBranchDirectory/{branchName}/onboardingBranchEmployee/{docId}{
+    match /raBranchDirectory/{branchName}/onboardingBranchEmployee/{docId}{
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     }
-    match /cscBranchDirectory/{branchName}/onboardingBranchEmployee/{docId}/requestedHardware/{subDocId}{
+    match /raBranchDirectory/{branchName}/onboardingBranchEmployee/{docId}/requestedHardware/{subDocId}{
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     }    
-    match /cscBranchDirectory/{branchName}/onboardingBranchEmployee/{docId}/requestedSoftware/{subDocId}{
+    match /raBranchDirectory/{branchName}/onboardingBranchEmployee/{docId}/requestedSoftware/{subDocId}{
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     }
-     match /cscBranchDirectory/{branchName}/onboardingBranchEmployee/{docId}/assignedHardware/{subDocId}{
+     match /raBranchDirectory/{branchName}/onboardingBranchEmployee/{docId}/assignedHardware/{subDocId}{
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     }
-     match /cscBranchDirectory/{branchName}/onboardingBranchEmployee/{docId}/assignedSoftware/{subDocId}{
+     match /raBranchDirectory/{branchName}/onboardingBranchEmployee/{docId}/assignedSoftware/{subDocId}{
       allow read: if isLoggedIn();
       allow write: if isLoggedIn();
     }
-     match /cscBranchDirectory/{branchName}/services/{docId}{
+     match /raBranchDirectory/{branchName}/services/{docId}{
       allow read;
       allow write;
     }
-     match /cscBranchDirectory/{branchName}/smsChatMessages/{docId}{
+     match /raBranchDirectory/{branchName}/smsChatMessages/{docId}{
       allow read;
       allow write: if isLoggedIn();
     }
-     match /cscBranchDirectory/{branchName}/smsChatPhoneNumbers/{number}{
+     match /raBranchDirectory/{branchName}/smsChatPhoneNumbers/{number}{
       allow read;
       allow write;
     }    
-    match /cscBranchDirectory/{branchName}/smsChatPhoneNumbers/{number}/smsChatMessages/{docId}{
+    match /raBranchDirectory/{branchName}/smsChatPhoneNumbers/{number}/smsChatMessages/{docId}{
       allow read;
       allow write;
     }
-    match /cscBranchDirectory/{branchName}/sofiJobFairAuthUsers/{docId}{
+    match /raBranchDirectory/{branchName}/sofiJobFairAuthUsers/{docId}{
       allow read;
       allow write: if isLoggedIn();
     }
-    match /cscBranchDirectory/{branchName}/textNotifications/{docId}{
+    match /raBranchDirectory/{branchName}/textNotifications/{docId}{
       allow read;
       allow write: if isLoggedIn();
     }      
@@ -487,30 +470,30 @@ service cloud.firestore {
       allow read;
       allow write: if isLoggedIn();
     }    
-    match /cscBranchDirectory/{branchName}/sofiJobFair/{docId}{
+    match /raBranchDirectory/{branchName}/sofiJobFair/{docId}{
       allow read: if isLoggedIn();
       allow create;
       allow delete: if isLoggedIn();
     }
-      match /cscBranchDirectory/{branchName}/superBowlJobFair/{docId}{
+      match /raBranchDirectory/{branchName}/superBowlJobFair/{docId}{
       allow read: if canRead('superBowlJobFairAuthUsers');
       allow create;
       allow delete: if isLoggedIn();
     }
     
-    match /cscBranchDirectory/{branchName}/superBowlJobFairAuthUsers/{docId}{
+    match /raBranchDirectory/{branchName}/superBowlJobFairAuthUsers/{docId}{
       allow read: if isLoggedIn();
       allow create;
       allow delete: if isLoggedIn();
     }
     
       function canRead(collection){
- return get(/databases/$(database)/documents/cscBranchDirectory/los-angeles/$(collection)/$(request.auth.token.email)).data.isAdmin == true;
+ return get(/databases/$(database)/documents/raBranchDirectory/los-angeles/$(collection)/$(request.auth.token.email)).data.isAdmin == true;
  }
  
 // END BRANCH DIRECTORY
     
-    match /cscCorporateAuthorizedUsers/{docId}{
+    match /raCorporateAuthorizedUsers/{docId}{
       allow read;
       allow write: if isLoggedIn();
     }
@@ -518,7 +501,7 @@ service cloud.firestore {
       allow read;
       allow write: if isLoggedIn();
     }
-    match /cscExecutives/{docId}{
+    match /raExecutives/{docId}{
       allow read;
       allow write: if isLoggedIn();
     }
@@ -526,52 +509,52 @@ service cloud.firestore {
        allow read;
        allow write: if isLoggedIn();
     }    
-    match /cscAdminAuthUsers/{docId}{
+    match /raAdminAuthUsers/{docId}{
       allow read;
       allow write: if isLoggedIn();
     }
-     match /cscBranchStaffDirectory/{docId}{
+     match /raBranchStaffDirectory/{docId}{
       allow read;
       allow write: if isLoggedIn();
     }    
-    match /cscExperienceOverview/{docId}{
+    match /raExperienceOverview/{docId}{
       allow read;
       allow write: if isLoggedIn();
     }    
-    match /cscExperienceOverview/{docId}/clientDetail/{clientId}{
+    match /raExperienceOverview/{docId}/clientDetail/{clientId}{
       allow read;
       allow write: if isLoggedIn();
     }    
-    match /cscBranchStaffDirectory/{docId}{
+    match /raBranchStaffDirectory/{docId}{
       allow read;
       allow write: if isLoggedIn();
     }
    
-    match /cscEmployeeDirectory/{docId}/regions/{subDocId}{
+    match /raEmployeeDirectory/{docId}/regions/{subDocId}{
       allow read;
       allow write: if isLoggedIn();
     }
-    match /cscBranchDirectory/{docId}{
+    match /raBranchDirectory/{docId}{
        allow read;
        allow write: if isLoggedIn();
     }
-    match /cscBranchDirectory/{branchName}/staff/{docId}{
+    match /raBranchDirectory/{branchName}/staff/{docId}{
       allow read;
       allow write: if isLoggedIn();
     }
-     match /cscEventSchedule/{docId}{
+     match /raEventSchedule/{docId}{
       allow read;
       allow write: if isLoggedIn();
     }
-    match /cscNewsletterDocuments/{docId}{
+    match /raNewsletterDocuments/{docId}{
         allow read; 
         allow write; 
     }    
-    match /cscNewsletterSignup/{docId}{
+    match /raNewsletterSignup/{docId}{
         allow read; 
         allow write; 
     }
-    match /cscPaySchedule/{docId}{
+    match /raPaySchedule/{docId}{
       allow read;
       allow write: if isLoggedIn();
     }        
@@ -628,28 +611,28 @@ service cloud.firestore {
     
 // START ONBOARDING
 
-			match /cscEmployeeOnboardingTempDir/{docId}{
+			match /raEmployeeOnboardingTempDir/{docId}{
         allow read; 
         allow write; 
       }
   
-    match /cscEmployeeOnboardingTempDir/{docId}/assignedSoftware/{subDocId}{
+    match /raEmployeeOnboardingTempDir/{docId}/assignedSoftware/{subDocId}{
         allow read, write;
        }
-         match /cscEmployeeOnboardingTempDir/{docId}/assignedHardware/{subDocId}{
+         match /raEmployeeOnboardingTempDir/{docId}/assignedHardware/{subDocId}{
         allow read, write;
        }
-       match /cscEmployeeOnboardingTempDir/{docId}/requestedHardware/{subDocId}{
+       match /raEmployeeOnboardingTempDir/{docId}/requestedHardware/{subDocId}{
         allow read, write;
        }
      
-       match /cscEmployeeOnboardingTempDir/{docId}/requestedDistributionList/{subDocId}{
+       match /raEmployeeOnboardingTempDir/{docId}/requestedDistributionList/{subDocId}{
         allow read, write;
        }
-       match /cscEmployeeOnboardingTempDir/{docId}/requestedSharePointList/{subDocId}{
+       match /raEmployeeOnboardingTempDir/{docId}/requestedSharePointList/{subDocId}{
         allow read, write;
        }
-       match /cscEmployeeOnboardingTempDir/{docId}/requestedSoftware/{subDocId}{
+       match /raEmployeeOnboardingTempDir/{docId}/requestedSoftware/{subDocId}{
          allow read, write;
        }
        
@@ -659,65 +642,65 @@ service cloud.firestore {
         allow read; 
         allow write; 
     }
-        match /cscNewsletterDocuments/{docId}{
+        match /raNewsletterDocuments/{docId}{
     // allow read, write: if request.auth.token.admin == true; 
      //allow read, write: if request.auth != null;
         allow read; 
         allow write; 
     }
-       match /cscAccountingDocuments/{docId}{
+       match /raAccountingDocuments/{docId}{
     // allow read, write: if request.auth.token.admin == true; 
      //allow read, write: if request.auth != null;
         allow read; 
         allow write; 
     }
-    match /cscDistributionList/{docId}{
+    match /raDistributionList/{docId}{
     // allow read, write: if request.auth.token.admin == true; 
      //allow read, write: if request.auth != null;
         allow read; 
         allow write; 
     }
-    match /cscSharePointList/{docId}{
+    match /raSharePointList/{docId}{
     // allow read, write: if request.auth.token.admin == true; 
      //allow read, write: if request.auth != null;
         allow read; 
         allow write; 
     }
-    match /cscHRDocuments/{docId}{
-    // allow read, write: if request.auth.token.admin == true; 
-     //allow read, write: if request.auth != null;
-        allow read; 
-        allow write; 
-    }
-    
-    match /cscLegalDocuments/{docId}{
+    match /raHRDocuments/{docId}{
     // allow read, write: if request.auth.token.admin == true; 
      //allow read, write: if request.auth != null;
         allow read; 
         allow write; 
     }
     
-    match /cscPayrollDocuments/{docId}{
+    match /raLegalDocuments/{docId}{
     // allow read, write: if request.auth.token.admin == true; 
      //allow read, write: if request.auth != null;
         allow read; 
         allow write; 
     }
     
-    match /cscItAvailableProducts/{docId}{
+    match /raPayrollDocuments/{docId}{
     // allow read, write: if request.auth.token.admin == true; 
      //allow read, write: if request.auth != null;
         allow read; 
         allow write; 
     }
     
-    match /cscItAvailableDrives/{docId}{
+    match /raItAvailableProducts/{docId}{
     // allow read, write: if request.auth.token.admin == true; 
      //allow read, write: if request.auth != null;
         allow read; 
         allow write; 
     }
-    match /cscItAvailableSoftware/{docId}{
+    
+    match /raItAvailableDrives/{docId}{
+    // allow read, write: if request.auth.token.admin == true; 
+     //allow read, write: if request.auth != null;
+        allow read; 
+        allow write; 
+    }
+    match /raItAvailableSoftware/{docId}{
     // allow read, write: if request.auth.token.admin == true; 
      //allow read, write: if request.auth != null;
         allow read; 
@@ -726,54 +709,54 @@ service cloud.firestore {
     
 // END ONBOARDING
 //     
-// CSC Fundraising - Start
+// RA Fundraising - Start
     
-    match /cscFundraisingAdmin/{id}{
+    match /raFundraisingAdmin/{id}{
       allow read;
       allow write: if isLoggedIn();
     }
     
-    match /cscFundrasingAuthUser/{id}{
+    match /raFundrasingAuthUser/{id}{
       allow read;
       allow write: if isLoggedIn();
     }
     
-    match /cscFundrasingEmail/{id}{
+    match /raFundrasingEmail/{id}{
       allow read;
       allow write: if isLoggedIn();
     }
     
-    match /cscFundraisingSection/{id}{
+    match /raFundraisingSection/{id}{
       allow read;
       allow write: if isLoggedIn();
     }
     
-    match /cscFundraisingSection/{id}/nestedInfo/{nestId}{
+    match /raFundraisingSection/{id}/nestedInfo/{nestId}{
       allow read;
       allow write: if isLoggedIn();
     }
      
-    match /cscFundrasingAccount/{id}{
+    match /raFundrasingAccount/{id}{
       allow read;
       allow write: if isLoggedIn();
     }
     
-    match /cscFundrasingAccount/{id}/authUsers/{uid}{
+    match /raFundrasingAccount/{id}/authUsers/{uid}{
       allow read;
       allow write: if isLoggedIn();
     }
     
-    match /cscFundrasingAccount/{id}/requestedBranches/{branchReq}{
+    match /raFundrasingAccount/{id}/requestedBranches/{branchReq}{
       allow read;
       allow write: if isLoggedIn();
     }
     
-    match /cscFundrasingAccount/{id}/references/{refId}{
+    match /raFundrasingAccount/{id}/references/{refId}{
       allow read;
       allow write: if isLoggedIn();
     }
      
-     match /cscFundraisingWebformMessages/{docId}{
+     match /raFundraisingWebformMessages/{docId}{
      allow read; 
      allow write;
      }

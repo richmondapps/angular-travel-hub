@@ -26,7 +26,7 @@
   margin: 1rem 0;
 }
 
-.cscGrid{
+.raGrid{
   display: grid;
   gap: 1rem;
   grid-template-areas:
@@ -93,7 +93,7 @@ display: -webkit-box;
   .newsfeedWrapper {
     margin: 5rem auto;
   }
-  .cscGrid {
+  .raGrid {
     display: grid;
     grid-template-areas:
     "newsImgWrapper"
@@ -110,7 +110,7 @@ display: -webkit-box;
 
     margin: 1rem auto;
   }
-  .cscGrid {
+  .raGrid {
     display: grid;
     grid-template-areas:
     "newsImgWrapper"
@@ -127,7 +127,7 @@ display: -webkit-box;
     margin: 1rem auto;
   }
 
-  .cscGrid {
+  .raGrid {
   display: grid;
   grid-template-areas:
   "newsImgWrapper newsCopyWrapper"
@@ -152,7 +152,7 @@ display: -webkit-box;
     grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   }
 
-  .cscGrid{
+  .raGrid{
     display: grid;
     gap: 1rem;
     grid-template-areas:
@@ -172,7 +172,7 @@ display: -webkit-box;
     margin: 5rem auto;
   }
 
-  .cscGrid {
+  .raGrid {
     display: grid;
     grid-template-areas:
     "newsImgWrapper newsCopyWrapper"

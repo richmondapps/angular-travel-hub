@@ -12,7 +12,7 @@
     <ng-container *ngFor="let x of faqs | async">
       <button
         mat-raised-button
-        class="cscButtons"
+        class="raButtons"
         (click)="showQandAFn(x.docId, x.faqTitle)"
       >
         {{ x.faqTitle }}
@@ -95,7 +95,7 @@
               <div class="buttonRow">
             <button
               mat-raised-button
-              class="cscButtons"
+              class="raButtons"
               (click)="editFaqFn(q.docId, currentId)"
             >
               Edit

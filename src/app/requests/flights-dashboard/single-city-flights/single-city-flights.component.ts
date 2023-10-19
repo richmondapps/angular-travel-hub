@@ -10,14 +10,14 @@ import { RequestsService } from '../../requests.service';
 @Component({
   selector: 'app-single-city-flights',
   templateUrl: './single-city-flights.component.html',
-  styleUrls: ['./single-city-flights.component.css']
+  styleUrls: ['./single-city-flights.component.css'],
 })
 export class SingleCityFlightsComponent implements OnInit {
-  flightDate: { [x: string]: any; };
+  flightDate: { [x: string]: any };
   travelRequestId: any;
   loggedInUserEmail: any;
   stepper: any;
-  OneWayRequestName = "One Way Flight";
+  OneWayRequestName = 'One Way Flight';
   singleFlightFormConfig: any;
   singleFlightClass = 'singleFlightClass';
   @Output() flightSubmitted = new EventEmitter();
@@ -28,44 +28,41 @@ export class SingleCityFlightsComponent implements OnInit {
     private requestsService: RequestsService,
     public authService: AuthService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.singleFlightFormConfig = this.requestsService.singleFlightConfigFn();
-    this.loggedInUserEmail = JSON.parse(sessionStorage.getItem("LoggedInUserEmail"));
-    this.travelRequestId = JSON.parse(sessionStorage.getItem('TravelRequestId'));
+    this.loggedInUserEmail = JSON.parse(
+      sessionStorage.getItem('LoggedInUserEmail')
+    );
+    this.travelRequestId = JSON.parse(
+      sessionStorage.getItem('TravelRequestId')
+    );
   }
 
-flightDataFn(d: any) {
-    console.log('Emitted Data', d);
+  flightDataFn(d: any) {
     sessionStorage.setItem('FlightRequestType', JSON.stringify('oneWayFlight'));
-      this.flightDate = this.dateTimeService.returnExtractedDatesFn(
-        'flight',
-        d.flightDeptDate
-         )
-     
-  
-
-      const formData = {
-        ...d,
-        ...this.flightDate,
-        flightRequestType: 'oneWayFlight',
-        flightRequestLabel: 'One Way',
-        flightDepartureRequested: true
-            }
-    console.log('Form Data', formData);
-
+    this.flightDate = this.dateTimeService.returnExtractedDatesFn(
+      'flight',
+      d.flightDeptDate
+    );
+    const formData = {
+      ...d,
+      ...this.flightDate,
+      flightRequestType: 'oneWayFlight',
+      flightRequestLabel: 'One Way',
+      flightDepartureRequested: true,
+    };
     try {
-     this.createService.createRecordFn(
-          `cscEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel`,
-          this.travelRequestId,
-          formData
-        );
+      this.createService.createRecordFn(
+        `raEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel`,
+        this.travelRequestId,
+        formData
+      );
 
-        this.flightSubmitted.emit('flight submitted')
+      this.flightSubmitted.emit('flight submitted');
     } catch (e) {
       console.log('SESSION ERROR', e.message);
     }
   }
-
 }

@@ -14,8 +14,8 @@
     <div>
       <p>Rotate</p>
       <div class="buttonRow">
-        <button mat-raised-button class="cscButtons" (click)="rotateLeft()"><mat-icon>rotate_left</mat-icon></button>
-        <button mat-raised-button class="cscButtons" (click)="rotateRight()"><mat-icon>rotate_right</mat-icon></button>
+        <button mat-raised-button class="raButtons" (click)="rotateLeft()"><mat-icon>rotate_left</mat-icon></button>
+        <button mat-raised-button class="raButtons" (click)="rotateRight()"><mat-icon>rotate_right</mat-icon></button>
       </div>
       <!-- <div>
         <p>Custom</p>
@@ -25,23 +25,23 @@
     <div>
       <p>Flip</p>
       <div class="buttonRow">
-        <button mat-raised-button class="cscButtons" (click)="flipHorizontal()"><mat-icon>flip</mat-icon></button>
-        <button mat-raised-button class="cscButtons" (click)="flipVertical()"><mat-icon>unfold_more</mat-icon></button>
+        <button mat-raised-button class="raButtons" (click)="flipHorizontal()"><mat-icon>flip</mat-icon></button>
+        <button mat-raised-button class="raButtons" (click)="flipVertical()"><mat-icon>unfold_more</mat-icon></button>
       </div>
     </div>
     <div>
       <p>Zoom</p>
       <div class="buttonRow">
-        <button mat-raised-button class="cscButtons" (click)="zoomOut()"><mat-icon>zoom_out</mat-icon></button>
-        <button mat-raised-button class="cscButtons" (click)="zoomIn()"><mat-icon>zoom_in</mat-icon></button>
+        <button mat-raised-button class="raButtons" (click)="zoomOut()"><mat-icon>zoom_out</mat-icon></button>
+        <button mat-raised-button class="raButtons" (click)="zoomIn()"><mat-icon>zoom_in</mat-icon></button>
       </div>
     </div>
     <div>
       <p>Reset</p>
       <div class="buttonRow">
-        <button mat-raised-button class="cscButtons"
+        <button mat-raised-button class="raButtons"
         (click)="toggleContainWithinAspectRatio()">{{containWithinAspectRatio?'Fill Aspect Ratio':'Contain Within Aspect Ratio'}}</button>
-        <button mat-raised-button class="cscButtons" (click)="resetImage()">Reset image</button>
+        <button mat-raised-button class="raButtons" (click)="resetImage()">Reset image</button>
     </div>
     </div>
   </div>

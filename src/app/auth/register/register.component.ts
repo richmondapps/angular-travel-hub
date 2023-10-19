@@ -31,7 +31,7 @@ export class RegisterComponent implements OnInit {
   async sendEmailLink(email) {
     console.log('EMAIL', email);
     const actionCodeSettings = {
-      //   url: 'https://sofi-job-fair.csc-usa.com/passwordless',
+      //   url: 'https://sofi-job-fair.ra-usa.com/passwordless',
       url: 'http://localhost:5500/employees/passwordless-signin',
       handleCodeInApp: true,
     };

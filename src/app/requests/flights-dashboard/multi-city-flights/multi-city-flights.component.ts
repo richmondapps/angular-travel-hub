@@ -10,19 +10,19 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-multi-city-flights',
   templateUrl: './multi-city-flights.component.html',
-  styleUrls: ['./multi-city-flights.component.css']
+  styleUrls: ['./multi-city-flights.component.css'],
 })
 export class MultiCityFlightsComponent implements OnInit {
   multiFlightFormConfig;
   loggedInUserEmail: any;
   travelRequestId: any;
-  multiCityRequestName = "Multi City";
+  multiCityRequestName = 'Multi City';
   multiFlightClass = 'multiFlightClass';
   multiCityList: any;
-  flightDate: { [x: string]: any; };
+  flightDate: { [x: string]: any };
   stepper: any;
   multiCityPatchValues: any;
-  isShowForm =  false;
+  isShowForm = false;
   multiFlightDate: Date;
   totalFlights: any;
   constructor(
@@ -32,127 +32,118 @@ export class MultiCityFlightsComponent implements OnInit {
     private createService: CreateService,
     private deleteService: DeleteService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    this.loggedInUserEmail = JSON.parse(sessionStorage.getItem("LoggedInUserEmail"));
-    this.travelRequestId = JSON.parse(sessionStorage.getItem('TravelRequestId'));
+    this.loggedInUserEmail = JSON.parse(
+      sessionStorage.getItem('LoggedInUserEmail')
+    );
+    this.travelRequestId = JSON.parse(
+      sessionStorage.getItem('TravelRequestId')
+    );
 
-    this.multiCityList =  this.readService.returnObservableOrderByFn(
-      `cscEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel/${this.travelRequestId}/multiFlights`,
+    this.multiCityList = this.readService.returnObservableOrderByFn(
+      `raEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel/${this.travelRequestId}/multiFlights`,
       'flightDeptDate',
       'asc'
-    )
-
-    this.multiCityList.subscribe(d => {
+    );
+    this.multiCityList.subscribe((d) => {
       this.totalFlights = d.length;
-    })
-  
+    });
   }
 
-  addFlightLegFn(){
-   this.isShowForm = true;
+  addFlightLegFn() {
+    this.isShowForm = true;
+    const getLastFlightDate = this.readService.returnObservableOrderByFn(
+      `raEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel/${this.travelRequestId}/multiFlights`,
+      'flightDeptDate',
+      'desc'
+    );
 
-  
+    getLastFlightDate.subscribe((d) => {
+      console.log('MCF', d);
+      if (!d?.length) {
+        this.multiFlightFormConfig = this.requestsService.mutliFlightConfigFn();
+      } else {
+        const f = d[0];
+        const flightDeptDate = f.flightDeptDate;
+        const newMinDeptDate = new Date(flightDeptDate);
+        const startDay = newMinDeptDate.getDate();
+        const startMonth = newMinDeptDate.getMonth() + 1;
+        const startYear = newMinDeptDate.getFullYear();
+        this.multiFlightDate = new Date(
+          `${startMonth}-${startDay}-${startYear}`
+        );
 
-   const getLastFlightDate =  this.readService.returnObservableOrderByFn(
-    `cscEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel/${this.travelRequestId}/multiFlights`,
-    'flightDeptDate',
-    'desc'
-  )
- console.log('getLastFlightDate', getLastFlightDate);
-
-  getLastFlightDate.subscribe(d => {
-    console.log('MCF', d);
- 
-    if(!d?.length){
-      this.multiFlightFormConfig = this.requestsService.mutliFlightConfigFn();
-
-
-   
-    } else {
-
-    const f = d[0]; 
-    const flightDeptDate = f.flightDeptDate; 
-    const newMinDeptDate = new Date(flightDeptDate);     
-
-    const startDay = newMinDeptDate.getDate();
-    const startMonth = (newMinDeptDate.getMonth() + 1);
-    const startYear = newMinDeptDate.getFullYear();
-    this.multiFlightDate = new Date(`${startMonth}-${startDay}-${startYear}`);
-
-      this.multiFlightFormConfig = this.requestsService.mutliFlightConfigFn(this.multiFlightDate);
-      const pv = [{
-      flightFromAirport: f.flightToAirport,
-      flightDeptDate: this.multiFlightDate
-      }];
-      this.multiCityPatchValues = pv;
-    }
-  })
+        this.multiFlightFormConfig = this.requestsService.mutliFlightConfigFn(
+          this.multiFlightDate
+        );
+        const pv = [
+          {
+            flightFromAirport: f.flightToAirport,
+            flightDeptDate: this.multiFlightDate,
+          },
+        ];
+        this.multiCityPatchValues = pv;
+      }
+    });
   }
 
-  fetchSummaryFn(){
+  fetchSummaryFn() {
     this.router.navigateByUrl('/account/review');
   }
 
-  deleteFn(id){
+  deleteFn(id) {
     console.log('MC ID', id);
-     this.deleteService.deleteRecordFn(
-      `cscEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel/${this.travelRequestId}/multiFlights`,
+    this.deleteService.deleteRecordFn(
+      `raEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel/${this.travelRequestId}/multiFlights`,
       id
-     )
+    );
   }
 
   flightDataFn(d: any) {
     console.log('Emitted Data', d);
     this.isShowForm = false;
- sessionStorage.setItem('FlightRequestType', JSON.stringify('multiCityFlights'));
- 
-      this.flightDate = this.dateTimeService.returnExtractedDatesFn(
-        'flight',
-        d.flightDeptDate
-         )
-      d.flightDepartureRequested = true;
+    sessionStorage.setItem(
+      'FlightRequestType',
+      JSON.stringify('multiCityFlights')
+    );
+    this.flightDate = this.dateTimeService.returnExtractedDatesFn(
+      'flight',
+      d.flightDeptDate
+    );
+    d.flightDepartureRequested = true;
 
-
- const formData = {
+    const formData = {
       ...d,
       ...this.flightDate,
       flightRequestType: 'multiCityFlights',
-      flightRequestLabel: 'Multi-City'
-    }
-    console.log('Form Data', formData);
-   const id = UidGeneratorService.newId();
-        const multiFlightData = {
-          ...d,
-          docId: id,
-          readId:id,
-          deleteId: id,
-          updateId: id,
-          travelRequestId: this.travelRequestId,
-          ...this.flightDate
-        }
+      flightRequestLabel: 'Multi-City',
+    };
+    const id = UidGeneratorService.newId();
+    const multiFlightData = {
+      ...d,
+      docId: id,
+      readId: id,
+      deleteId: id,
+      updateId: id,
+      travelRequestId: this.travelRequestId,
+      ...this.flightDate,
+    };
     try {
-     
-        this.createService.createRecordFn(
-          `cscEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel/${this.travelRequestId}/multiFlights`,
-         id,
-          multiFlightData
-        );
-    
-         this.createService.createRecordFn(
-          `cscEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel`,
-          this.travelRequestId,
-          formData
-        );
-      
-    
-       
-      
-      console.log('Emitted Email',  this.loggedInUserEmail);
+      this.createService.createRecordFn(
+        `raEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel/${this.travelRequestId}/multiFlights`,
+        id,
+        multiFlightData
+      );
+
+      this.createService.createRecordFn(
+        `raEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel`,
+        this.travelRequestId,
+        formData
+      );
     } catch (e) {
       console.log('SESSION ERROR', e.message);
     }
   }
-
 }

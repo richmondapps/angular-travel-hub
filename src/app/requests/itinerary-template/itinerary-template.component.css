@@ -1,6 +1,3 @@
-
-
-
 .summary {
   display: grid;
   gap: 1rem;
@@ -38,7 +35,6 @@
   grid-template-columns: 1fr;
 }
 
-
 .grid1 {
   display: grid;
   grid-template-columns: 1fr;
@@ -74,12 +70,12 @@
 }
 
 .sectionLabel {
-  font-size: .8rem;
-  margin: .5rem 0;
+  font-size: 0.8rem;
+  margin: 0.5rem 0;
 }
 .sectionData {
-  font-size: .8rem;
-  margin: .5rem 0;
+  font-size: 0.8rem;
+  margin: 0.5rem 0;
   font-weight: 700;
 }
 
@@ -88,21 +84,18 @@
   gap: 1rem;
   width: 400px;
   grid-template-areas:
-
-  "managerWhoApproved billableBranch"
-  "purposeOfTravel jobId"
-  "purposeOfTravelNotes purposeOfTravelNotes"
-  ;
+    'managerWhoApproved billableBranch'
+    'purposeOfTravel jobId'
+    'purposeOfTravelNotes purposeOfTravelNotes';
 }
 .flightSection {
   display: grid;
   gap: 2rem;
   justify-content: start;
   grid-template-areas:
-  "primaryRequestType purposeOfTravel"
-  "flightFromAirport flightToAirport"
-  "flightStartDate flightEndDate"
- ;
+    'primaryRequestType purposeOfTravel'
+    'flightFromAirport flightToAirport'
+    'flightStartDate flightEndDate';
 }
 .singleFlightClass {
   display: grid;
@@ -110,10 +103,10 @@
   grid-template-columns: repeat(2, 1fr);
   justify-content: start;
   grid-template-areas:
-  "flightFromAirport flightToAirport"
-  "flightStartDate flightPreferredDepartureTime"
-  ". flightFlexibleDepartureTime"
-  "flightIndividualRequestNotes flightIndividualRequestNotes";
+    'flightFromAirport flightToAirport'
+    'flightStartDate flightPreferredDepartureTime'
+    '. flightFlexibleDepartureTime'
+    'flightIndividualRequestNotes flightIndividualRequestNotes';
 }
 
 .accommodationSection {
@@ -121,27 +114,22 @@
   gap: 2rem;
   justify-content: start;
   grid-template-areas:
-  "btnWrapper .  "
-  "primaryRequestType purposeOfTravel"
-"hotelCheckInDate hotelCheckOutDate"
-  ;
+    'btnWrapper .  '
+    'primaryRequestType purposeOfTravel'
+    'hotelCheckInDate hotelCheckOutDate';
 }
 .vehicleSection {
   display: grid;
   gap: 2rem;
   justify-content: start;
   grid-template-areas:
-  "btnWrapper .  "
-  "primaryRequestType purposeOfTravel"
-"vehiclePickUpDate vehicleReturnDate"
-  ;
+    'btnWrapper .  '
+    'primaryRequestType purposeOfTravel'
+    'vehiclePickUpDate vehicleReturnDate';
 }
 
-
-
-
 /* #region 300 */
-@media only screen and (min-width: 300px) and (max-width: 767px){
+@media only screen and (min-width: 300px) and (max-width: 767px) {
   .summary {
     display: grid;
     gap: 1rem;
@@ -155,18 +143,17 @@
   .btnWrapper {
     display: grid;
     gap: 1rem;
-    grid-template-columns: 1fr  1fr;
-  
+    grid-template-columns: 1fr 1fr;
   }
 
   .flightSection {
-    grid-template-columns:  1fr 1fr;
-        /* justify-content: center; */
-        grid-template-areas:
-        "primaryRequestType purposeOfTravel"
-        "flightFromAirport flightToAirport"
-        "flightStartDate flightEndDate";
-      }
+    grid-template-columns: 1fr 1fr;
+    /* justify-content: center; */
+    grid-template-areas:
+      'primaryRequestType purposeOfTravel'
+      'flightFromAirport flightToAirport'
+      'flightStartDate flightEndDate';
+  }
 }
 /* #endregion 300 */
 
@@ -174,12 +161,12 @@
 @media screen and (min-width: 768px) and (max-width: 959px) {
   .flightSection {
     grid-template-columns: repeat(4, 1fr);
-        /* justify-content: center; */
-        grid-template-areas:
-        "btnWrapper . . "
-        "primaryRequestType flightFromAirport flightStartDate"
-        "purposeOfTravel flightToAirport flightEndDate";
-      }
+    /* justify-content: center; */
+    grid-template-areas:
+      'btnWrapper . . '
+      'primaryRequestType flightFromAirport flightStartDate'
+      'purposeOfTravel flightToAirport flightEndDate';
+  }
 }
 /* #endregion  768 */
 
@@ -187,32 +174,29 @@
 @media screen and (min-width: 960px) and (max-width: 1279px) {
   .flightSection {
     grid-template-columns: repeat(3, 1fr);
-        /* justify-content: center; */
-        grid-template-areas:
-        "btnWrapper . . "
-        "primaryRequestType flightFromAirport flightStartDate"
-        "purposeOfTravel flightToAirport flightEndDate";
-      }
+    /* justify-content: center; */
+    grid-template-areas:
+      'btnWrapper . . '
+      'primaryRequestType flightFromAirport flightStartDate'
+      'purposeOfTravel flightToAirport flightEndDate';
+  }
 }
 /* #endregion 960 */
 
 /* #region  1280 */
 @media screen and (min-width: 1280px) and (max-width: 1919px) {
-
   .flightSection {
-grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     /* justify-content: center; */
     grid-template-areas:
-    "btnWrapper . . "
-    "primaryRequestType flightFromAirport flightStartDate"
-    "purposeOfTravel flightToAirport flightEndDate";
+      'btnWrapper . . '
+      'primaryRequestType flightFromAirport flightStartDate'
+      'purposeOfTravel flightToAirport flightEndDate';
   }
-
 }
 /* #endregion  1280 */
 
 /* #region 1920 */
 @media screen and (min-width: 1920px) and (max-width: 5000px) {
-
 }
 /* #endregion  1920 */

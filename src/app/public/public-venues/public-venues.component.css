@@ -13,7 +13,7 @@
 }
 a {
   text-decoration: none;
-  color: var(--cscBlue);
+  color: var(--raBlue);
 }
 .cardGrid {
   display: grid;
@@ -35,7 +35,7 @@ a {
   animation: fadeIn 1000ms forwards;
 }
 .venueImage {
-  background-color: var(--cscBlue);
+  background-color: var(--raBlue);
   height: auto;
   width: 100%;
 }

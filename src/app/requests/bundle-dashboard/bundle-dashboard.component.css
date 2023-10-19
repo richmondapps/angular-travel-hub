@@ -1,7 +1,7 @@
 .active {
   font-weight: bold;
   text-transform: uppercase !important;
-  border: 1px solid var(--cscLightBlue);
-  background-color: var(--cscLightBlue) !important;
-  color: var(--cscMidnightBlue) !important;
+  border: 1px solid var(--raLightBlue);
+  background-color: var(--raLightBlue) !important;
+  color: var(--raMidnightBlue) !important;
 }

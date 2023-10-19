@@ -35,8 +35,6 @@ export class FlightsAccommodationComponent implements OnInit {
     private createService: CreateService,
     private readService: ReadService,
     private requestsService: RequestsService,
-    private deleteService: DeleteService,    
-    private dialog: MatDialog,
     public authService: AuthService,
     private router: Router,
   ) { }
@@ -60,12 +58,9 @@ export class FlightsAccommodationComponent implements OnInit {
        travelRequestId
     );
       
-    console.log('D', d);
     const [f] = [...d];
     this.flightStartDate = new Date(`${f.flightStartDateMM}-${f.flightStartDateDD}-${f.flightStartDateYYYY}`);
-    //  console.log('flightStartDate', flightStartDate);
       this.flightEndDate = new Date(`${f.flightEndDateMM}-${f.flightEndDateDD}-${f.flightEndDateYYYY}`);
-    //  console.log('flightEndDate', flightEndDate);
 
       this.accommodationConfig = this.requestsService.returnFlightAndHotelConfigFn(this.flightStartDate, this.flightEndDate);
       this.patchDates = [
@@ -74,11 +69,9 @@ export class FlightsAccommodationComponent implements OnInit {
           hotelCheckOutDate: this.flightEndDate
         }
       ]
-     console.log('DATES SWITCH', this.patchDates);  
   }
 
   accommodationDataFn(d: any) {
-    console.log('Emitted Data', d);
     if(d.hotelCheckInDate){
       this.accommodationDate = this.dateTimeService.returnExtractedDatesFn(
         'accommodation',
@@ -91,7 +84,6 @@ export class FlightsAccommodationComponent implements OnInit {
       requestType: 'hotelCheckIn',
       accommodationRequested: true
     }
-    console.log('Form Data', formData);
     try {
         this.createService.createRecordFn(
           `raEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel`,

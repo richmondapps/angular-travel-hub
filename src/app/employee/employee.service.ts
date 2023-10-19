@@ -148,7 +148,7 @@ export class EmployeeService {
         valueType: 'text',
         placeholder: 'Home Branch',
         options: await this.readService.returnSelectOptionsPromiseOrderBy(
-        'cscBranchDirectory',
+        'raBranchDirectory',
         'branchName',
         'branchName',
         'asc'
@@ -357,7 +357,7 @@ export class EmployeeService {
         valueType: 'text',
         placeholder: 'Home Branch',
         options: await this.readService.returnSelectOptionsPromiseOrderBy(
-        'cscBranchDirectory',
+        'raBranchDirectory',
         'branchName',
         'branchName',
         'asc'

@@ -1,17 +1,20 @@
 <p>flights-accommodation</p>
 <div class="pageWrapper">
-     <div>
-    <p class="accommodationNotice">The dates of your return flight have been pre-populated for your convenience. If you only need accommodation for part of your trip please change them here.</p>       
+  <div>
+    <p class="accommodationNotice">
+      The dates of your return flight have been pre-populated for your
+      convenience. If you only need accommodation for part of your trip please
+      change them here.
+    </p>
   </div>
   <ng-container *ngIf="accommodationConfig">
-    <app-dynamic-form 
-    (submittedFormData)="accommodationDataFn($event)"
-    [f]="accommodationConfig"
-    [p]="patchDates"
-    [class]="accommodationClass"
- >
- <span class="btnLabel">Save Accommodation</span>     
-</app-dynamic-form>
- </ng-container>
-
-
+    <app-dynamic-form
+      (submittedFormData)="accommodationDataFn($event)"
+      [f]="accommodationConfig"
+      [p]="patchDates"
+      [class]="accommodationClass"
+    >
+      <span class="btnLabel">Save Accommodation</span>
+    </app-dynamic-form>
+  </ng-container>
+</div>

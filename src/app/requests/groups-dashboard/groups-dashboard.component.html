@@ -1,9 +1,21 @@
 <div class="groupsDashboardWrapper">
-    <div class="buttonRow">
-      <button mat-raised-button class="cscButtons" [routerLink]="['draft']" routerLinkActive="router-link-active">Saved</button>
-      <!-- <button mat-raised-button class="cscButtons" [routerLink]="['submitted']" routerLinkActive="router-link-active">Submitted</button> -->
-         <button mat-raised-button class="cscButtons" [routerLink]="['create']" routerLinkActive="router-link-active">Create</button>
-         </div>
-    <router-outlet></router-outlet>
+  <div class="buttonRow">
+    <button
+      mat-raised-button
+      class="raButtons"
+      [routerLink]="['draft']"
+      routerLinkActive="router-link-active"
+    >
+      Saved
+    </button>
+    <button
+      mat-raised-button
+      class="raButtons"
+      [routerLink]="['create']"
+      routerLinkActive="router-link-active"
+    >
+      Create
+    </button>
   </div>
-  
+  <router-outlet></router-outlet>
+</div>

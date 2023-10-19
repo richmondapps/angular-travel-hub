@@ -29,7 +29,7 @@
       ]
     },
     {
-      "collectionGroup": "cscFundraisingWebformMessages",
+      "collectionGroup": "raFundraisingWebformMessages",
       "queryScope": "COLLECTION",
       "fields": [
         {
@@ -43,7 +43,7 @@
       ]
     },
     {
-      "collectionGroup": "cscFundraisingWebformMessages",
+      "collectionGroup": "raFundraisingWebformMessages",
       "queryScope": "COLLECTION",
       "fields": [
         {
@@ -61,7 +61,7 @@
       ]
     },
     {
-      "collectionGroup": "cscFundraisingWebformMessages",
+      "collectionGroup": "raFundraisingWebformMessages",
       "queryScope": "COLLECTION",
       "fields": [
         {
@@ -75,7 +75,7 @@
       ]
     },
     {
-      "collectionGroup": "cscFundrasingAccount",
+      "collectionGroup": "raFundrasingAccount",
       "queryScope": "COLLECTION",
       "fields": [
         {

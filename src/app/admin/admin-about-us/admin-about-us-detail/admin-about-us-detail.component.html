@@ -1,19 +1,19 @@
 <ng-container *ngIf="showPage">
 
     <div class="buttonRow">
-      <!-- <button #btnRef="matButton" mat-raised-button class="cscButtons" [routerLink]="[ 'create' ]" routerLinkActive="active">Create</button>
-    <button mat-raised-button class="cscButtons" [routerLink]="[ 'edit' ]" routerLinkActive="active">Edit</button> -->
+      <!-- <button #btnRef="matButton" mat-raised-button class="raButtons" [routerLink]="[ 'create' ]" routerLinkActive="active">Create</button>
+    <button mat-raised-button class="raButtons" [routerLink]="[ 'edit' ]" routerLinkActive="active">Edit</button> -->
   
   
   
       <ng-container *ngIf="!isBranchData">
-        <button mat-raised-button class="cscButtons">Create</button>
+        <button mat-raised-button class="raButtons">Create</button>
       </ng-container>
       <ng-container *ngIf="isBranchData">
-        <button mat-raised-button class="cscButtons" (click)="changeType('content')">Content</button>
+        <button mat-raised-button class="raButtons" (click)="changeType('content')">Content</button>
   
         <ng-container *ngIf="!isEdit">
-          <button mat-raised-button class="cscButtons" (click)="changeType('edit')">Edit</button>
+          <button mat-raised-button class="raButtons" (click)="changeType('edit')">Edit</button>
   
         </ng-container>
         <ng-container *ngIf="isEdit">

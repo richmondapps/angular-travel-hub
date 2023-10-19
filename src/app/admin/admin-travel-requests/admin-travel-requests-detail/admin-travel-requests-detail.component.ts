@@ -95,7 +95,7 @@ export class AdminTravelRequestsDetailComponent implements OnInit {
     console.log(travelRequestId);
     console.log(this.personEmail);
     this.requestSummary = this.readService.returnObservableWhereFn(
-      `cscEmployeeDirectory/${personEmail}/requestedTravel`,
+      `raEmployeeDirectory/${personEmail}/requestedTravel`,
       'travelRequestId',
       travelRequestId
     );
@@ -113,7 +113,7 @@ export class AdminTravelRequestsDetailComponent implements OnInit {
     console.log(travelRequestId);
     console.log(this.personEmail);
     this.requestDocuments = this.readService.returnObservableOrderByFn(
-      `cscEmployeeDirectory/${personEmail}/requestedTravel/${travelRequestId}/travelDocuments`,
+      `raEmployeeDirectory/${personEmail}/requestedTravel/${travelRequestId}/travelDocuments`,
       'fileName',
       'asc'
     );
@@ -121,7 +121,7 @@ export class AdminTravelRequestsDetailComponent implements OnInit {
 
   fetchMultiCitySummaryFn(personEmail){
     this.multiCityRequestSummary  =  this.readService.returnObservableOrderByFn(
-      `cscEmployeeDirectory/${personEmail}/requestedTravel/${this.travelRequestId}/multiFlights`,
+      `raEmployeeDirectory/${personEmail}/requestedTravel/${this.travelRequestId}/multiFlights`,
       'flightDeptDate',
       'asc'
     );
@@ -224,7 +224,7 @@ export class AdminTravelRequestsDetailComponent implements OnInit {
       const dialogDataRef =
         this.readService
         .returnObservableWhereFn(
-          `cscEmployeeDirectory/${this.personEmail}/requestedTravel/${this.travelRequestId}/travelDocuments`,
+          `raEmployeeDirectory/${this.personEmail}/requestedTravel/${this.travelRequestId}/travelDocuments`,
           'fileId',
           docId);
       const dialogRef = this.dialog.open(DeleteDialogComponent, {
@@ -246,7 +246,7 @@ export class AdminTravelRequestsDetailComponent implements OnInit {
         } else if (returnedData.confirm) {
           console.log(returnedData.confirm);
           this.deleteService.deleteRecordFn(
-            `cscEmployeeDirectory/${this.personEmail}/requestedTravel/${this.travelRequestId}/travelDocuments`,
+            `raEmployeeDirectory/${this.personEmail}/requestedTravel/${this.travelRequestId}/travelDocuments`,
        docId
       )
         }

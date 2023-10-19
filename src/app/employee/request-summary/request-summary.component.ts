@@ -73,10 +73,10 @@ export class RequestSummaryComponent implements OnInit {
 
   editReasonForTravelFn(){
 
-    // this.purposeOfTravelFormConfigFn = this.requestsService.purposeOfTravelConfigFn('cscBranchDirectory',
+    // this.purposeOfTravelFormConfigFn = this.requestsService.purposeOfTravelConfigFn('raBranchDirectory',
     // 'branchName',
     // 'asc',
-    // 'cscEmployeeDirectory',
+    // 'raEmployeeDirectory',
     // 'personLegalNameFirst',
     // 'asc');
 
@@ -181,7 +181,7 @@ export class RequestSummaryComponent implements OnInit {
   }
   fetchSummaryFn(){
     this.requestSummary  =  this.readService.returnObservableWhereFn(
-      `cscEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel`,
+      `raEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel`,
       'travelRequestId',
       this.travelRequestId
     );
@@ -201,7 +201,7 @@ export class RequestSummaryComponent implements OnInit {
   }
   fetchMultiCitySummaryFn(){
     this.multiCityRequestSummary  =  this.readService.returnObservableOrderByFn(
-      `cscEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel/${this.travelRequestId}/multiFlights`,
+      `raEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel/${this.travelRequestId}/multiFlights`,
       'flightDeptDate',
       'asc'
     );
@@ -221,7 +221,7 @@ export class RequestSummaryComponent implements OnInit {
 
     try {
       this.createService.createRecordFn(
-          `cscEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel`,
+          `raEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel`,
           this.travelRequestId,
           formData
         );
@@ -412,7 +412,7 @@ export class RequestSummaryComponent implements OnInit {
 
 						<tr>
 							<td valign="top" class="footer" style="padding: 10px 0px 30px 0px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; color: #b2a16e;">
-								&copy; CSC Travel. PLEASE DO NOT REPLY TO THIS MESSAGE:
+								&copy; RA Travel. PLEASE DO NOT REPLY TO THIS MESSAGE:
 								<br><br>
 
                 
@@ -466,7 +466,7 @@ export class RequestSummaryComponent implements OnInit {
 
     try {
       this.createService.createRecordFn(
-          `cscEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel`,
+          `raEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel`,
           this.travelRequestId,
           formData
         );

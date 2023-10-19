@@ -1,7 +1,7 @@
 <section class="newsfeedWrapper">
     <h1>{{branchName}} Draft Bulletins</h1>
     <div class="newsfeedContainer">
-     <div class="cscGrid"  *ngFor="let n of blogList | async">
+     <div class="raGrid"  *ngFor="let n of blogList | async">
         <div class="newsImgWrapper">
             <div class="" >
                 <img src="{{n.imageUrl}}" alt="{{n.bulletinBoardTitle}} Newsfeed Image"
@@ -22,9 +22,9 @@
             </div>
               <div class="newsButtonContainer">
                 <!-- <a mat-raised-button (click)="readArticleFn(n.bulletinBoardNameSlug)"
-                class="cscButtons"><i class="fa fa-file "></i> Read article...</a> -->
+                class="raButtons"><i class="fa fa-file "></i> Read article...</a> -->
                 <a mat-raised-button [routerLink]="['/admin/bulletin-board/article', n.bulletinBoardSlug]"
-                class="cscButtons"><span class="material-icons-outlined">
+                class="raButtons"><span class="material-icons-outlined">
                   article
                   </span> View Post</a>
               </div>

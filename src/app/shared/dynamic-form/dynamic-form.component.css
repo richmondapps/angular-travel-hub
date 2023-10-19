@@ -23,6 +23,6 @@ margin: .5rem;
 .submitBtn {
   margin-top: 1rem;
   margin-bottom: 2rem;
-  background-color: var(--cscMidnightBlue);
+  background-color: var(--raMidnightBlue);
   color: white;
 }

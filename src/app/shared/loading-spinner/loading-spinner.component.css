@@ -1,41 +1,41 @@
 
-#cscText{
+#raText{
   display: flex;
 gap: .5rem;
 	width:234px;
 	margin:auto;
 }
 
-.cscText{
+.raText{
 	color: #242d3c;
 	font-size: 1.35rem;
 	text-decoration:none;
 	font-weight:normal;
 	font-style:normal;
 	float:left;
-	animation-name:bounce_cscText;
+	animation-name:bounce_raText;
 	animation-duration:1s;
 	animation-iteration-count:infinite;
 	animation-direction:normal;
 }
 
-#cscText_1{
+#raText_1{
   background-color: #242d3c;
   padding: .1rem .5rem;
 	animation-delay:0.5s;
 }
-#cscText_2{
+#raText_2{
   background-color: #242d3c;
   padding: .1rem .5rem;
 	animation-delay:.75s;
 }
-#cscText_3{
+#raText_3{
   background-color: #242d3c;
   padding: .1rem .5rem;
 	animation-delay:1s;
 }
 
-@keyframes bounce_cscText{
+@keyframes bounce_raText{
 	0%{
 		transform: translateY(0);
 		color:rgb(255,197,41);
@@ -55,7 +55,7 @@ gap: .5rem;
 	}
 }
 
-@-o-keyframes bounce_cscText{
+@-o-keyframes bounce_raText{
 	0%{
 		-o-transform:scale(1);
 		color:rgb(0,0,0);
@@ -67,7 +67,7 @@ gap: .5rem;
 	}
 }
 
-@-ms-keyframes bounce_cscText{
+@-ms-keyframes bounce_raText{
 	0%{
 		-ms-transform:scale(1);
 		color:rgb(0,0,0);
@@ -79,7 +79,7 @@ gap: .5rem;
 	}
 }
 
-@-webkit-keyframes bounce_cscText{
+@-webkit-keyframes bounce_raText{
 	0%{
 		-webkit-transform:scale(1);
 		color:rgb(0,0,0);
@@ -91,7 +91,7 @@ gap: .5rem;
 	}
 }
 
-@-moz-keyframes bounce_cscText{
+@-moz-keyframes bounce_raText{
 	0%{
 		-moz-transform:scale(1);
 		color:rgb(0,0,0);

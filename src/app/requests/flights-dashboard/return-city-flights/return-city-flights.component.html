@@ -1,13 +1,12 @@
 <ng-container *ngIf="returnFlightFormConfig">
-    <app-dynamic-form
+  <app-dynamic-form
     (submittedFormData)="flightDataFn($event)"
     (sendStartDate)="flightStartDateFn($event)"
     [f]="returnFlightFormConfig"
     [class]="returnFlightClass"
     [requestType]="returnRequestName"
     [cancelBtn]="true"
- >
- <span class="btnLabel">Save Flights</span>
- <!-- <span class="noSection">No Air Travel</span> -->
-</app-dynamic-form>
- </ng-container>  
+  >
+    <span class="btnLabel">Save Flights</span>
+  </app-dynamic-form>
+</ng-container>

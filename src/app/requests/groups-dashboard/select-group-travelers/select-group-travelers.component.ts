@@ -12,13 +12,24 @@ import { DeleteDialogComponent } from 'src/app/shared/delete-dialog/delete-dialo
 @Component({
   selector: 'app-select-group-travelers',
   templateUrl: './select-group-travelers.component.html',
-  styleUrls: ['./select-group-travelers.component.css']
+  styleUrls: ['./select-group-travelers.component.css'],
 })
 export class SelectGroupTravelersComponent implements OnInit {
-  tableCols = [   
-    {columnDef: 'personLegalNameFirst', additionalNameField: 'personLegalNameLast', header: 'Name', type: 'fullName'},
-    {columnDef: 'personEmail', header: 'Event', type: 'email'},
-    {columnDef: 'docId', header: 'Admin', type: 'emitData', btnName: 'Add to Group', btnIcon: 'person'}
+  tableCols = [
+    {
+      columnDef: 'personLegalNameFirst',
+      additionalNameField: 'personLegalNameLast',
+      header: 'Name',
+      type: 'fullName',
+    },
+    { columnDef: 'personEmail', header: 'Event', type: 'email' },
+    {
+      columnDef: 'docId',
+      header: 'Admin',
+      type: 'emitData',
+      btnName: 'Add to Group',
+      btnIcon: 'person',
+    },
   ];
   tableData: Observable<any>;
   travelers;
@@ -34,62 +45,73 @@ export class SelectGroupTravelersComponent implements OnInit {
     private readService: ReadService,
     private snackbarService: SnackbarService,
     private createService: CreateService,
-    private deleteService: DeleteService, 
-    private dialog: MatDialog,   
+    private deleteService: DeleteService,
+    private dialog: MatDialog,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.fetchTravelersListFn();
     this.fetchSelectedTravelersListFn();
-    this.groupTravelName = JSON.parse(sessionStorage.getItem('GroupTravelName'));
-    this.groupTravelCity = JSON.parse(sessionStorage.getItem('GroupTravelCity'));
-    this.groupTravelDocId = JSON.parse(sessionStorage.getItem('GroupTravelDocId'));
-    this.loggedInUserEmail = JSON.parse(sessionStorage.getItem("LoggedInUserEmail"));
+    this.groupTravelName = JSON.parse(
+      sessionStorage.getItem('GroupTravelName')
+    );
+    this.groupTravelCity = JSON.parse(
+      sessionStorage.getItem('GroupTravelCity')
+    );
+    this.groupTravelDocId = JSON.parse(
+      sessionStorage.getItem('GroupTravelDocId')
+    );
+    this.loggedInUserEmail = JSON.parse(
+      sessionStorage.getItem('LoggedInUserEmail')
+    );
   }
 
-  async fetchTravelersListFn(){
+  async fetchTravelersListFn() {
     this.tableHeading = 'Available Profiles';
     this.travelers = await this.readService.returnCollectionGroupOrderByFn(
       'travelProfile',
       'personLegalNameFirst',
       'asc'
-     );
-     this.tableData = of(this.travelers);
+    );
+    this.tableData = of(this.travelers);
   }
 
-    fetchSelectedTravelersListFn(){
+  fetchSelectedTravelersListFn() {
     this.selectedTravelersHeading = 'Selected Profiles';
-    this.groupTravelDocId =  JSON.parse(sessionStorage.getItem('GroupTravelDocId'));
+    this.groupTravelDocId = JSON.parse(
+      sessionStorage.getItem('GroupTravelDocId')
+    );
 
-    console.log(`Email, ${this.loggedInUserEmail}`);
-    console.log(`groupTravelDocId, ${this.groupTravelDocId}`);
-  
-    this.addedTravelersData = this.readService.returnCollectionGroupObservableWhereAndOrderByFn(
-      `selectedGroupTravelers`,
-      'groupTravelDocId',
-      this.groupTravelDocId,
-      'personEmail',
-      'asc'
-     );
+    this.addedTravelersData =
+      this.readService.returnCollectionGroupObservableWhereAndOrderByFn(
+        `selectedGroupTravelers`,
+        'groupTravelDocId',
+        this.groupTravelDocId,
+        'personEmail',
+        'asc'
+      );
   }
 
-  recordDetailFn(e: any){
-    console.log('DETAIL', e);
-    this.router.navigateByUrl(e.path, {state: {
-      docId: e.docId}});
-  } 
-
-  addFlightInfoFn(){
-    this.router.navigateByUrl('/account/group-travel/detail', {state: {
-      docId:  this.groupTravelDocId}});
+  recordDetailFn(e: any) {
+    this.router.navigateByUrl(e.path, {
+      state: {
+        docId: e.docId,
+      },
+    });
   }
-  deleteRecordFn(docId: string){
-    console.log(docId);     
+
+  addFlightInfoFn() {
+    this.router.navigateByUrl('/account/group-travel/detail', {
+      state: {
+        docId: this.groupTravelDocId,
+      },
+    });
+  }
+  deleteRecordFn(docId: string) {
     const groupTravelArrivalCity = this.groupTravelArrivalCity;
     const groupTravelName = this.groupTravelName;
-const msg = 
-`Remove <span style="color: red; font-weight: bold;">
+    const msg = `Remove <span style="color: red; font-weight: bold;">
 ${docId}</span>`;
 
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
@@ -98,31 +120,31 @@ ${docId}</span>`;
         documentMessage: msg,
         eventTitle: `from 
         ${groupTravelArrivalCity} - ${groupTravelName}`,
-        docId
-      }
+        docId,
+      },
     });
 
-    dialogRef.afterClosed().pipe(take(1)).subscribe(res => {
-   console.log(res);
-   const returnedData = res;
-   if (!returnedData || returnedData.cancel) {
-    console.log('returnedData: NOT CONFIRMED');
-  } else if (returnedData.confirm) {
-    console.log('returnedData: CONFIRMED');
+    dialogRef
+      .afterClosed()
+      .pipe(take(1))
+      .subscribe((res) => {
+        const returnedData = res;
+        if (!returnedData || returnedData.cancel) {
+          console.log('returnedData: NOT CONFIRMED');
+        } else if (returnedData.confirm) {
 
-    try {
-      this.deleteService.deleteRecordFn(
-        `raEmployeeDirectory/${this.loggedInUserEmail}/requestedGroupTravel/${this.groupTravelDocId}/selectedGroupTravelers`,      
-        docId        
-       )
-    } catch (error) {
-      console.log('ERROR', error);
-    }
-  }      
-  }); 
-}
+          try {
+            this.deleteService.deleteRecordFn(
+              `raEmployeeDirectory/${this.loggedInUserEmail}/requestedGroupTravel/${this.groupTravelDocId}/selectedGroupTravelers`,
+              docId
+            );
+          } catch (error) {
+            console.log('ERROR', error);
+          }
+        }
+      });
+  }
   async emittedTableDataFn(email: any) {
-    console.log('Emitted Data', email);
     const e = await this.readService.returnPromiseWhereFn(
       `raEmployeeDirectory/${email}/travelProfile`,
       'docId',
@@ -130,7 +152,7 @@ ${docId}</span>`;
     );
     const [s] = [...e];
     const docId = email;
-    const formData = {   
+    const formData = {
       docId,
       personCellPhone: s.personCellPhone,
       birthDate: s.birthDate,
@@ -146,7 +168,7 @@ ${docId}</span>`;
       readId: docId,
       personEmail: email,
       groupTravelDocId: this.groupTravelDocId,
-      applicationStatus: 'pending'
+      applicationStatus: 'pending',
     };
 
     try {
@@ -156,13 +178,12 @@ ${docId}</span>`;
         formData
       );
 
-       const snackClass = ['snackSuccess'];
-       const message = `${s.personLegalNameFirst} ${s.personLegalNameLast} added`;
-       this.snackbarService.openSnackBar(message, snackClass);
+      const snackClass = ['snackSuccess'];
+      const message = `${s.personLegalNameFirst} ${s.personLegalNameLast} added`;
+      this.snackbarService.openSnackBar(message, snackClass);
       //  this.router.navigateByUrl('/account/group-travel/city',
       //  {state: { docId: docId}});
-
-      } catch (e) {
+    } catch (e) {
       console.log('ERROR', e.message);
       const snackClass = ['snackError'];
       const message = `Operation Failed, please try again.`;

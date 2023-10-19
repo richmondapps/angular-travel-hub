@@ -92,18 +92,18 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-   console.log('CSC Table Cols', this.tableCols);
-   console.log('CSCTabledata', this.tableData);
+   console.log('RA Table Cols', this.tableCols);
+   console.log('RATabledata', this.tableData);
     this.formattedCols = this.tableCols.map(c => c.columnDef);
-  //  console.log('CSC Formatted Cols', this.formattedCols);
+  //  console.log('RA Formatted Cols', this.formattedCols);
 
     // this.tableDataSrc = this.tableData;
-  //  console.log('CSC Data Src', this.tableDataSrc);
+  //  console.log('RA Data Src', this.tableDataSrc);
     this.tableData?.subscribe((e: unknown[]) => {
       const obj = this.dateTime.convertDate(e);
-   //   console.log('CSC E', obj);
+   //   console.log('RA E', obj);
       this.tableDataSrc.data = obj;
-      console.log('CSCTabledata',  this.tableDataSrc.data);
+      console.log('RATabledata',  this.tableDataSrc.data);
 
     });
   }

@@ -1,32 +1,30 @@
 .contentWrapper {
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: 1fr 400px;
-    grid-template-areas: 
-    "dynamicTable addedTable"
-    ;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 400px;
+  grid-template-areas: 'dynamicTable addedTable';
 }
 
 .dynamicTable {
-    grid-area: dynamicTable;
+  grid-area: dynamicTable;
 }
 .addedTable {
-    grid-area: addedTable;
+  grid-area: addedTable;
 }
 
 .addedTravelersData {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .colorRed {
-    color: red;
+  color: red;
 }
 .colorGreen {
-    color: green;
+  color: green;
 }
 
 .addFlightInfo {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }

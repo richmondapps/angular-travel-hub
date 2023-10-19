@@ -13,7 +13,7 @@ import { UidGeneratorService } from 'src/app/services/uid-generator.service';
 @Component({
   selector: 'app-multicity',
   templateUrl: './multicity.component.html',
-  styleUrls: ['./multicity.component.css']
+  styleUrls: ['./multicity.component.css'],
 })
 export class MulticityComponent implements OnInit {
   @ViewChild('stepper') stepper: MatStepper;
@@ -37,11 +37,12 @@ export class MulticityComponent implements OnInit {
   returnFlightClass = 'returnFlightClass';
   accommodationClass = 'accommodationClass';
   vehicleClass = 'vehicleClass';
-requestType: 'flights' | 'accommodation' | 'vehicle' | 'flights' | 'purpose' = 'purpose';
-flightType: 'single' | 'return' | 'multi' = 'return';
-returnFlightFormConfig;
-singleFlightFormConfig;
-multiFlightFormConfig;
+  requestType: 'flights' | 'accommodation' | 'vehicle' | 'flights' | 'purpose' =
+    'purpose';
+  flightType: 'single' | 'return' | 'multi' = 'return';
+  returnFlightFormConfig;
+  singleFlightFormConfig;
+  multiFlightFormConfig;
   loggedInUserEmail: any;
   purposeOfTravelFormConfigFn;
   travelRequestId: any;
@@ -61,112 +62,112 @@ multiFlightFormConfig;
     private readService: ReadService,
     private requestsService: RequestsService,
     public authService: AuthService
-    ) {
- const newRequestId = UidGeneratorService.newId();
-     this.travelRequestId = sessionStorage.setItem("TravelRequestId", JSON.stringify(newRequestId));
-    }
+  ) {
+    const newRequestId = UidGeneratorService.newId();
+    this.travelRequestId = sessionStorage.setItem(
+      'TravelRequestId',
+      JSON.stringify(newRequestId)
+    );
+  }
   ngOnInit(): void {
-  
-     this.requestId = JSON.parse(sessionStorage.getItem('TravelRequestId'));
+    this.requestId = JSON.parse(sessionStorage.getItem('TravelRequestId'));
 
     this.loadDataFn();
 
     this.multiFlightFormConfig = this.requestsService.mutliFlightConfigFn();
 
-console.log( this.multiFlightFormConfig)
+    console.log(this.multiFlightFormConfig);
   }
 
-  fetchSummaryFn(){
-    this.readService.returnObservableWhereFn(
-      `cscEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel`,
-      'travelRequestId',
-      this.requestId
-
-    ).subscribe(d => {
-      if(d?.length){
-        console.log('ITINERAY BUILD',  d);
-      this.request = d;
-      }
-
-    });
+  fetchSummaryFn() {
+    this.readService
+      .returnObservableWhereFn(
+        `raEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel`,
+        'travelRequestId',
+        this.requestId
+      )
+      .subscribe((d) => {
+        if (d?.length) {
+          console.log('ITINERAY BUILD', d);
+          this.request = d;
+        }
+      });
   }
-  goBack(){
+  goBack() {
     this.stepper.previous();
-}
+  }
 
-goForward(){
+  goForward() {
     this.stepper.next();
-}
+  }
 
-async loadDataFn(){
-  this.purposeOfTravelFormConfigFn = await this.requestsService.purposeOfTravelConfigFn(
-    'cscBranchDirectory',
-    'branchName',
-    'asc',
-    'cscEmployeeDirectory',
-    'personLegalNameFirst',
-    'asc'
+  async loadDataFn() {
+    this.purposeOfTravelFormConfigFn =
+      await this.requestsService.purposeOfTravelConfigFn(
+        'raBranchDirectory',
+        'branchName',
+        'asc',
+        'raEmployeeDirectory',
+        'personLegalNameFirst',
+        'asc'
+      );
+  }
+  flightDataFn(e) {
+    console.log('FLIGHT EVENT', e);
+    if (e.d === 'nextStep') {
+      this.stepper.next();
+    }
+
+    if (e.d === 'multiFlight') {
+      this.accommodationSection = false;
+      this.vehicleSection = false;
+    } else {
+      this.accommodationSection = true;
+      this.vehicleSection = true;
+    }
+  }
+
+  fetchMultiFlightsFn() {
+    this.multicityLegs = this.readService.returnObservableOrderByFn(
+      `raEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel/${this.requestId}/multiFlights`,
+      'createdDate',
+      'asc'
     );
-
-}
-flightDataFn(e){
-  console.log('FLIGHT EVENT', e);
-if (e.d === 'nextStep'){
-  this.stepper.next();
-}
-
-if (e.d === 'multiFlight'){
-  this.accommodationSection = false;
-  this.vehicleSection = false;
-} else {
-  this.accommodationSection = true;
-  this.vehicleSection = true;
-}
-
-}
-
- fetchMultiFlightsFn(){
-  this.multicityLegs = this.readService.returnObservableOrderByFn(
-    `cscEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel/${this.requestId}/multiFlights`,
-    'createdDate',
-    'asc'
- );
-
-
-}
+  }
   emittedChildDataFn(d: any) {
     console.log('Emitted Data', d);
-    this.requestId = JSON.parse(sessionStorage.getItem("TravelRequestId"));
+    this.requestId = JSON.parse(sessionStorage.getItem('TravelRequestId'));
 
-    if(d.flightDeptDate){
+    if (d.flightDeptDate) {
       d.flightDeptDD = d.flightDeptDate.getDate();
       d.flightDeptMM = d.flightDeptDate.getMonth() + 1;
       d.flightDeptYYYY = d.flightDeptDate.getFullYear();
     }
 
- const formData = {
-     requestStatus: 'draft',
+    const formData = {
+      requestStatus: 'draft',
       ...d,
       travelRequestId: this.requestId,
       personEmail: this.loggedInUserEmail,
-      createdDate: new Date()
-    }
+      createdDate: new Date(),
+    };
 
     console.log('Form Data', formData);
 
     try {
-      this.loggedInUserEmail = JSON.parse(sessionStorage.getItem("LoggedInUserEmail"));
+      this.loggedInUserEmail = JSON.parse(
+        sessionStorage.getItem('LoggedInUserEmail')
+      );
 
+      const multiFlightId = UidGeneratorService.newId();
+      this.createService.createRecordFn(
+        `raEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel/${this.requestId}/multiFlights`,
+        multiFlightId,
+        formData
+      );
+      this.fetchMultiFlightsFn();
 
-    const multiFlightId = UidGeneratorService.newId();
-       this.createService.createRecordFn(
-     `cscEmployeeDirectory/${this.loggedInUserEmail}/requestedTravel/${this.requestId}/multiFlights`,
-     multiFlightId,
-     formData
-   );
-    this.fetchMultiFlightsFn();
-
-      console.log('Emitted Email',  this.loggedInUserEmail);
+      console.log('Emitted Email', this.loggedInUserEmail);
     } catch (e) {
       console.log('SESSION ERROR', e);
     }
@@ -186,34 +187,33 @@ if (e.d === 'multiFlight'){
     return this.flightType === 'return';
   }
 
-  toggleViewFn(){
+  toggleViewFn() {
     this.flightSection = !this.flightSection;
   }
-  changeViewFn(val){
-this.requestType = val;
+  changeViewFn(val) {
+    this.requestType = val;
   }
 
-get isPurpose(){
-  return this.requestType === 'purpose';
-}
-get isFlights(){
-  return this.requestType === 'flights';
-}
-get isAccommodation(){
-  return this.requestType === 'accommodation';
-}
-get isVehicle(){
-  return this.requestType === 'vehicle';
-}
+  get isPurpose() {
+    return this.requestType === 'purpose';
+  }
+  get isFlights() {
+    return this.requestType === 'flights';
+  }
+  get isAccommodation() {
+    return this.requestType === 'accommodation';
+  }
+  get isVehicle() {
+    return this.requestType === 'vehicle';
+  }
 
-  showFlights(){
+  showFlights() {
     this.showFlightSection = !this.showFlightSection;
   }
-  showAccommodation(){
+  showAccommodation() {
     this.showAccommodationSection = !this.showAccommodationSection;
   }
-  showVehicle(){
+  showVehicle() {
     this.showVehicleSection = !this.showVehicleSection;
   }
-
 }

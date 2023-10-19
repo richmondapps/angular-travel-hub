@@ -26,7 +26,7 @@ export class PublicVenuesComponent implements OnInit {
       this.fetchVenueDataFn();
       this.collectionPath = `${GlobalConstants.rootEmployeeCollection}/jake/resume`;
       this.publicOrPrivate = 'private';
-      this.documentId = 'jake@csc';
+      this.documentId = 'jake@ra';
   }
 
   fetchVenueDataFn(){

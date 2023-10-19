@@ -1,12 +1,12 @@
-.cscButtons {
+.raButtons {
     background: white;
-    color:var(--cscBlue)!important;
-    border: 1px solid var(--cscBlue)!important;
+    color:var(--raBlue)!important;
+    border: 1px solid var(--raBlue)!important;
   }
-  .cscButtons:hover, .cscButtons:active, .cscButtons:focus {
-    background-color:  var(--cscLightBlue)!important;
-    border: 1px solid var(--cscBlue)!important;
-    color: var(--cscBlue)!important;
+  .raButtons:hover, .raButtons:active, .raButtons:focus {
+    background-color:  var(--raLightBlue)!important;
+    border: 1px solid var(--raBlue)!important;
+    color: var(--raBlue)!important;
   }
 
   th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type {

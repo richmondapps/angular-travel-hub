@@ -34,7 +34,7 @@ export class AdminAboutUsDetailComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.readService.returnObservableWhereFn('cscBranchDirectory', 'docId', GlobalConstants.globalBranchDocId).subscribe(d => {
+    this.readService.returnObservableWhereFn('raBranchDirectory', 'docId', GlobalConstants.globalBranchDocId).subscribe(d => {
     //  console.log('READ', d);
       if (!d?.length) {
     //    console.log('NO ARRAY', d);

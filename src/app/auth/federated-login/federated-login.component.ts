@@ -53,7 +53,7 @@ export class FederatedLoginComponent implements OnInit {
   async sendEmailLink(email) {
     console.log('EMAIL', email);
     const actionCodeSettings = {
-      //   url: 'https://sofi-job-fair.csc-usa.com/passwordless',
+      //   url: 'https://sofi-job-fair.ra-usa.com/passwordless',
       url: 'http://localhost:5200/passwordless-signin',
       handleCodeInApp: true,
     };
