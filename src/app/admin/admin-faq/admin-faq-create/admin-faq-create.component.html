@@ -1,0 +1,157 @@
+<ng-container *ngIf="formConfig">
+    <app-dynamic-form
+      (submittedFormData)="submittedFormData($event)"
+      [f]="formConfig"
+      [class]="formCSSClassName"
+    >
+    <span class="btnLabel">Submit</span>
+  </app-dynamic-form>
+  </ng-container>
+  <hr />
+  <div class="topicsList">
+    <ng-container *ngFor="let x of faqs | async">
+      <button
+        mat-raised-button
+        class="cscButtons"
+        (click)="showQandAFn(x.docId, x.faqTitle)"
+      >
+        {{ x.faqTitle }}
+      </button>
+    </ng-container>
+  </div>
+  <ng-container *ngIf="questionAnswers | async">
+    <div class="faqWrapper">
+      <div class="qaAdmin">
+        <div>
+          <button
+            mat-raised-button
+            class="greenBtn addBtn"
+            (click)="addQandAFn(currentId)"
+          >
+            <span class="material-icons"> add_circle_outline </span>
+          </button>
+          <ng-container *ngFor="let p of publicPrivate | async">
+  
+            <ng-container *ngIf="p.visibility === 'private'">
+              <button
+              mat-raised-button
+              class="publicOff togglePrivatePublic"
+              (click)="togglePrivatePublic(currentId, 'public')"
+            > Make Public
+              <span class="material-icons"> public_off </span>
+            </button> Visibility: Members Only
+            </ng-container>
+            <ng-container *ngIf="p.visibility === 'public'">
+              <button
+              mat-raised-button
+              class="public togglePrivatePublic"
+              (click)="togglePrivatePublic(currentId, 'private')"
+            >Make Private
+              <span class="material-icons"> public </span>
+            </button> Visibility: Public
+            </ng-container>
+          </ng-container>
+  
+        </div>
+        <div>
+          <span class="fill-space"></span>
+        </div>
+        <div>
+          <button
+            mat-raised-button
+            class="redBtn deleteBtn"
+            (click)="deleteTopicFn(currentId, currentFaqTitle)"
+          >
+            <span class="material-icons"> delete_forever </span>
+            Delete Topic
+          </button>
+        </div>
+  
+      </div>
+  
+      <div class="example-action-buttons">
+        <button mat-button (click)="accordion.openAll()">Expand All</button>
+        <button mat-button (click)="accordion.closeAll()">Collapse All</button>
+      </div>
+      <mat-accordion class="example-headers-align" multi>
+        <mat-expansion-panel *ngFor="let q of questionAnswers | async">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <strong>{{ q.faqQuestion }}</strong>
+            </mat-panel-title>
+            <mat-panel-description> </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div>
+            {{ q.faqAnswer }}
+          </div>
+          <ng-container *ngIf="q.documentUrl">
+            <div class="documentLinkWrapper">
+              <a href="{{ q.documentUrl }}" target="_blank" rel="noopener noreferrer">
+                <span class="material-icons-outlined"> picture_as_pdf </span> View PDF
+              </a>
+            </div>
+          </ng-container>
+          <div class="adminBtnWrapper">
+              <div class="buttonRow">
+            <button
+              mat-raised-button
+              class="cscButtons"
+              (click)="editFaqFn(q.docId, currentId)"
+            >
+              Edit
+            </button>
+            <button
+              mat-raised-button
+              class="redBtn"
+              (click)="openDeleteDialogFn(q.docId, currentId, q.faqQuestion)"
+            >
+              Delete
+            </button>
+          </div>
+            <div class="pdfUploadBtn">
+              <ng-container *ngIf="q.documentUrl; else noDoc">
+  
+                  <div class="resumeUploadWrapper">
+                    <div class="fileUploadWrapper">
+                      <app-file-upload
+                        [collectionPath]="collectionPath"
+                        [publicOrPrivate]="'private'"
+                        [documentId]="q.docId"
+                      >
+                        <span class="btnLabel">Update PDF</span>
+                      </app-file-upload>
+                    </div>
+                    <div class="deletePdf">
+                      <button
+                      mat-raised-button
+                      class="redBtn"
+                      (click)="deletePDFFn(q.docId, currentId)"
+                    >
+                      Delete
+                    </button>
+                    </div>
+                    <!-- <div class="resumeLinkWrapper">
+                      <a href="{{ q.documentUrl }}" target="_blank" rel="noopener noreferrer">
+                        <span class="material-icons"> picture_as_pdf </span> PDF
+                      </a>
+                    </div> -->
+                  </div>
+  
+              </ng-container>
+  
+              <ng-template #noDoc>
+                <app-file-upload
+                  [collectionPath]="collectionPath"
+                  [publicOrPrivate]="'private'"
+                  [documentId]="q.docId"
+                >
+                  <span class="btnLabel">Add PDF</span>
+                </app-file-upload>
+              </ng-template>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </ng-container>
+  

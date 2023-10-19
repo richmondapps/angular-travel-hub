@@ -1,0 +1,50 @@
+<div class="bulletinBoardWrapper">
+    <div class="" *ngFor="let a of article | async">
+  
+      <div class="adminTools">
+        <div class="buttonRow">
+          <ng-container *ngIf="a.publishStatus === 'published'">
+            <button #btnRef="matButton" mat-raised-button class="redBtn" (click)="updatePublishStatusFn(a.docId, 'draft')">Take Offline</button>
+          </ng-container>
+  
+          <ng-container *ngIf="a.publishStatus === 'draft'">
+            <button #btnRef="matButton" mat-raised-button class="greenBtn" (click)="updatePublishStatusFn(a.docId, 'published')">Publish</button>
+          </ng-container>
+  
+  
+          <button mat-raised-button class="cscButtons" (click)="editBlogFn(a.docId)">Edit</button>
+          <!-- <button mat-raised-button class="cscButtons" (click)="changeSearchType('branchName')">Branch</button>
+          <button mat-raised-button class="cscButtons" (click)="changeSearchType('branchState')">State</button> -->
+        </div>
+      </div>
+      <p type="text" name="news_title" id="news_title">{{a.bulletinBoardTitle}}</p>
+      <p><strong><span class="material-icons">
+        schedule
+        </span>
+         {{a.eventDate | date: 'MMM d, yyyy'}}</strong></p>
+  <!-- <ng-container *ngIf="a.videoUrl">
+    <section class="youtube-holder" >
+      <div class="video-container" >
+        <iframe class="ld-vid-intro" [src]="a.videoUrl | sanitize: 'resourceUrl'" frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
+    </section>
+  </ng-container> -->
+  
+  <ng-container *ngIf="a.imageUrl">
+    <div class="imageWrapper">
+  <img [src]="a.imageUrl" alt="">
+    </div>
+  
+  </ng-container>
+  
+      <p type="text" name="newsCopy" id="newsCopy">{{a.bulletinBoardCopy}}
+      </p>
+      <div class="goBackBtn">
+        <button mat-raised-button (click)="backButtonWithState()" class="cscButtons"><i class="fa fa-mail-reply mr-1"></i>
+        Go Back</button>
+      </div>
+    </div>
+  </div>
+  

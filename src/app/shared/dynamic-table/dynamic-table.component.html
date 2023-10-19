@@ -1,0 +1,230 @@
+<div id="employees-table" class="page-wrapper">
+  <ng-container>
+    <div class="datatableWrapper">
+      <!-- <ng-container *ngIf="showSpinner">
+        <mat-spinner diameter="20">Loading</mat-spinner>
+      </ng-container> -->
+      <ng-container *ngIf="tableDataSrc.data.length > 0">
+        <h3>{{tableHeading}}: {{tableDataSrc.data.length}}</h3>
+      <!-- <mat-form-field>
+        <input matInput (keyup)="dataFilter($event.target.value)" placeholder="Search">
+      </mat-form-field> -->
+      </ng-container>
+      <table style="width:100%;margin:0 auto;" class="datatable" mat-table [dataSource]="tableDataSrc" matSort>
+
+        <ng-container *ngFor="let col of tableCols" matColumnDef="{{col.columnDef}}">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{col.header | uppercase}} </th>
+          <td class="grid view" mat-cell *matCellDef="let e">
+            <div ngSwitch="{{col.type}}">
+              <!-- <p>Type: {{col.type}}</p> -->
+
+              <div *ngSwitchCase="'requestStatus'">
+                <ng-container *ngIf="e[col.columnDef]=== 'new'">
+                  <button (click)="showDetailFn(e[col.readId], e[col.requesterEmail])" 
+                  type="button" mat-raised-button class="statusBtn new">New</button>
+                </ng-container>
+                <ng-container *ngIf="e[col.columnDef]=== 'pending'">
+                  <button (click)="showDetailFn(e[col.readId], e[col.requesterEmail])"  type="button" mat-raised-button class="statusBtn pending">Pending</button>
+                </ng-container>
+                <ng-container *ngIf="e[col.columnDef]=== 'approved'">
+                  <button (click)="showDetailFn(e[col.readId], e[col.requesterEmail])"  type="button" mat-raised-button class="statusBtn approved">Approved</button>
+                </ng-container>
+                <ng-container *ngIf="e[col.columnDef]=== 'authorized'">
+                  <button (click)="showDetailFn(e[col.readId], e[col.requesterEmail])"  type="button" mat-raised-button class="statusBtn authorized">Authorized</button>
+                </ng-container>
+                <ng-container *ngIf="e[col.columnDef]=== 'confirmed'">
+                  <button (click)="showDetailFn(e[col.readId], e[col.requesterEmail])"  type="button" mat-raised-button class="statusBtn confirmed">Confirmed</button>
+                </ng-container>
+              </div>
+
+              <!-- <div *ngSwitchCase="'recordDetail'">
+                <a (click)="showDetailFn(e[col.columnDef], e[col.docId], col.urlPath)">
+                  <button type="button" mat-raised-button class="cscButtons">Detail</button>
+                </a>
+              </div> -->
+
+              <div *ngSwitchCase="'signedUrl'">
+                <a (click)="viewCloudFileFn(e[col.columnDef], e.itemDepartment)" target="_blank"
+                  rel="noopener noreferrer">
+                  <button appShowSpinner="isSaving" mat-raised-button class="cscBtn">SIGNED URL </button>
+                </a>
+
+              </div>
+              <div *ngSwitchCase="'publicUrl'">
+                <a (click)="viewPublicFileFn(e[col.columnDef], e.itemDepartment)" target="_blank"
+                  rel="noopener noreferrer">
+                  <button appShowSpinner="isSaving" mat-raised-button class="cscBtn">View </button>
+                </a>
+              </div>
+
+              <div *ngSwitchCase="'emitData'">
+                <a (click)="addRecordFn(e[col.columnDef])" >
+                <button appShowSpinner="isSaving" mat-raised-button class="greenBtn">{{col.btnName}} </button>
+              </a>
+              </div>
+
+              <div *ngSwitchCase="'editRecord'">
+                <a (click)="editRecordFn(e[col.columnDef])" >
+               <mat-icon>edit</mat-icon>
+              </a>
+              </div>
+
+              <div *ngSwitchCase="'deleteRecord'">
+                <a (click)="deleteRecordFn(e[col.columnDef])" >
+                <mat-icon>delete</mat-icon>
+              </a>
+              </div>
+
+              <div *ngSwitchCase="'workEventRequest'">
+                <a (click)="workEventRequestFn(e[col.columnDef], e[col.venueDocId])" >
+                <mat-icon>pending_actions</mat-icon> Apply
+              </a>
+              </div>
+
+
+              <div *ngSwitchCase="'cost'">
+                <ng-container *ngIf="e[col.columnDef]; else noCost">
+                  <span [class]="col.class"> {{e[col.columnDef] | currency: 'USD'}}</span>
+                </ng-container>
+                <ng-template #noCost>
+                  <p [class]="col.class">Pending</p>
+                  </ng-template>
+              </div>
+              <div *ngSwitchCase="'name'">
+                <span [class]="col.class">{{e[col.columnDef]}}</span>
+              </div>
+              <div *ngSwitchCase="'fullName'">
+                <ng-container *ngIf="e[col.columnDef]; else noFullName">
+                   <div class="">
+                    <span [class]="col.class">{{e[col.columnDef] | titlecase}} {{e[col.additionalNameField] | titlecase}}</span>
+                    </div>
+                 </ng-container>
+                 <ng-template #noFullName>
+                 <p>No Data</p>
+                 </ng-template>
+
+             </div>
+             <div *ngSwitchCase="'requestIcons'">
+               <div class="requestIcons">
+                 <ng-container *ngIf="e[col.iconField1]">
+                 <div class="">
+                  <span [class]="col.class">
+                    <mat-icon inline=true>flight</mat-icon> 
+                  </span>
+                  <span *ngIf="e[col.flightType]=== 'multiCityFlights'"[class]="col.class">MC
+                    <!-- <mat-icon inline=true>add</mat-icon>  -->
+                  </span>
+                  </div>
+               </ng-container>
+              <ng-container *ngIf="e[col.iconField2]">
+                 <div class="">
+                  <span [class]="col.class">  
+                    <mat-icon inline=true>hotel</mat-icon>
+                  </span>
+                  </div>
+               </ng-container>
+              <ng-container *ngIf="e[col.iconField3]">
+                 <div class="">
+                  <span [class]="col.class">
+                    <mat-icon inline=true>car_rental</mat-icon>
+                  </span>
+                  </div>
+               </ng-container>
+               </div>              
+             </div>
+             
+             <div *ngSwitchCase="'titleCaseText'">
+              <ng-container *ngIf="e[col.columnDef]">
+                 <div class="">
+                  <span [class]="col.class">{{e[col.columnDef] | titlecase}}</span>
+                  </div>
+               </ng-container>
+             </div>
+
+             <div *ngSwitchCase="'upperCaseText'">
+                <ng-container *ngIf="e[col.columnDef]">
+                  <div class="">
+                    <span [class]="col.class">{{e[col.columnDef] | uppercase}}</span>
+                  </div>
+                </ng-container>
+             </div>
+
+              <div *ngSwitchCase="'img'">
+                <img style="width: 100px;" src="{{e[col.columnDef]}}" alt="">
+              </div>
+              <div *ngSwitchCase="'date'">
+                <span [class]="col.class">
+                <span class="">
+                  {{e[col.columnDef] | date: 'MM/dd/yyyy'}}
+                </span>
+                <!-- <span class="tablet">
+                  {{e[col.columnDef] | date: 'MMM dd, yyyy'}}
+                </span>
+                <span class="desktop">
+                  {{e[col.columnDef] | date: 'MMMM dd, yyyy'}}
+                </span> -->
+                </span>
+              </div>
+              <div *ngSwitchCase="'employeeId'">
+                {{e[col.columnDef]}}
+              </div>
+              <div *ngSwitchCase="'ssn'">
+                {{e[col.columnDef]}}
+              </div>
+
+              <div *ngSwitchCase="'email'">
+              <span class="email">
+              <a href="mailTo:{{e[col.columnDef]}}">
+                 {{e[col.columnDef]}}
+              </a>
+              </span>
+              </div>
+              <div *ngSwitchCase="'phone'">
+              <ng-container *ngIf="e[col.columnDef] || e[col.columnDef] === null; else noPhone">
+                <span class="phone">
+                  <a href="tel:{{e[col.columnDef] | phoneFormat: 'US'}}">
+                    {{e[col.columnDef] | phoneFormat: 'US'}}
+                  </a>
+             </span>
+              </ng-container>
+             <ng-template #noPhone>
+               Not Listed
+             </ng-template>
+              </div>
+              <div *ngSwitchCase="'empStatus'">
+                <span [ngClass]="(e[col.columnDef]) === 'active' ? 'greenBtn' : 'redBtn'">
+                  {{e[col.columnDef] | titlecase}}
+                </span>
+              </div>
+              <div *ngSwitchDefault>
+                {{e[col.columnDef] | titlecase}}
+              </div>
+              <div *ngSwitchCase="'delete'">
+                <!-- <mat-icon class="delIcon"
+                (click)="openDeleteDialogFn(col.collection, e[col.columnDef])"align="end" color="warn" inline=true>
+                  delete_forever</mat-icon> -->
+              </div>
+            </div>
+
+            <!-- <pre>
+              <p>E</p>
+              {{e | json}}
+            </pre> -->
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="formattedCols"></tr>
+        <tr mat-row *matRowDef="let row; columns: formattedCols; let i = index;" class="customRowStyle"
+          [class.customRowStyleAlternate]="i % 2"></tr>
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No Records Found</td>
+        </tr>
+      </table>
+      <mat-paginator
+          [length]="dataTableLength"
+          [pageSize]="dataTablePageSize"
+          [pageSizeOptions]="dataTablePageSizeOptions">
+        </mat-paginator>
+    </div>
+  </ng-container>
+  <ng-template #noData>There are no records.</ng-template>
+</div>

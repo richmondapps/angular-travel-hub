@@ -1,0 +1,19 @@
+.linkSentWrapper {
+  display: grid;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+.linkSentWrapper p {
+  font-size: 1.1rem;
+  margin-top: 1rem;
+}
+.emailWrapper {
+  display: flex;
+  justify-self: center;
+  background-color: green;
+  padding: 0.5rem 1rem;
+  color: white;
+  border-radius: 10px;
+  margin-top: 1rem;
+  width: max-content;
+}

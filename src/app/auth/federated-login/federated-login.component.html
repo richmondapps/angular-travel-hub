@@ -1,0 +1,155 @@
+<div class="pageWrapper">
+
+    <!-- #region Background employee verification -->
+    <ng-container *ngIf="showSpinner">
+      <div class="spinnerWrapper">
+        <!-- <h3>Verifying Employee</h3> -->
+        <div class="loadingGraphic">
+          <app-loading-spinner></app-loading-spinner>
+        </div>
+      </div>
+    </ng-container>
+    <!-- #endregion Background employee verification -->
+  
+    <!-- #region ERROR MESSAGE -->
+    <!-- <ng-container *ngIf="notPermitted">
+      <div>{{noBranchMatch}}</div>
+    </ng-container>
+    <ng-container *ngIf="noRecordFound">
+      <div class="noRecordFound"><p>No Record Found, please try again. If you believe this is an error please contact your branch.</p></div>
+    </ng-container>
+    <ng-container *ngIf="notPermitted">
+      <div>{{noBranchMatch}}</div>
+    </ng-container> -->
+  
+    <!-- #endregion ERROR MESSAGE -->
+
+    <ng-container *ngIf="(authService.user$ | async) as user; else noUser">
+
+        <div class="loggedInUser">
+<p>
+   Logged In: {{user.email}}
+</p>
+        </div>
+    </ng-container>
+
+    <ng-template #noUser>
+
+  <!-- #region SOCIAL LOGIN GRID -->
+ <ng-container >
+      <ng-container *ngIf="showLoginGrid">
+          <ng-container *ngIf="isSignInMsg">
+                 <p class="signInMessage">
+    If you have a CSC email address (e.g. travel@csc-usa.com), you can sign in below using your Microsoft credentials. 
+   </p>
+      </ng-container>
+  
+      <div *ngIf="isLogin" class="socialGrid">
+        <ng-container *ngFor="let x of miscImages | async">       
+          <ng-container *ngIf="x.imageTitle === 'microsoft-logo'">
+    <div class="btnGrid" *ngIf="isMS" (click)="SSOFN('microsoft.com')">
+              <img
+            class="socialIcon"
+            [src]="x.imageUrl"
+            alt="Microsoft Logo"
+          />
+          <h4 class="socialLoginBtn microsoft">Microsoft</h4>
+        </div>
+        </ng-container>        
+          </ng-container>  
+      </div>
+      <ng-container *ngIf="isAlternate" >
+  <div class="socialGrid">
+        <ng-container *ngFor="let x of miscImages | async">     
+                 <ng-container *ngIf="x.imageTitle === 'google-logo'">
+           <div class="btnGrid" *ngIf="isSocialSignup" (click)="SSOFN('google.com')">     
+          <img
+            class="socialIcon"
+            [src]="x.imageUrl"
+            alt="Google Logo"
+          />
+          <h4 class="socialLoginBtn google">Google</h4>
+        </div>
+        </ng-container>
+        <ng-container *ngIf="x.imageTitle === 'apple-logo'">
+          <div class="btnGrid" *ngIf="isSocialSignup" (click)="SSOFN('apple.com')">
+          <img
+            class="socialIcon"
+            [src]="x.imageUrl"
+            alt="Apple Logo"
+          />
+          <h4 class="socialLoginBtn facebook">Apple</h4>
+        </div>
+        </ng-container>
+        <ng-container *ngIf="x.imageTitle === 'email-logo'">
+           <div class="btnGrid" *ngIf="isSocialSignup" (click)="showFormFn()">
+          <img
+            class="socialIcon"
+            [src]="x.imageUrl"
+            alt="Email Icon"
+          />
+          <h4 class="socialLoginBtn passworldess">Email</h4>
+        </div>
+        </ng-container> 
+          </ng-container>  
+      </div>
+      </ng-container>    
+      </ng-container> 
+  
+      <form *ngIf="isShowForm" [formGroup]="passwordless">
+        <mat-form-field appearance="outline">
+          <input
+            matInput
+            type="email"
+            [(ngModel)]="email"
+            placeholder="Enter your email address"
+            formControlName="passwordlessEmail"
+          />
+        </mat-form-field>
+        <div class="emailRow">
+          <button
+            mat-raised-button
+            class="greenBtn"
+            [disabled]="passwordless.invalid"
+            (click)="sendEmailLink(email)"
+          >
+            Send Sign In Link
+          </button>
+          <a
+            class="aLink"
+                  (click)="showAlternateSignInFn('alternate')"
+          >
+            Back
+        </a>
+        </div>
+      </form>
+
+      <div *ngIf="isLogin" class="accessQuestion">
+        <button  mat-raised-button (click)="showAlternateSignInFn('alternate')" >  Alternative Options <span class="material-icons">
+          launch
+          </span></button>
+          </div>
+         <div  *ngIf="isAlternate" class="accessQuestion">
+        <button  mat-raised-button (click)="showSocialGridFn('login')" >  CSC Email <span class="material-icons">
+          launch
+          </span></button>
+          </div>
+
+      <div
+        style="text-align: center"
+        class="green-msg margin-1-0"
+        *ngIf="emailSent"
+      >
+        An email containing a sign in link has been sent to {{ email }}
+      </div>
+    </ng-container>
+    <!-- #endregion SOCIAL LOGIN GRID -->
+
+    </ng-template>
+  
+  
+   
+  </div>
+  
+  
+  

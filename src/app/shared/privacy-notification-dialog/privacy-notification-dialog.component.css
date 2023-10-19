@@ -1,0 +1,11 @@
+.titleWrapper {
+  background-color: var(--cscLightBlue);
+  color: var(--cscMidnightBlue);
+  margin: 0;
+  padding: 1rem;
+}
+
+.noticeWrapper a{
+  color: blue;
+  text-decoration: underline;
+}

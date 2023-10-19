@@ -1,0 +1,79 @@
+.rewardsPageWrapper {
+ width: 94%;
+ margin: 1rem 0;
+ display: grid;
+ grid-template-columns:  1fr;
+ gap: 1rem;
+}
+
+.airlineWrapper,
+.accommodationWrapper,
+.vehicleWrapper {
+  padding: .5rem 2rem;
+}
+
+.rewardsWrapper {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+
+}
+
+.rewardsWrapper > div{
+  padding: .5rem;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  width: max-content;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.sectionTitle {
+  font-size: 1.3rem;
+}
+
+.rewardMembershipName {
+  margin: .5rem;
+}
+
+.rewardMembershipId {
+  margin: .5rem;
+}
+
+.rewardAdmin {
+  display: flex;
+  justify-content: flex-start;
+}
+/* #region 300 */
+@media only screen and (min-width: 300px) and (max-width: 767px){
+
+}
+/* #endregion 300 */
+
+/* #region 768 */
+@media screen and (min-width: 768px) and (max-width: 959px) {
+
+}
+/* #endregion  768 */
+
+/* #region  960 */
+@media screen and (min-width: 960px) and (max-width: 1279px) {
+
+}
+/* #endregion 960 */
+
+/* #region  1280 */
+@media screen and (min-width: 1280px) and (max-width: 1919px) {
+
+}
+/* #endregion  1280 */
+
+/* #region 1920 */
+@media screen and (min-width: 1920px) and (max-width: 5000px) {
+
+}
+/* #endregion  1920 */

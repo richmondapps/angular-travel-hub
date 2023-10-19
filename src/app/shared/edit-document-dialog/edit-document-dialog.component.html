@@ -1,0 +1,14 @@
+<h2 mat-dialog-title></h2>
+<mat-dialog-content [class]="class">
+  <ng-container>
+  <app-dynamic-form
+  (submittedFormData)="receivedDynamicDataFn($event)"
+  [p]="patchValues"
+  [f]="formConfig"
+  [class]="class">
+  <span class="btnLabel">Submit</span>
+  </app-dynamic-form>
+  </ng-container>
+
+</mat-dialog-content>
+

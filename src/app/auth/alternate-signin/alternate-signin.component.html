@@ -1,0 +1,60 @@
+<div class="pageWrapper">
+  <div class="socialGrid">
+    <ng-container *ngFor="let x of miscImages">
+      <ng-container *ngIf="x.imageTitle === 'google-logo'">
+        <div
+          class="btnGrid"
+          *ngIf="isSocialSignup"
+          (click)="SSOFN('google.com')"
+        >
+          <img class="socialIcon" [src]="x.imageUrl" alt="Google Logo" />
+          <h4 class="socialLoginBtn google">Google</h4>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="x.imageTitle === 'apple-logo'">
+        <div
+          class="btnGrid"
+          *ngIf="isSocialSignup"
+          (click)="SSOFN('apple.com')"
+        >
+          <img class="socialIcon" [src]="x.imageUrl" alt="Apple Logo" />
+          <h4 class="socialLoginBtn facebook">Apple</h4>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="x.imageTitle === 'email-logo'">
+        <div class="btnGrid" *ngIf="isSocialSignup" (click)="showFormFn()">
+          <img class="socialIcon" [src]="x.imageUrl" alt="Email Icon" />
+          <h4 class="socialLoginBtn passworldess">Email</h4>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+
+  <form *ngIf="isShowForm" [formGroup]="passwordless">
+    <mat-form-field appearance="outline">
+      <input
+        matInput
+        type="email"
+        [(ngModel)]="email"
+        placeholder="Enter your email address"
+        formControlName="passwordlessEmail"
+      />
+    </mat-form-field>
+    <div class="emailRow">
+      <button
+        mat-raised-button
+        class="greenBtn"
+        [disabled]="passwordless.invalid"
+        (click)="sendEmailLink(email)"
+      >
+        Send Sign In Link
+      </button>
+      <a class="aLink" (click)="showAlternateSignInFn()"> Back </a>
+    </div>
+  </form>
+  <div *ngIf="!isShowForm" class="accessQuestion">
+    <button mat-raised-button (click)="showSocialGridFn()">
+      RA | Email <span class="material-icons"> launch </span>
+    </button>
+  </div>
+</div>

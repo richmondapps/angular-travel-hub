@@ -1,0 +1,24 @@
+{
+  "projects": {
+    "default": "ra-travel"
+  },
+  "targets": {
+    "ra-travel": {
+      "hosting": {
+        "dev": [
+          "travel-hub-dev"
+        ],
+        "prod": [
+          "ra-travel-hub"
+        ]
+      }
+    },
+    "csc-usa-prod": {
+      "hosting": {
+        "prod": [
+          "ra-travel-hub"
+        ]
+      }
+    }
+  }
+}

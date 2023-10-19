@@ -1,0 +1,12 @@
+<div class="dynamicTable" *ngIf="tableData | async">
+    <app-dynamic-table
+    id="groupListDraft"
+    (singleRecordValue)="emittedTableDataFn($event)"
+    [tableData]="tableData"
+    [tableColumns]="tableCols"
+    [tableHeading]="tableHeading"
+    >
+  </app-dynamic-table>
+  </div>
+  
+  

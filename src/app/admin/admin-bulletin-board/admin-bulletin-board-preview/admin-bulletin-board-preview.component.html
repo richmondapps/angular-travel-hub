@@ -1,0 +1,124 @@
+<ng-container *ngFor="let x of bulletinBoardData">
+    <div class="">
+      <ng-container *ngIf="showAdminTools"> </ng-container>
+  
+      <button
+      class="editBtn"
+              mat-mini-fab
+        (click)="showAdminTools = !showAdminTools"
+        [ngClass]="showAdminTools ? 'greenBtn' : ' redBtn'">
+        <mat-icon>{{ showAdminTools ? "preview" : "edit" }}</mat-icon>
+      </button> Show {{ showAdminTools ? " Preview" : "Admin Tools" }}
+  
+      <ng-container *ngIf="showAdminTools">
+        <ng-container *ngIf="!showImageUpload">
+          <div *ngFor="let x of bulletinBoardData">
+            <div class="">
+              <button
+                class="editBtn"
+                mat-mini-fab
+                (click)="editVenueFn(bulletinBoardNameForm)">
+                <mat-icon>edit</mat-icon>
+              </button>Edit Post Title
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+      <div class="card">
+          <div class="bulletinBoardName">
+            <h1>{{ x.bulletinBoardTitle }}</h1>
+            <h3>Slug: {{x.bulletinBoardSlug}}</h3>
+          </div>
+          <div class="bulletinBoardImage">
+            <img class="navImg" [src]="x.imageUrl" />
+          </div>
+        </div>
+      </div>
+  
+    <ng-container *ngIf="showAdminTools">
+      <div>
+          <input
+          type="file"
+          name="file"
+          id="file"
+          (change)="fileChangeEvent($event, 600, 338, 1.78)"
+          class="inputFile" />
+        <label for="file"
+          >{{ !x.imageUrl ? "Select" : "Change" }} Image</label>
+      </div>
+    </ng-container>
+  
+  
+    <ng-container *ngIf="showImageUpload">
+      <app-image-upload
+        (cancelImgSelection)="cancelImageSelection($event)"
+        (selectedImgUploaded)="fileUploaded($event)"
+        [imgChangedEvent]="imgChangedEvent"
+        [imageW]="imageWidth"
+        [imageH]="imageHeight"
+        [aspectRatio]="aspectRatio"
+        [fileName]="fileName"
+        [firestoreRecordPath]="firestoreRecordPath"
+        [updateRecordPath]="updateRecordPath"
+        [storagePath]="storagePath"
+        [imageViewType]="imgView"
+        [updateDoc]="updateDocId"
+      ></app-image-upload>
+    </ng-container>
+  
+    <div class="eventDate">
+      <ng-container *ngIf="showAdminTools">
+        <div class="">
+          <button
+          class="editBtn"
+          mat-mini-fab
+            (click)="editVenueFn(eventDateForm)">
+            <mat-icon>edit</mat-icon>
+          </button>{{ x.eventDate ? "Edit" : "Add" }}  Date
+        </div>
+      </ng-container>
+      <ng-container *ngIf="x.eventDate">
+        <span class="eventDate">
+           ({{ x.eventDate | date:"MMM dd, yyyy"}})
+        </span>
+        </ng-container>
+  
+    </div>
+    <div class="venueAddress">
+      <ng-container *ngIf="showAdminTools">
+        <div class="">
+          <button
+          class="editBtn"
+          mat-mini-fab
+            (click)="editVenueFn(bulletinBoardVenueName)">
+            <mat-icon>edit</mat-icon>
+           </button>{{ x.eventVenue ? "Edit" : "Add" }} Location
+        </div>
+      </ng-container>
+      <div class="eventVenueSection">
+        <ng-container *ngIf="x.eventVenue">
+       <span class="eventVenue">{{ x.eventVenue}}</span>
+        </ng-container>
+  
+      </div>
+    </div>
+  
+    <div class="bulletinBoardCopy">
+      <ng-container *ngIf="showAdminTools">
+        <div class="">
+          <button
+          class="editBtn"
+          mat-mini-fab
+            (click)="editVenueFn(bulletinBoardCopyForm)"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>Text
+        </div>
+      </ng-container>
+      <div style="white-space: pre-line;" class="copy">
+        {{ x.bulletinBoardCopy }}
+      </div>
+    </div>
+  
+  </ng-container>
+  

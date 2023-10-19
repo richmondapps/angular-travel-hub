@@ -1,0 +1,53 @@
+<ng-container *ngFor="let x of venueData | async">
+  <div class="venueName">
+    <h1>{{ x.venueName }}</h1>
+  </div>
+  <hr />
+  <div class="venueAddress">
+    {{ x.venueAddressOne }} {{ x?.venueAddressTwo }},
+    {{ x.venueAddressCity }}, {{ x.venueAddressState }},
+    {{ x.venueAddressZip }}
+  </div>
+  <!-- <div class="venueStaff">
+    <h2 class="sectionTitle">Venue Staff</h2>
+    <div class="staffGrid">
+      <div *ngFor="let o of ifPreview; let i = index" class="employeeDetails">
+        <div class="personImage">
+          <img
+            src="{{ o.personImageUrl }}"
+            alt=" Photo of {{ o.personLegalNameFirst }}   {{
+              o.personLegalNameLast
+            }}"
+          />
+        </div>
+        <div>
+          <h4 class="personName">
+            {{ o.personLegalNameFirst }}
+            {{ o.personLegalNameLast }}
+          </h4>
+          <h5 class="personTitle">{{ o.personJobTitle }}</h5>
+          <p class="personEmail">
+            <a href="mailTo:{{ o.personEmail }}">
+              {{ o.personEmail }}
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <hr />
+  <div class="venueInfo">
+    <p style="white-space: pre-line">{{ x.venueInfo }}</p>
+  </div>
+  <hr />
+  <div>
+    {{x.createdAt}}
+  </div>
+  <ng-container>
+    <!-- <app-dynamic-table
+      id="sofi-applicants"
+      [tableData]="tableData"
+      [tableColumns]="tableCols"
+    ></app-dynamic-table> -->
+  </ng-container>
+</ng-container>

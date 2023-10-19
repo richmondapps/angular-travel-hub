@@ -1,0 +1,217 @@
+<div class="pageWrapper">
+  <div class="goBackBtn">
+	<a		
+	(click)="backButtonWithState()"
+	class="backArrow">
+	<span class="material-icons">
+arrow_back
+</span> Go Back
+</a>
+	</div>
+	<div class="buttonRow">
+		<!-- <button
+        mat-raised-button
+        class="cscButtons"
+        (click)="changeType('content')"
+      >
+        Content
+      </button> -->
+		<!-- <button
+			mat-raised-button
+			class="greenBtn"
+			[routerLink]="['/account/update-profile']"
+			routerLinkActive="router-link-active">
+			Edit
+			<span class="material-icons"> edit </span>
+		</button> -->
+		<!-- <button mat-raised-button (click)="fetchExternalDataFn()">External</button>
+    <button mat-raised-button (click)="copyDataFn(externalDetail)">Write</button> -->
+	</div>
+
+	<ng-container>
+		<div class="employeeProfile">
+			<ng-container *ngFor="let x of profile">
+				<div class="personNameWrapper">
+					<p class="sectionLabel">Full Legal Name</p>
+					<p>
+						<ng-container *ngIf="x.personLegalNamePrefix">
+							<span class="personLegalNamePrefix personData">{{
+								x.personLegalNamePrefix
+							}}</span>
+						</ng-container>
+
+						<span class="personLegalNameFirst personData">{{
+							x.personLegalNameFirst | titlecase
+						}}</span>
+						<ng-container *ngIf="x.personLegalNameMiddle">
+							<span class="personLegalNameMiddle personData">{{
+								x.personLegalNameMiddle | titlecase
+							}}</span>
+						</ng-container>
+						<span class="personLegalNameLast personData">
+							{{ x.personLegalNameLast | titlecase }}
+						</span>
+						<ng-container *ngIf="x.personLegalNameSuffix">
+							<span class="personLegalNameSuffix personData">{{
+								x.personLegalNameSuffix
+							}}</span>
+						</ng-container>
+					</p>
+				</div>
+
+				<div class="personGender">
+					<p class="sectionLabel">Gender</p>
+					<p class="personData">
+						{{ x.personGender | titlecase }}
+					</p>
+				</div>
+
+				<div class="personBirthDate">
+					<p class="sectionLabel">Birthdate</p>
+					<p class="personData">
+						{{ x.birthMonth }} / {{ x.birthDate }} / {{ x.birthYear }}
+					</p>
+				</div>
+
+				<div class="personCscBranch">
+					<p class="sectionLabel">Branch</p>
+					<p class="personData">
+						<ng-container *ngIf="x.personCscBranch.optionName; else noBranch">
+							<div class="">
+								<p>{{ x.personCscBranch.optionName }}</p>
+							</div>
+						</ng-container>
+						<ng-template #noBranch>
+							<p>{{ x.personCscBranch }}</p>
+						</ng-template>
+					</p>
+				</div>
+
+				<div class="personEmail">
+					<p class="sectionLabel">Email</p>
+					<p class="personData">
+						{{ x.personEmail }}
+					</p>
+				</div>
+				<div class="personCellPhone">
+					<p class="sectionLabel">Cell/Mobile Phone</p>
+					<p class="personData">
+						{{ x.personCellPhone | phoneFormat: "US" }}
+					</p>
+				</div>
+
+				<div class="personSeatPreference">
+					<p class="sectionLabel">Seat Preference</p>
+					<p class="personData">
+						{{ x.personSeatPreference | titlecase }}
+					</p>
+				</div>
+				<ng-container *ngIf="x.personKnownTravelerNumber">
+					<div class="personKnownTravelerNumber">
+						<p class="sectionLabel">Known Traveler Number</p>
+						<p class="personData">
+							{{ x.personKnownTravelerNumber }}
+						</p>
+					</div>
+				</ng-container>
+			</ng-container>
+		</div>
+
+    <div class="rewardsPageWrapper">
+      <div class="airlineWrapper">
+        <ng-container *ngIf="(airlineRewards | async) as airRewards">
+          <ng-container *ngIf="airRewards?.length > 0; else noAirline">
+            <div class="sectionHeader">
+              <div class="sectionTitle">
+                <p>Airlines</p>
+              </div>
+            
+            </div>
+            <div class="rewardsWrapper">
+            <div *ngFor="let x of airRewards" class="">
+                <div>
+                    <div class="rewardType airline">
+                <p class="rewardMembershipName air">
+                  {{ x.rewardMembershipName }}
+                </p>
+                <p class="rewardMembershipId">
+                  {{ x.rewardMembershipId }}
+                </p>
+              </div>
+          
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+        <ng-template #noAirline>
+          <p>No Airline Rewards Found</p>
+        </ng-template>
+      </div>
+      <div class="accommodationWrapper">
+        <ng-container *ngIf="accommodationRewards | async as accRewards">
+          <ng-container *ngIf="accRewards.length > 0; else noAccommodation">
+            <div class="sectionHeader">
+              <div class="sectionTitle">
+                <p>Accommodation</p>
+              </div>
+             
+            </div>
+            <div class="rewardsWrapper">
+            <div *ngFor="let x of accRewards" class="">
+              <div class="rewardType accommodation">
+                <p class="rewardMembershipName air">
+                  {{ x.rewardMembershipName }}
+                </p>
+                <p class="rewardMembershipId">
+                  {{ x.rewardMembershipId }}
+                </p>
+              </div>
+              
+            </div>
+          </div>
+          </ng-container>
+        </ng-container>
+        <ng-template #noAccommodation>
+          <div class="sectionTitle">
+            <div class="sectionHeader">
+              <div class="sectionTitle">
+                <p>Accommodation</p>
+              </div>
+         
+            </div>
+          </div>
+          <p>No Accommodation Rewards Found</p>
+        </ng-template>
+      </div>
+      <div class="vehicleWrapper">
+        <ng-container *ngIf="vehicleRewards | async as vehRewards">
+          <ng-container *ngIf="vehRewards.length > 0; else noVehicle">
+            <div class="sectionHeader">
+              <div class="sectionTitle">
+                <p>Vehicle</p>
+              </div>
+          
+            </div>
+            <div class="rewardsWrapper">
+            <div *ngFor="let x of vehRewards" class="">
+              <div class="rewardType airline">
+                <p class="rewardMembershipName air">
+                  {{ x.rewardMembershipName | titlecase }}
+                </p>
+                <p class="rewardMembershipId">
+                  {{ x.rewardMembershipId }}
+                </p>
+              </div>
+              
+            </div>
+          </div>
+          </ng-container>
+        </ng-container>
+        <ng-template #noVehicle>
+          <p>No Vehicle Rewards Found</p>
+        </ng-template>
+      </div>
+    </div>
+	</ng-container>
+</div>

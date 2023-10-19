@@ -1,0 +1,24 @@
+<div class="addedTable">
+  <div class="goBackBtn">
+    <a (click)="backButtonWithState()" class="backArrow">
+      <span class="material-icons"> arrow_back </span> Go Back
+    </a>
+  </div>
+  <h1>Destination: {{ groupTravelArrivalCity }}</h1>
+  <h2>Event: {{ groupTravelName }}</h2>
+</div>
+
+<ng-container *ngIf="tableData | async">
+  <div class="dynamicTable">
+    <app-dynamic-table
+      id="requestTable"
+      (singleRecordValue)="singleValueDataFn($event)"
+      (viewProfile)="viewProfileFn($event)"
+      (deleteRecord)="deleteRecordFn($event)"
+      [tableData]="tableData"
+      [tableHeading]="tableHeading"
+      [tableColumns]="tableCols"
+    >
+    </app-dynamic-table>
+  </div>
+</ng-container>

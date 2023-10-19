@@ -1,0 +1,206 @@
+<div class="">
+
+  <div class="editWrapper">
+    <div class="editToolsSection">
+      <!-- <div class="m-05-0">
+        <input type="file" name="file" id="file" (change)="fileChangeEvent($event)" class="inputFile" />
+        <label for="file">Add Image</label>
+      </div> -->
+
+    </div>
+
+    <ng-container>
+      <div class="toolsSection">
+    <div>
+      <p>Rotate</p>
+      <div class="buttonRow">
+        <button mat-raised-button class="cscButtons" (click)="rotateLeft()"><mat-icon>rotate_left</mat-icon></button>
+        <button mat-raised-button class="cscButtons" (click)="rotateRight()"><mat-icon>rotate_right</mat-icon></button>
+      </div>
+      <!-- <div>
+        <p>Custom</p>
+        <input [(ngModel)]="rotation" placeholder="Rotation" type="number" (keyup)="updateRotation()" />
+      </div> -->
+    </div>
+    <div>
+      <p>Flip</p>
+      <div class="buttonRow">
+        <button mat-raised-button class="cscButtons" (click)="flipHorizontal()"><mat-icon>flip</mat-icon></button>
+        <button mat-raised-button class="cscButtons" (click)="flipVertical()"><mat-icon>unfold_more</mat-icon></button>
+      </div>
+    </div>
+    <div>
+      <p>Zoom</p>
+      <div class="buttonRow">
+        <button mat-raised-button class="cscButtons" (click)="zoomOut()"><mat-icon>zoom_out</mat-icon></button>
+        <button mat-raised-button class="cscButtons" (click)="zoomIn()"><mat-icon>zoom_in</mat-icon></button>
+      </div>
+    </div>
+    <div>
+      <p>Reset</p>
+      <div class="buttonRow">
+        <button mat-raised-button class="cscButtons"
+        (click)="toggleContainWithinAspectRatio()">{{containWithinAspectRatio?'Fill Aspect Ratio':'Contain Within Aspect Ratio'}}</button>
+        <button mat-raised-button class="cscButtons" (click)="resetImage()">Reset image</button>
+    </div>
+    </div>
+  </div>
+  </ng-container>
+  </div>
+
+  <div *ngIf="showProgressBar">
+    <!-- <div class="progressBar" style="--width: 10" data-label="Progress..."
+      mode="determinate">
+  </div>Progress:
+    {{progress$ ? progress$ : 0}}% -->
+    <div class="progressBarWrapper">
+      <mat-progress-bar
+        class="progressBar"
+        data-label="Progress..."
+        [value]="progress$"
+        mode="determinate"
+      >
+      </mat-progress-bar
+      >Progress: {{ progress$ ? progress$ : 0 }}%
+    </div>
+  </div>
+
+
+<div [class]=imgViewType>
+  <div class="sourceImgCropper">
+    <ng-container>
+      <p>Source Image Aspect Ratio: {{aspectRatio}}</p>
+
+
+      <div>
+        <button mat-raised-button class="redBtn" (click)="onCancelFn()"><mat-icon>cancel</mat-icon> Cancel</button>
+      </div>
+
+      <div class="originalImageSection">
+        <app-image-cropper
+          [imageChangedEvent]="imageChangedEvent"
+          [maintainAspectRatio]="true"
+          [containWithinAspectRatio]="containWithinAspectRatio"
+          [aspectRatio]="aspectRatio"
+          [resizeToWidth]="imageW"
+          [resizeToHeight]="imageH"
+          [cropperMinWidth]="128"
+          [onlyScaleDown]="false"
+          [roundCropper]="false"
+          [canvasRotation]="canvasRotation"
+          [transform]="transform"
+          [alignImage]="'left'"
+          [style.display]="showCropper ? null : 'none'"
+          format="png"
+          (imageCropped)="imageCropped($event)"
+          (imageLoaded)="imageLoaded()"
+          (cropperReady)="cropperReady($event)"
+          (loadImageFailed)="loadImageFailed()">
+        </app-image-cropper>
+      </div>
+    </ng-container>
+  </div>
+
+  <ng-container *ngIf="imgViewType === 'singleImage'">
+  <div class="preview">
+    <p>Preview</p>
+    <div>
+      <button mat-raised-button class="greenBtn" (click)="uploadFile()"><mat-icon>backup</mat-icon> Upload</button>
+    </div>
+
+
+    <div class="card">
+       <div class="venueImage">
+      <img class="navImg" [src]="croppedImage" />
+    </div>
+    </div>
+
+  </div>
+    </ng-container>
+</div>
+
+
+  <ng-container *ngIf="imgViewType === 'multiImage'">
+    <div class="">
+      <div class="">
+        <p>How this image will display on different devices.</p>
+        <div class="devices">
+            <div class="phone">
+          <p>Phone</p>
+          <div class="smartphone">
+             <img [src]="croppedImage" />
+             <div class="placeholderText">
+            <p class="sectionHeading">
+              Section Title
+            </p>
+            <div class="loremSection">
+              <p class="lorem">
+                {{lorem1}}  </p>
+                  <p class="lorem">
+                    {{lorem2}}  </p>
+                  <p class="lorem">
+                    {{lorem1}}  </p>
+
+                  <p class="lorem">
+                    {{lorem3}}  </p>
+            </div>
+
+          </div>
+          </div>
+
+
+        </div>
+        <div class="tablet">
+          <p>Tablet</p>
+          <div  class="smartTablet">
+ <img [src]="croppedImage"  />
+ <div class="placeholderText">
+  <p class="sectionHeading">
+    Section Title
+  </p>
+  <div class="loremSection">
+     <p class="lorem">
+{{lorem1}}  </p>
+  <p class="lorem">
+    {{lorem2}}  </p>
+  <p class="lorem">
+    {{lorem1}}  </p>
+
+  <p class="lorem">
+    {{lorem3}}  </p>
+  </div>
+
+</div>
+          </div>
+        </div>
+        <!-- <div class="desktop">
+          <p>Desktop</p>
+          <img [src]="croppedImage" [style.border]="croppedImage ? '.1px solid black' : 'none'" />
+        </div> -->
+        <div class="lap">
+          <p>Laptop</p>
+          <div class="laptop">
+          <img [src]="croppedImage" />
+          <div class="placeholderText">
+            <p class="sectionHeading">
+              Section Title
+            </p>
+            <div class="loremSection">
+              <p class="lorem">
+                {{lorem1}}  </p>
+                  <p class="lorem">
+                    {{lorem2}}  </p>
+                  <p class="lorem">
+                    {{lorem1}}  </p>
+
+                  <p class="lorem">
+                    {{lorem3}}  </p>
+            </div>
+          </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

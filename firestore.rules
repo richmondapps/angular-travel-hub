@@ -1,0 +1,950 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // match /{document=**} {
+    //   allow read;
+    //   allow write: if auth != null;
+    // }
+    
+    // READ WRITE OPTIONS
+//        allow get;
+//        allow list
+       
+//        allow create;
+//        allow update;
+//        allow delete;
+    
+    // END READ WRITE OPTIONS
+    
+   //functions
+    function isIncomingRequestId() {
+     	return request.auth.uid;
+    }    
+    function isDbAuthId() {
+     	return request.auth.uid == "vGvgXklbgMZeH9uapawkCCz41EJ3";
+    }    
+    function isLoggedIn(){
+    	return request.auth != null;
+    }    
+    function isExistingAuthorId(docId) {
+     	return resource.data.blogCreatedByUid;
+    }    
+    function isDocOwner() {
+    	return resource.data.createdByPersonUid;
+    }    
+    function getIsAuthUser(){
+    	return get(/databases/$(database)/documents/laAuthorizedStaff/$(request.auth.uid)).data;
+    }    
+    function getUserData(){
+    	return get(/databases/$(database)/documents/cscEmployeeDirectory/$(request.auth.uid)).data;
+    }    
+    function getResourceAuthUserData(){
+    	return get(/databases/$(database)/documents/cscEmployeeDirectory/$(request.auth.uid)).data;
+    }    
+    function isEmailVerified() {
+      return request.auth.token.email_verified;
+    }    
+    function isUserUid(userId) {
+      return request.auth.uid == userId;
+    }    
+    function isUserEmail(userEmail) {
+      return request.auth.token.email == userEmail;
+    }
+     function isAuthUser(collection){
+ return get(/databases/$(database)/documents/$(collection)/$(request.auth.token.email)).data.isAdmin == true;
+ }
+    // end functions
+    
+    match /corpBranchTest/{docId}{
+    	allow read, write;
+    }
+    
+    
+// CSC GIVEAWAYS - START
+    match /cscGiveaways/{docId}{
+      allow read, write;
+    }    
+      match /cscGiveawaysBackUp/{docId}{
+      allow read, write;
+    } 
+    match /cscAdministrativeGiveaways/{docId}{
+      allow read, write;
+    }
+    match /cscGiveaways/{docId}/hoursPerJob/{subDocId}{
+      allow read, write;
+    }
+    match /cscGiveawaysNotificationRecipients/{docId}{
+      allow read, write;
+    }
+// CSC GIVEAWAYS - END
+
+// START ONLINE TRAINING
+    match /cscOnlineTraining/{docId}{
+      allow read, write;
+    }  
+    match /cscOnlineTrainingAuth/{docId}{
+     allow read: if isAuthUser('cscOnlineTrainingAuth');
+      allow write;
+    }   
+    match /cscOnlineTraining/{docId}/courseQuestions/{id}{
+      allow read, write;
+    }
+    match /cscOnlineTraining/{docId}/courseAnswers/{id}{
+      allow read, write;
+    }
+    match /cscOnlineTraining/{docId}/courseQuestions/{id}/answers/{answerId}{
+      allow read, write;
+    }
+    match /cscOnlineTrainingAccounts/{docId}{
+      allow read, write;
+    }
+    match /cscOnlineTrainingAccounts/{docId}/completedCourses/{courseId}{
+      allow read, write;
+    }
+     match /cscOnlineTraining/{docId}/courseQuizQuestions/{courseId}{
+      allow read, write;
+    }
+// END ONLINE TRAINING
+    
+    match /corpBranchTest/{docId}/files/{fileId}{
+    allow read, write;
+    }
+    match /corpBranchTest/{docId}/venues/{fileId}{
+    	allow read, write;
+    }
+    match /corpBranchTest/{docId}/venueEvents/{fileId}{
+    	allow read, write;
+    }
+      match /cscOnboardingAuthUsers/{docId}{
+    	allow read, write;
+    }
+       match /{path=**}/assignedHardware/{docId}{
+    allow read, write: if isLoggedIn();
+    }
+    
+    match /cscEmployeeOnboardingTmp/{docId}{
+      allow read, write;
+    }
+    
+    match /cscCorporate/{branchId}{
+      allow read, write;
+    }
+  
+    match /cscCorporate/{branchId}/cscEmployeeDirectory/{docId}/requestedAccounting/{subDocId}{
+      allow read, write;
+    }
+    
+// START EMPLOYEE DIRECTORY
+   match /cscEmployeeDirectory/{docId}{
+      allow read;
+      allow write;
+    }
+    match /cscEmployeeDirectory/{docId}/employeeProfile/{subDocId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }    
+    match /cscEmployeeDirectory/{empId}/emailNotificationAuthorization/{docId}{
+      allow read;
+      allow write;
+    }    
+    match /cscEmployeeDirectory/{docId}/myEvents/{subDocId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }    
+    match /cscEmployeeDirectory/{empId}/cellPhoneNotificationAuthorization/{docId}{
+       allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }    
+    match /{path=**}/cellPhoneNotificationAuthorization/{docId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }
+    match /{path=**}/emailNotificationAuthorization/{docId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }
+     match /{path=**}/optedInPhoneAuthorization/{docId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }
+    match /cscEmployeeDirectory/{docId}/requestedAccounting/{subDocId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }    
+    match /cscEmployeeDirectory/{docId}/assignedAccounting/{subDocId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    } 
+    match /cscEmployeeDirectory/{docId}/requestedHR/{subDocId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }    
+    match /cscEmployeeDirectory/{docId}/resume/{resumeDocId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }    
+    match /cscEmployeeDirectory/{docId}/assignedHR/{subDocId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }
+    match /cscEmployeeDirectory/{docId}/hardware/{subDocId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }
+      match /cscEmployeeDirectory/{docId}/phoneOptIns/{subDocId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }
+      match /cscEmployeeDirectory/{docId}/optedInPhoneAuthorization/{phoneId}/optInInfo/{infoId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }
+    
+     match /cscEmployeeDirectory/{docId}/assignedHardware/{subDocId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }
+     match /cscEmployeeDirectory/{docId}/requestedHardware/{subDocId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }
+    match /cscEmployeeDirectory/{docId}/returnedHardware/{subDocId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }
+    match /cscEmployeeDirectory/{docId}/assignedSoftware/{subDocId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }
+     match /cscEmployeeDirectory/{docId}/requestedSoftware/{subDocId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }
+    match /cscEmployeeDirectory/{docId}/returnedSoftware/{subDocId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }
+     match /cscEmployeeDirectory/{docId}/requestedDrives/{subDocId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }
+    match /cscEmployeeDirectory/{docId}/assignedDrives/{subDocId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }      
+    match /cscEmployeeDirectory/{docId}/returnedHardware/{subDocId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    } 
+    match /cscEmployeeDirectory/{docId}/requestedLegal/{subDocId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }
+    match /cscEmployeeDirectory/{docId}/assignedLegal/{subDocId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }
+    match /cscEmployeeDirectory/{docId}/requestedPayroll/{subDocId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }    
+    match /cscEmployeeDirectory/{docId}/assignedPayroll/{subDocId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }    
+    match /cscEmployeeDirectory/{docId}/requestedTravel/{subDocId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }    
+    match /cscEmployeeDirectory/{docId}/rewardMemberships/{subDocId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }
+    
+    match /cscEmployeeDirectory/{docId}/requestedTravel/{subDocId}/multiFlights/{flightId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }
+    match /cscEmployeeDirectory/{docId}/travelProfile/{subDocId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }
+      match /cscEmployeeDirectory/{docId}/travelRewardsAccommodation/{subDocId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }
+      match /cscEmployeeDirectory/{docId}/travelRewardsAirline/{subDocId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }
+      match /cscEmployeeDirectory/{docId}/travelRewardsVehicle/{subDocId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }
+     match /cscEmployeeDirectory/{docId}/travelRewardPrograms/{subDocId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }
+// END EMPLOYEE DIRECTORY
+     
+// START BRANCH DIRECTORY
+    
+    match /cscBranchDirectory/{branchName}/aboutUs/{docId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    match /cscBranchDirectory/{branchName}/availableJobs/{jobId}{
+      allow read;
+      allow write: if isLoggedIn();
+    } 
+    match /cscBranchDirectory/{branchName}/branchEmail/{emailId}{
+      allow read;
+      allow write: if isLoggedIn();
+    } 
+    match /cscBranchDirectory/{branchName}/availableJobs/{jobId}/positionEmailRecipients/{emailId}{
+      allow read;
+      allow create: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }    
+    match /cscBranchDirectory/{branchName}/availableJobs/{jobId}/jobApplications/{applicationId}{
+      allow read;
+      allow create: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }
+    match /cscBranchDirectory/{branchName}/branchEmployees/{docId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    match /cscBranchDirectory/{branchName}/branchIncentives/{incentiveId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }    
+    match /cscBranchDirectory/{branchName}/branchBlog/{docId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }  
+    match /cscBranchDirectory/{branchName}/branchAuthUsers/{docId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }    
+    match /cscBranchDirectory/{branchName}/branchDepartments/{deptId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }    
+    match /cscBranchDirectory/{branchName}/branchDepartments/{deptId}/deptStaff/{staffId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }    
+    match /cscBranchDirectory/{branchName}/branchVenues/{docId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }    
+    match /cscBranchDirectory/{branchName}/branchVenues/{venueId}/venueStaff/{staffId}{
+      allow read;
+      allow write;
+    }
+    match /cscBranchDirectory/{branchName}/branchVenues/{venueId}/venueEvents/{eventId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }    
+    match /cscBranchDirectory/{branchName}/branchVenues/{venueId}/branchEvents/{eventId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }  
+    match /cscBranchDirectory/{branchName}/branchVenues/{venueId}/smsChatMessages/{eventId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }  
+     match /cscBranchDirectory/{branchName}/branchVenues/{venueId}/optedInPhoneAuthorization/{phoneId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    match /cscBranchDirectory/{branchName}/branchVenues/{venueId}/branchEvents/{eventId}/workEventRequests/{requestId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }    
+    match /cscBranchDirectory/{branchName}/bugReport/{docId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    match /cscBranchDirectory/{branchName}/bugReport/{docId}/bugReportAttachments/{id}{
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    match /cscBranchDirectory/{branchName}/clientsPastPresent/{docId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    match /cscBranchDirectory/{branchName}/consentedEmailContact/{docId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    match /cscBranchDirectory/{branchName}/corporateExecutives/{docId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }    
+    match /cscBranchDirectory/{branchName}/corporateExecutives/{docId}/certificates/{certId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }    
+    match /cscBranchDirectory/{branchName}/faqTopics/{faqId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }    
+    match /cscBranchDirectory/{branchName}/faqTopics/{faqId}/questionsAnswers/{qaId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    match /cscBranchDirectory/{branchName}/legal/{topicId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    match /cscBranchDirectory/{branchName}/legal/{topicId}/mainDoc/{docId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    match /cscBranchDirectory/{branchName}/legal/{topicId}/mainDoc/{docId}/list/{listId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }
+     match /cscBranchDirectory/{branchName}/miscImages/{imgId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }
+      match /cscBranchDirectory/{branchName}/miscDocuments/{imgId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    match /cscBranchDirectory/{branchName}/homepageVideo/{vidId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    match /cscBranchDirectory/{branchName}/missionStatement/{docId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }    
+    match /cscBranchDirectory/{branchName}/onlineTrainingEmailRecipients/{docId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }   
+    match /{path=**}/onlineTrainingResults/{testId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }  
+    match /cscBranchDirectory/{branchName}/onlineTrainingResults/{docId}{
+      allow read;
+      allow write;
+    }
+      match /cscBranchDirectory/{branchName}/onlineTrainingResults/{docId}/quizAnswers/{quizId}{
+      allow read;
+      allow write;
+    }
+    match /cscBranchDirectory/{branchName}/onboardingBranchEmployee/{docId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }
+    match /cscBranchDirectory/{branchName}/onboardingBranchEmployee/{docId}/requestedHardware/{subDocId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }    
+    match /cscBranchDirectory/{branchName}/onboardingBranchEmployee/{docId}/requestedSoftware/{subDocId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }
+     match /cscBranchDirectory/{branchName}/onboardingBranchEmployee/{docId}/assignedHardware/{subDocId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }
+     match /cscBranchDirectory/{branchName}/onboardingBranchEmployee/{docId}/assignedSoftware/{subDocId}{
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }
+     match /cscBranchDirectory/{branchName}/services/{docId}{
+      allow read;
+      allow write;
+    }
+     match /cscBranchDirectory/{branchName}/smsChatMessages/{docId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }
+     match /cscBranchDirectory/{branchName}/smsChatPhoneNumbers/{number}{
+      allow read;
+      allow write;
+    }    
+    match /cscBranchDirectory/{branchName}/smsChatPhoneNumbers/{number}/smsChatMessages/{docId}{
+      allow read;
+      allow write;
+    }
+    match /cscBranchDirectory/{branchName}/sofiJobFairAuthUsers/{docId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    match /cscBranchDirectory/{branchName}/textNotifications/{docId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }      
+    match /{path=**}/branchEvents/{eventId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }    
+    match /cscBranchDirectory/{branchName}/sofiJobFair/{docId}{
+      allow read: if isLoggedIn();
+      allow create;
+      allow delete: if isLoggedIn();
+    }
+      match /cscBranchDirectory/{branchName}/superBowlJobFair/{docId}{
+      allow read: if canRead('superBowlJobFairAuthUsers');
+      allow create;
+      allow delete: if isLoggedIn();
+    }
+    
+    match /cscBranchDirectory/{branchName}/superBowlJobFairAuthUsers/{docId}{
+      allow read: if isLoggedIn();
+      allow create;
+      allow delete: if isLoggedIn();
+    }
+    
+      function canRead(collection){
+ return get(/databases/$(database)/documents/cscBranchDirectory/los-angeles/$(collection)/$(request.auth.token.email)).data.isAdmin == true;
+ }
+ 
+// END BRANCH DIRECTORY
+    
+    match /cscCorporateAuthorizedUsers/{docId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    match /corporateExecutives/{docId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    match /cscExecutives/{docId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    match /corporateExecutives/{docId}/certificates/{certId}{
+       allow read;
+       allow write: if isLoggedIn();
+    }    
+    match /cscAdminAuthUsers/{docId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }
+     match /cscBranchStaffDirectory/{docId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }    
+    match /cscExperienceOverview/{docId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }    
+    match /cscExperienceOverview/{docId}/clientDetail/{clientId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }    
+    match /cscBranchStaffDirectory/{docId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }
+   
+    match /cscEmployeeDirectory/{docId}/regions/{subDocId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    match /cscBranchDirectory/{docId}{
+       allow read;
+       allow write: if isLoggedIn();
+    }
+    match /cscBranchDirectory/{branchName}/staff/{docId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }
+     match /cscEventSchedule/{docId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    match /cscNewsletterDocuments/{docId}{
+        allow read; 
+        allow write; 
+    }    
+    match /cscNewsletterSignup/{docId}{
+        allow read; 
+        allow write; 
+    }
+    match /cscPaySchedule/{docId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }        
+    match /verifiedEmployees/{docId} {
+      allow read;
+      allow write: if isLoggedIn();
+    }      
+    match /branchesSatellite/{branch_name} {
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    match /newsfeed/{newsCopy} {
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    match /branchStaff/{employee_name} {
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    match /jobBoard/{resumeUrl} {
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    match /garnishee/{first_name} {
+      allow read;
+     allow write: if isLoggedIn();
+    }
+    match /garnishments/{first_name} {
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    match /garnishmentImages/{imgUrl} {
+      allow read;
+     allow write: if isLoggedIn();
+    }        
+    match /branchesMain/{branch_name} {
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    match /branchEventSchedule/{event_name} {
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    match /branchEventVenues/{venue_name} {
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    match /branchEventClient/{client_name} {
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    
+    
+    
+// START ONBOARDING
+
+			match /cscEmployeeOnboardingTempDir/{docId}{
+        allow read; 
+        allow write; 
+      }
+  
+    match /cscEmployeeOnboardingTempDir/{docId}/assignedSoftware/{subDocId}{
+        allow read, write;
+       }
+         match /cscEmployeeOnboardingTempDir/{docId}/assignedHardware/{subDocId}{
+        allow read, write;
+       }
+       match /cscEmployeeOnboardingTempDir/{docId}/requestedHardware/{subDocId}{
+        allow read, write;
+       }
+     
+       match /cscEmployeeOnboardingTempDir/{docId}/requestedDistributionList/{subDocId}{
+        allow read, write;
+       }
+       match /cscEmployeeOnboardingTempDir/{docId}/requestedSharePointList/{subDocId}{
+        allow read, write;
+       }
+       match /cscEmployeeOnboardingTempDir/{docId}/requestedSoftware/{subDocId}{
+         allow read, write;
+       }
+       
+       match /employeeStatusAuthUsers/{docId}{
+    // allow read, write: if request.auth.token.admin == true; 
+     //allow read, write: if request.auth != null;
+        allow read; 
+        allow write; 
+    }
+        match /cscNewsletterDocuments/{docId}{
+    // allow read, write: if request.auth.token.admin == true; 
+     //allow read, write: if request.auth != null;
+        allow read; 
+        allow write; 
+    }
+       match /cscAccountingDocuments/{docId}{
+    // allow read, write: if request.auth.token.admin == true; 
+     //allow read, write: if request.auth != null;
+        allow read; 
+        allow write; 
+    }
+    match /cscDistributionList/{docId}{
+    // allow read, write: if request.auth.token.admin == true; 
+     //allow read, write: if request.auth != null;
+        allow read; 
+        allow write; 
+    }
+    match /cscSharePointList/{docId}{
+    // allow read, write: if request.auth.token.admin == true; 
+     //allow read, write: if request.auth != null;
+        allow read; 
+        allow write; 
+    }
+    match /cscHRDocuments/{docId}{
+    // allow read, write: if request.auth.token.admin == true; 
+     //allow read, write: if request.auth != null;
+        allow read; 
+        allow write; 
+    }
+    
+    match /cscLegalDocuments/{docId}{
+    // allow read, write: if request.auth.token.admin == true; 
+     //allow read, write: if request.auth != null;
+        allow read; 
+        allow write; 
+    }
+    
+    match /cscPayrollDocuments/{docId}{
+    // allow read, write: if request.auth.token.admin == true; 
+     //allow read, write: if request.auth != null;
+        allow read; 
+        allow write; 
+    }
+    
+    match /cscItAvailableProducts/{docId}{
+    // allow read, write: if request.auth.token.admin == true; 
+     //allow read, write: if request.auth != null;
+        allow read; 
+        allow write; 
+    }
+    
+    match /cscItAvailableDrives/{docId}{
+    // allow read, write: if request.auth.token.admin == true; 
+     //allow read, write: if request.auth != null;
+        allow read; 
+        allow write; 
+    }
+    match /cscItAvailableSoftware/{docId}{
+    // allow read, write: if request.auth.token.admin == true; 
+     //allow read, write: if request.auth != null;
+        allow read; 
+        allow write; 
+    }
+    
+// END ONBOARDING
+//     
+// CSC Fundraising - Start
+    
+    match /cscFundraisingAdmin/{id}{
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    
+    match /cscFundrasingAuthUser/{id}{
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    
+    match /cscFundrasingEmail/{id}{
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    
+    match /cscFundraisingSection/{id}{
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    
+    match /cscFundraisingSection/{id}/nestedInfo/{nestId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }
+     
+    match /cscFundrasingAccount/{id}{
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    
+    match /cscFundrasingAccount/{id}/authUsers/{uid}{
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    
+    match /cscFundrasingAccount/{id}/requestedBranches/{branchReq}{
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    
+    match /cscFundrasingAccount/{id}/references/{refId}{
+      allow read;
+      allow write: if isLoggedIn();
+    }
+     
+     match /cscFundraisingWebformMessages/{docId}{
+     allow read; 
+     allow write;
+     }
+    // Los Angeles - Start 
+    
+ 
+    
+     match /laAuthorizedStaff/{docId} {
+      allow read;
+      allow write: if isLoggedIn();
+    }
+     match /losAngeles/laBlogs/{docId}{
+      // allow write: if request.auth != null && request.resource.size < 5 * 1024 * 1024;
+            allow write;
+
+   		allow read;
+   }
+     match /laBlogs/{docId} {
+      allow read;
+      // allow update: if isIncomingRequestId() == isExistingAuthorId(docId) 
+      //              || getUserData() == "administrator";
+      // allow create: if isLoggedIn() && getIsAuthUser().roles.keys.hasAny(['administrator', 'editor', 'author']);
+       allow write: if isLoggedIn();
+    }
+     match /laBlogs/{docId}/laBlogComments/{commentId} {
+      allow read;
+      allow write: if isLoggedIn();
+    }
+     match /laBranchInfo/{docId} {
+      allow read;
+      allow write: if isLoggedIn();
+    }
+     match /laBranchHistory/{docId} {
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    
+     match /laBugReports/{docId} {
+      allow read;
+      allow create: if isLoggedIn()
+      allow update: if resource.data.createdByPersonUid == request.auth.uid || isDbAuthId() ;
+    }
+      match /laBugReportAttachments/{docId} {
+      allow read;
+      allow write: if isLoggedIn();
+    }
+       match /laGoogleCalendar/{docId} {
+      allow read;
+      allow write: if isLoggedIn();
+    }
+     match /laEmployeeIncentives/{docId} {
+      allow read;
+      allow write: if isLoggedIn();
+    }
+     match /laEventSchedule/{docId} {
+      allow read;
+       allow write;
+      // allow write: if isLoggedIn();
+    }
+      match /laEventVenues/{docId} {
+      allow read;
+      allow write: if isLoggedIn();
+    }
+       match /laFallKickOffHiringEvent/{docId} {
+      allow read;
+      allow write: if isLoggedIn();
+    }
+      match /laFallKickoffApplicantLogs/{docId} {
+      allow read;
+      allow write: if isLoggedIn();
+    }
+     match /laVerifiedEmployees/{docId} {
+      allow read;
+      allow write: if isLoggedIn();
+    }
+       match /laFaq/{docId} {
+      allow read;
+      allow write: if isLoggedIn();
+    }
+       match /laFaqCategories/{docId} {
+      allow read;
+      allow write: if isLoggedIn();
+    }
+      match /laManuals/{manualId} {
+      allow read;
+      allow write;
+    }
+    
+    
+       match /laPastPresentClients/{docId} {
+      allow read;
+      allow write: if isLoggedIn();
+    }
+    
+      match /laPositions/{docId} {
+      allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }
+    match /laPositionApplications/{docId} {
+   allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }
+      match /laPositionApplicationsContactLogs/{docId} {
+   allow read: if isLoggedIn();
+      allow write: if isLoggedIn();
+    }
+    
+     match /laPositions/{docId}/positionEmailRecipients/{id} {
+      allow read;
+      allow write: if isLoggedIn();
+    }
+      match /laStaff/{doc_id} {
+      allow read;
+      allow write: if isLoggedIn();
+    }
+      match /laTrainingSchedule/{docId} {
+      allow read;
+      allow write: if isLoggedIn();
+    }
+     match /laVenues/{docId} {
+      allow read;
+      allow write: if isLoggedIn();
+    }
+     match /laEventClient/{docId} {
+      allow read;
+      allow write;
+      // allow write: if isLoggedIn();
+    }
+  
+   // Los Angeles - End
+    
+    // Washington DC Start
+    
+    match /dcEventSchedule/{docId} {
+    allow read;
+      allow write;
+    }
+    // Washington DC End
+      
+     function isAdmin() {
+       return  request.auth.token.admin == true;
+    }
+      match /individual_contract_details/{doc} {
+    //  allow write: if request.auth != null; 
+    //  allow read: if request.auth != null; 
+       allow read: if isAdmin(); 
+       allow write: if isAdmin(); 
+    }
+      match /individual_contract_documents/{doc} {
+     // allow write: if request.auth != null; 
+     // allow read: if request.auth != null;  
+       allow read: if isAdmin(); 
+       allow write: if isAdmin(); 
+    }
+        
+      match /securityAlerts/{alertLevel} {
+      allow read;
+      allow write;
+    }
+      match /onOffBoardingHardware/{employee_id} {
+      allow read;
+      allow write;
+    }
+      match /onOffBoardingData/{employee_id} {
+      allow read;
+      allow write;
+    }
+     match /securityAlertsImages/{imgUrl} {
+      allow read;
+      allow write;
+    }
+ }       
+}
+
